@@ -11,22 +11,51 @@ from typing import (
     Any as _Any
 )
 
-from . import STDOUT, STDERR
+from ..exception import STDOUT, STDERR
+from .._globals import AUTHOR
 
-try:
-    from .. import AUTHOR
-except ImportError as imp_err:
-    raise
-
+__all__    = ['JMException']
 __author__ = AUTHOR
-__all__    = ['JMException', 'STDOUT', 'STDERR']
 
 
 class JMException(Exception):
+    """
+    Custom exception for ``jm_builder`` package.
+
+    Parameters
+    ----------
+    msg : str, optional
+        The message of this exception. If provided, it can contain format specifiers,
+        and they will be filled with the arguments given to this constructor.
+        Default is None.
+
+    *args
+        Variable length argument list.
+
+    **kwargs
+        Arbitrary keyword arguments.
+
+    Attributes
+    ----------
+    message : str or None
+        The formatted message of this exception. If no message is provided,
+        it will be set to None.
+
+    trace : traceback.StackSummary or None
+        The stack traces of this exception. If no traceback is provided during
+        the exception creation, it will be set to None.
+
+    Notes
+    -----
+    This custom exception extends the base ``Exception`` class and allows you to create
+    a custom exception with an optional message and traceback information.
+    """
+
     __message: _Optional[str]
     __trace:   _Optional[_tb.StackSummary]
 
     def __init__(self, msg: str=None, *args, **kwargs) -> None:
+        """Initialize self. For accurate signature, see ``help(type(self))``."""
         super().__init__(msg % args)
         self.__message = msg % args
 
@@ -37,7 +66,7 @@ class JMException(Exception):
 
     def __repr__(self) -> str:
         """
-        Returns repr(self).
+        Returns ``repr(self)``.
 
         Returns
         -------
@@ -64,15 +93,15 @@ class JMException(Exception):
 
         Parameters
         ----------
-        other: Any
+        other : Any
             The object to compare with this exception.
 
         Returns
         -------
         bool:
-            True if the given object are the same exception with the same message
+            ``True`` if the given object are the same exception with the same message
             or if the given object are string with the same message as this exception,
-            otherwise False.
+            otherwise ``False``.
         """
         if isinstance(other, (self, str)):
             return str(self) == str(other)
@@ -87,7 +116,6 @@ class JMException(Exception):
         Returns
         -------
         str:
-            The message of this exception. If not specified,
-            returns ``None``.
+            The message of this exception. If not specified, returns ``None``.
         """
         return self.__message

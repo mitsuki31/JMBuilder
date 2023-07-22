@@ -1,11 +1,10 @@
-import os
-from pathlib import Path
+from . import logger
+from .logger import *
 
-AUTHOR:   str = 'Ryuu Mitsuki'
+from .._globals import AUTHOR
 
-ROOT_DIR: str = str(Path(__file__).resolve().parent.parent)
-LOGS_DIR: str = os.path.join(ROOT_DIR, 'logs')
-TMP_DIR:  str = os.path.join(ROOT_DIR, 'tmp')
+__author__ = AUTHOR
+del AUTHOR
 
-
-del os, Path
+__all__ = ['logger']
+__all__.extend(logger.__all__)
