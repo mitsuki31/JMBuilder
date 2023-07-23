@@ -3,6 +3,28 @@
 All global variables and properties are defined in this module.
 
 Copyright (c) 2023 Ryuu Mitsuki.
+
+Available Classes
+-----------------
+_JMCustomPath
+    This class provides all path variables that used by ``JM Builder`` package.
+    All path variables in this class are read-only properties.
+
+Available Constants
+-------------------
+BASEDIR : str
+    Provides path to the base directory of this package.
+
+LOGSDIR : str
+    Provides path to the temporary directory that used by this package,
+    the path itself is relative to `BASEDIR`.
+
+TMPDIR : str
+    Provides path to the logs directory that used by this package,
+    the path itself is relative to `BASEDIR`.
+
+AUTHOR : str
+    The author name.
 """
 
 import os as _os
