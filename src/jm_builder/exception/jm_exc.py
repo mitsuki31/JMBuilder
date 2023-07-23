@@ -56,10 +56,21 @@ class JMException(Exception):
 
     def __init__(self, msg: str=None, *args, **kwargs) -> None:
         """Initialize self. For accurate signature, see ``help(type(self))``."""
-        super().__init__(msg % args)
-        self.__message = msg % args
 
-        if not kwargs.get('tb') is None:
+        if msg and not isinstance(msg, str):
+            raise TypeError(
+                f'Unexpected type of `msg`: "{type(msg)}". Expected type are str')
+
+        if msg:
+            self.__message = msg % args
+        else:
+            self.__message = msg
+
+        super().__init__(self.__message)
+
+        if 'tb' in kwargs:
+            self.__trace = kwargs.get('tb')
+        elif 'trace' in kwargs:
             self.__trace = kwargs.get('trace')
         else:
             self.__trace = _tb.extract_stack()
@@ -74,7 +85,10 @@ class JMException(Exception):
             The string representation of this exception, including the class name
             and the message of this exception.
         """
-        return f"{self.__class__.__name__}('{self.__message}')"
+        if self.__message is None:
+            return f"{self.__class__.__name__}()"
+
+        return f"{self.__class__.__name__}({self.__message!r})"
 
     def __str__(self) -> str:
         """
@@ -84,8 +98,14 @@ class JMException(Exception):
         -------
         str:
             The message of this exception.
+
+        Notes
+        -----
+        This method would not returns ``NoneType`` when the message are not specified,
+        instead it returns the empty string.
+
         """
-        return f"{self.__message}"
+        return f'{self.__message}' if self.__message is not None else ''
 
     def __eq__(self, other: _Any) -> bool:
         """
@@ -109,7 +129,8 @@ class JMException(Exception):
         return False
 
 
-    def get_message(self) -> _Optional[str]:
+    @property
+    def message(self) -> _Optional[str]:
         """
         Returns the message of this exception.
 
