@@ -1,4 +1,4 @@
-"""Custom Logger Module
+"""Custom Logger Module for JMBuilder
 
 This module provides a custom logger utility that initializes and creates a new
 `Logger` object for logging information or errors to the console or a log file.
@@ -6,31 +6,38 @@ This module provides a custom logger utility that initializes and creates a new
 To use the custom logger in your project, you can import the `init_logger` function
 from this module and create a new `Logger` object with desired settings.
 
-Example:
-    # Import the module
-    >>> import logger
+Copyright (c) 2023 Ryuu Mitsuki
 
-    # Create a new logger object
-    >>> log = logger.init_logger(fmt=logger.CUSTOM_FORMAT,
-    ...                          level=logger.INFO)
-    >>> log
-    <RootLogger root (DEBUG)>
 
-    # Log some information message
-    # The output would be printed to console standard error (stderr),
-    # because the `filename` are not defined on `init_logger`.
-    >>> log.info('This is an information message.')
-    This is an information message.
+Example
+-------
+# Import the module
+>>> import logger
 
-    >>> try:
-    ...     x = 3 / 0
-    ... except ZeroDivisionError as div_err:
-    ...     log.error('An error occurred.',
-    ...               exc_info=div_err)
-    An error occurred.
-    Traceback (most recent call last):
-    ...
-    ZeroDivisionError: division by zero
+# Create a new logger object
+>>> log = logger.init_logger(fmt=logger.CUSTOM_FORMAT,
+...                          level=logger.INFO)
+>>> log
+<RootLogger root (INFO)>
+>>> type(log).__name__
+'RootLogger'
+
+# Log some information message
+# The output will be printed to console standard error (stderr),
+# because the `filename` are not defined on `init_logger`.
+>>> log.info('This is an information message.')
+This is an information message.
+
+# Log some exception
+>>> try:
+...     x = 3 / 0
+... except ZeroDivisionError as div_err:
+...     log.error('An error occurred.',
+...               exc_info=div_err)
+An error occurred.
+Traceback (most recent call last):
+  ...
+ZeroDivisionError: division by zero
 """
 
 import os as _os
