@@ -28,6 +28,8 @@ AUTHOR : str
 """
 
 import os as _os
+import sys as _sys
+from _io import TextIOWrapper as _TextIOWrapper
 from pathlib import Path as _Path
 from typing import (
     Self as _Self,
@@ -168,10 +170,14 @@ BASEDIR: str = _JMCustomPath().basedir
 TMPDIR:  str = _JMCustomPath().tmpdir
 LOGSDIR: str = _JMCustomPath().logsdir
 
+STDOUT: _TextIOWrapper = _sys.stdout
+STDERR: _TextIOWrapper = _sys.stderr
+
+
 AUTHOR:  str = 'Ryuu Mitsuki'
 
 __author__ = AUTHOR
-__all__    = ['BASEDIR', 'LOGSDIR', 'TMPDIR', '_JMCustomPath']
+__all__    = ['BASEDIR', 'LOGSDIR', 'TMPDIR', '_JMCustomPath', 'STDOUT', 'STDERR']
 
 # Remove unnecessary variables
-del _os, _Self, _Path, _ClassVar, _Type, _TypeVar, C
+del _os, _sys, _Self, _Path, _ClassVar, _Type, _TypeVar, C, _TextIOWrapper

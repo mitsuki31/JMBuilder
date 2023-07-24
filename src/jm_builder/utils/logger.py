@@ -45,8 +45,7 @@ import sys as _sys
 import logging as _log
 from typing import Union as _Union
 
-from .._globals import AUTHOR
-from ..exception import STDERR
+from .._globals import AUTHOR, STDERR
 from ..exception.jm_exc import JMException as _JME
 
 

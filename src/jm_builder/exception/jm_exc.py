@@ -1,4 +1,6 @@
-"""
+"""Custom Exception Module for JMBuilder
+
+Copyright (c) 2023 Ryuu Mitsuki
 """
 
 import os as _os
@@ -11,8 +13,11 @@ from typing import (
     Any as _Any
 )
 
-from ..exception import STDOUT, STDERR
-from .._globals import AUTHOR
+from .._globals import (
+    AUTHOR,
+    STDOUT,
+    STDERR
+)
 
 __all__    = ['JMException']
 __author__ = AUTHOR
@@ -20,7 +25,7 @@ __author__ = AUTHOR
 
 class JMException(Exception):
     """
-    Base custom exception for ``jm_builder`` package.
+    Base custom exception for ``JMBuilder`` package.
 
     Parameters
     ----------
@@ -60,7 +65,7 @@ class JMException(Exception):
 
         if msg and not isinstance(msg, str):
             raise TypeError(
-                f'Unexpected type of `msg`: "{type(msg)}". Expected type are str')
+                f'Unexpected type of `msg`: "{type(msg).__name__}". Expected type are str')
 
         if msg:
             self.__message = msg % args
