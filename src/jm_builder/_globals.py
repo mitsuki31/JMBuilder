@@ -117,22 +117,50 @@ class _JMCustomPath:
 
     @property
     def basedir(self) -> C:
-        """The current working directory path."""
+        """
+        The current working directory path based on parent directory of this file.
+
+        Returns
+        -------
+        C -> type :
+            The current working directory path.
+        """
         return self.__basedir
 
     @property
     def tmpdir(self) -> C:
-        """The path to 'tmp' directory relative to `basedir`."""
+        """
+        The path to 'tmp' directory relative to `basedir`.
+
+        Returns
+        -------
+        C -> type :
+            The path to temporary directory.
+        """
         return self.__tmpdir
 
     @property
     def logsdir(self) -> C:
-        """The path to 'logs' directory relative to `basedir`."""
+        """
+        The path to 'logs' directory relative to `basedir`.
+
+        Returns
+        -------
+        C -> type :
+            The path to logs directory.
+        """
         return self.__logsdir
 
     @property
     def type(self) -> C:
-        """Returns the current class type for casting the path."""
+        """
+        Returns the current class type for casting the path.
+
+        Returns
+        -------
+        Type[C] -> Type[type] :
+            The current class type.
+        """
         return self.__type
 
 
