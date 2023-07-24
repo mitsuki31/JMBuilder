@@ -29,7 +29,6 @@ AUTHOR : str
 
 import os as _os
 import sys as _sys
-from _io import TextIOWrapper as _TextIOWrapper
 from pathlib import Path as _Path
 from typing import (
     Self as _Self,
@@ -37,6 +36,7 @@ from typing import (
     Type as _Type,
     TypeVar as _TypeVar
 )
+from _io import TextIOWrapper as _TextIOWrapper
 
 if '_global_imported' in globals():
     raise RuntimeError(
@@ -47,7 +47,7 @@ C = _TypeVar('C', bound=type)
 
 class _JMCustomPath:
     """
-    Custom class to manage read-only path variables for ``JM Builder`` package.
+    Custom class to manage read-only path variables for ``JMBuilder`` package.
 
     This class provides read-only properties for common path variables
     such as `basedir`, `tmpdir` and `logsdir`.
