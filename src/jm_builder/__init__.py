@@ -11,12 +11,28 @@ JMException
     This class is a base exception for this package.
 
 _JMCustomPath
-    This class provides all path variables that used by ``JM Builder`` package.
+    This class provides all path variables that used by ``JMBuilder`` package.
     All path variables in this class are read-only properties.
 
 Available Constants
 -------------------
+BASEDIR
+    Provides a string that represents the path to base directory
+    of this package.
 
+LOGSDIR
+    Provides a string that represents the path to logs directory
+    that being used by this package to log some information and errors.
+
+STDOUT
+    References the console standard output (`sys.stdout`).
+
+STDERR
+    References the console standard error (`sys.stderr`).
+
+TMPDIR
+    Provides a string that represents the path to temporary directory
+    that being used by this package to store some temporary file(s) or cache(s).
 """
 
 from . import exception
