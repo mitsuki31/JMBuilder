@@ -1,6 +1,13 @@
 """Custom Exception Module for JMBuilder
 
-Copyright (c) 2023 Ryuu Mitsuki
+This module contains all custom exception for ``JMBuilder`` package.
+
+Copyright (c) 2023 Ryuu Mitsuki.
+
+Available Classes
+-----------------
+JMException
+    The base custom exception for ``JMBuilder`` package.
 """
 
 import os as _os
@@ -10,18 +17,16 @@ from datetime import datetime as _dtime
 from typing import (
     Optional as _Optional,
     Union as _Union,
-    Any as _Any
+    Any as _Any,
+    Self as _Self
 )
 
-from .._globals import (
-    AUTHOR,
-    STDOUT,
-    STDERR
-)
+from .._globals import AUTHOR
+
 
 __all__    = ['JMException']
 __author__ = AUTHOR
-
+del AUTHOR
 
 class JMException(Exception):
     """
@@ -29,11 +34,6 @@ class JMException(Exception):
 
     Parameters
     ----------
-    msg : str, optional
-        The message of this exception. If provided, it can contain format specifiers,
-        and they will be filled with the arguments given to this constructor.
-        Default is None.
-
     *args
         Variable length argument list.
 
@@ -42,14 +42,25 @@ class JMException(Exception):
 
     Attributes
     ----------
-    message : str or None
-        The formatted message of this exception. If no message is provided,
-        it will be set to None.
+    __message : str or None
+        The message of this exception.
 
-    traces : traceback.StackSummary or None
+        To specify the message of this exception, consider place the message
+        string at first argument.
+
+    __traces : traceback.StackSummary or None
         The stack traces of this exception. If no traceback is provided during
-        the exception creation, it will be set to None and will be overrided
+        the exception creation, it will be set to ``None`` and will be overrided
         by ``traceback.extract_stack()``.
+
+        To specify the stack traces of this exception, consider use keyword
+        `trace` or `traces`, with the value separated by `=`. For example::
+
+        # Use the `trace` keyword
+        >>> JMException('An error occured', trace=foo)
+
+        # Use the `traces` keyword
+        >>> JMException('An error occured', traces=foo)
 
     Notes
     -----
@@ -60,30 +71,39 @@ class JMException(Exception):
     __message:  _Optional[str]
     __traces:   _Optional[_tb.StackSummary]
 
-    def __init__(self, msg: str=None, *args, **kwargs) -> None:
+    def __init__(self, /, *args, **kwargs) -> _Self:
         """Initialize self. For accurate signature, see ``help(type(self))``."""
 
-        if msg and not isinstance(msg, str):
-            raise TypeError(
-                f'Unexpected type of `msg`: "{type(msg).__name__}". Expected type are str')
+        if len(args) > 0 and (args[0] and not isinstance(args[0], str)):
+            raise self.__class__(
+                f'Error occured during initializing {type(self)}') from \
+                TypeError(
+                    f'Unexpected type of `message`: "{type(args[0]).__name__}". ' + \
+                    'Expected type is "str"'
+                )
 
-        if msg:
-            self.__message = msg % args
-        else:
-            self.__message = msg
+        if len(args) > 1:
+            self.__message = args[0] % args[1:]
 
-        super().__init__(self.__message)
+        self.__message = args[0] if len(args) > 0 else None
 
         if 'tb' in kwargs:
-            self.__traces = kwargs.get('tb')
+            self._traces = kwargs.get('tb') or _tb.extract_stack()
+            del kwargs['tb']
         elif ('trace', 'traces') in kwargs:
-            self.__traces = kwargs.get('trace', 'traces')
+            self._traces = kwargs.get('trace', kwargs.get('traces')) or _tb.extract_stack()
+            try:
+                del kwargs['trace']
+            except KeyError:
+                del kwargs['traces']
         else:
-            self.__traces = _tb.extract_stack()
+            self._traces = _tb.extract_stack()
+
+        super().__init__(self.__message, **kwargs)
 
     def __repr__(self) -> str:
         """
-        Returns ``repr(self)``.
+        Return ``repr(self)``.
 
         Returns
         -------
@@ -98,7 +118,7 @@ class JMException(Exception):
 
     def __str__(self) -> str:
         """
-        Returns the string representation of this exception's message.
+        Return the string representation of this exception's message.
 
         Returns
         -------
@@ -107,15 +127,14 @@ class JMException(Exception):
 
         Notes
         -----
-        This method would not returns ``NoneType`` when the message are not specified,
+        This method will never returns ``NoneType`` when the message are not specified,
         instead it returns the empty string.
-
         """
         return f'{self.__message}' if self.__message is not None else ''
 
     def __eq__(self, other: _Any) -> bool:
         """
-        Returns ``self==value``.
+        Return ``self==value``.
 
         Parameters
         ----------
@@ -129,7 +148,7 @@ class JMException(Exception):
             or if the given object are string with the same message as this exception,
             otherwise ``False``.
         """
-        if isinstance(other, (self, str)):
+        if isinstance(other, (self.__class__, str)):
             return str(self) == str(other)
 
         return False
@@ -138,7 +157,7 @@ class JMException(Exception):
     @property
     def message(self) -> _Optional[str]:
         """
-        Returns the message of this exception.
+        Get the message of this exception.
 
         Returns
         -------
@@ -150,7 +169,7 @@ class JMException(Exception):
     @property
     def traces(self) -> _tb.StackSummary:
         """
-        Returns the stack traces of this exception.
+        Get the stack traces of this exception.
 
         Returns
         -------
