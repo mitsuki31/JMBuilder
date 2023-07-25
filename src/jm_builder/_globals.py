@@ -7,7 +7,7 @@ Copyright (c) 2023 Ryuu Mitsuki.
 Available Classes
 -----------------
 _JMCustomPath
-    This class provides all path variables that used by ``JMBuilder`` package.
+    This class provides all path variables that is used by ``JMBuilder`` package.
     All path variables in this class are read-only properties.
 
 Available Constants
@@ -84,7 +84,7 @@ class _JMCustomPath:
     Raises
     ------
     JMUnknownTypeError :
-        If `_type` is not a class type.
+        If `_type` is not a class `type`.
 
     Attributes
     ----------
