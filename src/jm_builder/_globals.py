@@ -43,8 +43,6 @@ from typing import (
 )
 from _io import TextIOWrapper as _TextIOWrapper
 
-from .exception.jm_exc import JMUnknownTypeError as _JMTypeError
-
 if '_global_imported' in globals():
     raise RuntimeError(
         "Cannot import the '_globals' more than once.")
@@ -83,7 +81,7 @@ class _JMCustomPath:
 
     Raises
     ------
-    JMUnknownTypeError :
+    TypeError :
         If `_type` is not a class `type`.
 
     Attributes
@@ -122,7 +120,7 @@ class _JMCustomPath:
         self.__type = _type
 
         if not isinstance(_type, type):
-            raise _JMTypeError(
+            raise TypeError(
                 f'Unexpected type of `_type`: "{type(_type).__name__}". ' + \
                 'Expected type is "type"')
 
@@ -210,4 +208,4 @@ __author__ = AUTHOR
 __all__    = ['_JMCustomPath', 'BASEDIR', 'CONFDIR', 'LOGSDIR', 'TMPDIR', 'STDOUT', 'STDERR']
 
 # Remove unnecessary variables
-del AUTHOR, _os, _sys, _Self, _Path, _ClassVar, _Type, _TypeVar, C, _TextIOWrapper
+del _os, _sys, _Self, _Path, _ClassVar, _Type, _TypeVar, C, _TextIOWrapper
