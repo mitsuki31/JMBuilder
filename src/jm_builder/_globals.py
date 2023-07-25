@@ -1,4 +1,4 @@
-"""Global Module for ``JM Builder``
+"""Global Module for JMBuilder
 
 All global variables and properties are defined in this module.
 
@@ -7,13 +7,21 @@ Copyright (c) 2023 Ryuu Mitsuki.
 Available Classes
 -----------------
 _JMCustomPath
-    This class provides all path variables that used by ``JM Builder`` package.
+    This class provides all path variables that used by ``JMBuilder`` package.
     All path variables in this class are read-only properties.
 
 Available Constants
 -------------------
+AUTHOR : str
+    The author name.
+
 BASEDIR : str
     Provides path to the base directory of this package.
+
+CONFDIR : str
+    Provides path to the specified directory that contains configuration
+    files for configuring ``JMBuilder`` package, the path itself is
+    relative to `BASEDIR`.
 
 LOGSDIR : str
     Provides path to the temporary directory that used by this package,
@@ -22,9 +30,6 @@ LOGSDIR : str
 TMPDIR : str
     Provides path to the logs directory that used by this package,
     the path itself is relative to `BASEDIR`.
-
-AUTHOR : str
-    The author name.
 """
 
 import os as _os
@@ -38,6 +43,8 @@ from typing import (
 )
 from _io import TextIOWrapper as _TextIOWrapper
 
+from .exception.jm_exc import JMUnknownTypeError as _JMTypeError
+
 if '_global_imported' in globals():
     raise RuntimeError(
         "Cannot import the '_globals' more than once.")
@@ -50,7 +57,7 @@ class _JMCustomPath:
     Custom class to manage read-only path variables for ``JMBuilder`` package.
 
     This class provides read-only properties for common path variables
-    such as `basedir`, `tmpdir` and `logsdir`.
+    such as `basedir`, `tmpdir`, `logsdir` and more.
 
     Parameters
     ----------
@@ -76,21 +83,26 @@ class _JMCustomPath:
 
     Raises
     ------
-    TypeError :
+    JMUnknownTypeError :
         If `_type` is not a class type.
 
     Attributes
     ----------
-    basedir : C
+    __basedir : C
         The base directory path of this package.
 
-    tmpdir : C
+    __confdir : C
+        The path to specified directory that contains configuration
+        files for configuring ``JMBuilder`` package, and the path is
+        relative to `basedir`.
+
+    __tmpdir : C
         The path to the 'tmp' directory relative to `basedir`.
 
-    logsdir : C
+    __logsdir : C
         The path to the 'logs' directory relative to `basedir`.
 
-    type : C
+    __type : C
         Returns the current class type for casting the path.
 
     Notes
@@ -103,19 +115,22 @@ class _JMCustomPath:
     __basedir:  str = str(_Path(__file__).resolve().parent)
     __tmpdir:   str = _os.path.join(__basedir, 'tmp')
     __logsdir:  str = _os.path.join(__basedir, 'logs')
+    __confdir:  str = _os.path.join(__basedir, '.config')
 
     def __init__(self, _type: _Type[C] = str) -> _Self:
         """Initialize self. See ``help(type(self))``, for accurate signature."""
         self.__type = _type
 
         if not isinstance(_type, type):
-            raise TypeError(
+            raise _JMTypeError(
                 f'Unexpected type of `_type`: "{type(_type).__name__}". ' + \
-                'Expected type is a class type')
+                'Expected type is "type"')
 
+        # Cast all attributes with the specified class type
         self.__basedir = self.__type(self.__basedir)
         self.__tmpdir  = self.__type(self.__tmpdir)
         self.__logsdir = self.__type(self.__logsdir)
+        self.__confdir = self.__type(self.__confdir)
 
     @property
     def basedir(self) -> C:
@@ -153,6 +168,20 @@ class _JMCustomPath:
         """
         return self.__logsdir
 
+
+    @property
+    def confdir(self) -> C:
+        """
+        The path to '.config' directory relative to `basedir`.
+
+        Returns
+        -------
+        C -> type :
+            The path to the specified directory that contains configuration
+            files for configuring ``JMBuilder`` package.
+        """
+        return self.__confdir
+
     @property
     def type(self) -> C:
         """
@@ -169,6 +198,7 @@ class _JMCustomPath:
 BASEDIR: str = _JMCustomPath().basedir
 TMPDIR:  str = _JMCustomPath().tmpdir
 LOGSDIR: str = _JMCustomPath().logsdir
+CONFDIR: str = _JMCustomPath().confdir
 
 STDOUT: _TextIOWrapper = _sys.stdout
 STDERR: _TextIOWrapper = _sys.stderr
@@ -177,7 +207,7 @@ STDERR: _TextIOWrapper = _sys.stderr
 AUTHOR:  str = 'Ryuu Mitsuki'
 
 __author__ = AUTHOR
-__all__    = ['BASEDIR', 'LOGSDIR', 'TMPDIR', '_JMCustomPath', 'STDOUT', 'STDERR']
+__all__    = ['_JMCustomPath', 'BASEDIR', 'CONFDIR', 'LOGSDIR', 'TMPDIR', 'STDOUT', 'STDERR']
 
 # Remove unnecessary variables
-del _os, _sys, _Self, _Path, _ClassVar, _Type, _TypeVar, C, _TextIOWrapper
+del AUTHOR, _os, _sys, _Self, _Path, _ClassVar, _Type, _TypeVar, C, _TextIOWrapper
