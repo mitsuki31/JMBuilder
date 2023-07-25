@@ -8,6 +8,10 @@ Available Classes
 -----------------
 JMException
     The base custom exception for ``JMBuilder`` package.
+
+JMUnknownTypeError
+    The custom exception that raised when an unknown type error
+    occurs during the execution of the package.
 """
 
 import os as _os
@@ -23,8 +27,7 @@ from typing import (
 
 from .._globals import AUTHOR
 
-
-__all__    = ['JMException']
+__all__    = ['JMException', 'JMUnknownTypeError']
 __author__ = AUTHOR
 del AUTHOR
 
@@ -162,6 +165,73 @@ class JMException(Exception):
         Returns
         -------
         str or None:
+            The message of this exception. If not specified, returns ``None``.
+        """
+        return self.__message
+
+    @property
+    def traces(self) -> _tb.StackSummary:
+        """
+        Get the stack traces of this exception.
+
+        Returns
+        -------
+        traceback.StackSummary :
+            The stack traces of this exception. If not specified, returns
+            the stack traces from ``traceback.extract_stack()``.
+        """
+        if self.__traces and isinstance(self.__traces, _tb.StackSummary):
+            return self.__traces
+
+        return _tb.extract_stack()
+
+
+
+class JMUnknownTypeError(JMException, TypeError):
+    """
+    Custom exception for unknown type errors in the ``JMBuilder`` package.
+
+    This exception is raised when an unknown type error occurs during
+    the execution of the package.
+
+    Parameters
+    ----------
+    msg : str, optional
+        The error message to be displayed. If not specified, the message
+        will be set to ``None``.
+
+    **kwargs
+        Additional keyword arguments to customize the exception.
+
+    Attributes
+    ----------
+    __message : str or None
+        The message of this exception.
+
+    __traces : traceback.StackSummary or None
+        The stack traces of this exception. If no traceback is provided during
+        the exception creation, it will be set to ``None`` and will be overrided
+        by ``traceback.extract_stack()``.
+    """
+
+    __message: _Optional[str]
+    __traces:  _Optional[_tb.StackSummary]
+
+    def __init__(self, /, *args, **kwargs) -> _Self:
+        """Initialize self. See ``help(type(self))`` for accurate signature."""
+
+        super().__init__(*args, **kwargs)
+        self.__message = super().message
+        self.__traces = super().traces
+
+    @property
+    def message(self) -> _Optional[str]:
+        """
+        Get the message of this exception.
+
+        Returns
+        -------
+        str or None :
             The message of this exception. If not specified, returns ``None``.
         """
         return self.__message
