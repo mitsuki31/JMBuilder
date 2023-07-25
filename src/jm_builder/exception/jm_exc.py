@@ -89,6 +89,7 @@ class JMException(Exception):
             self.__message = args[0] % args[1:]
 
         self.__message = args[0] if len(args) > 0 else None
+        self.__traces  = None
 
         if 'tb' in kwargs:
             self._traces = kwargs.get('tb') or _tb.extract_stack()
