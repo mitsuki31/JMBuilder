@@ -61,47 +61,29 @@ class _JMCustomPath:
     ----------
     _type : type, optional
         The class type used for casting the path variables.
-        Please note, this is experimental option, leave it empty to
+        Please note, this is experimental option, leave this empty to
         avoid unexpected issue.
 
         This argument are optional and can be assigned by any class.
-        For example, cast the returned path into `Path` object.
+        For example, cast the returned path into `Path` object::
 
-        >>> from pathlib import Path
-        >>> from jm_builder import _JMCustomPath
+          >>> from pathlib import Path
+          >>> from jm_builder import _JMCustomPath
 
-        # Create new object
-        >>> path = _JMCustomPath(Path)
-        >>> path.tmpdir
-        PosixPath('.../tmp')  # for Windows, it will be `WindowsPath`
+          # Create new object
+          >>> path = _JMCustomPath(Path)
+          >>> path.tmpdir
+          PosixPath('.../tmp')  # if Windows, it will be `WindowsPath`
 
-        # You can also check the class type that currently used for casting
-        >>> path.type
-        <class 'pathlib.Path'>
+          # You can also check the class type that currently
+          # used for casting
+          >>> path.type
+          <class 'pathlib.Path'>
 
     Raises
     ------
     TypeError :
         If `_type` is not a class `type`.
-
-    Attributes
-    ----------
-    __basedir : C
-        The base directory path of this package.
-
-    __confdir : C
-        The path to specified directory that contains configuration
-        files for configuring ``JMBuilder`` package, and the path is
-        relative to `basedir`.
-
-    __tmpdir : C
-        The path to the 'tmp' directory relative to `basedir`.
-
-    __logsdir : C
-        The path to the 'logs' directory relative to `basedir`.
-
-    __type : C
-        Returns the current class type for casting the path.
 
     Notes
     -----
@@ -166,7 +148,6 @@ class _JMCustomPath:
         """
         return self.__logsdir
 
-
     @property
     def confdir(self) -> C:
         """
@@ -205,7 +186,12 @@ STDERR: _TextIOWrapper = _sys.stderr
 AUTHOR:  str = 'Ryuu Mitsuki'
 
 __author__ = AUTHOR
-__all__    = ['_JMCustomPath', 'BASEDIR', 'CONFDIR', 'LOGSDIR', 'TMPDIR', 'STDOUT', 'STDERR']
+__all__    = [
+    '_JMCustomPath',
+    'BASEDIR', 'CONFDIR',
+    'LOGSDIR', 'TMPDIR',
+    'STDOUT', 'STDERR'
+]
 
 # Remove unnecessary variables
 del _os, _sys, _Self, _Path, _ClassVar, _Type, _TypeVar, C, _TextIOWrapper
