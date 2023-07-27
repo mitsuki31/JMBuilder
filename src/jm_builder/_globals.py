@@ -18,18 +18,34 @@ AUTHOR : str
 BASEDIR : str
     Provides path to the base directory of this package.
 
+    This is alias for `_JMCustomPath().basedir`.
+
 CONFDIR : str
     Provides path to the specified directory that contains configuration
     files for configuring ``JMBuilder`` package, the path itself is
     relative to `BASEDIR`.
 
+    This is alias for `_JMCustomPath().confdir`.
+
 LOGSDIR : str
     Provides path to the temporary directory that used by this package,
     the path itself is relative to `BASEDIR`.
 
+    This is alias for `_JMCustomPath().logsdir`.
+
+STDOUT : _io.TextIOWrapper
+    This is alias for `sys.stdout` and referenced to console standard
+    output.
+
+STDERR : _io.TextIOWrapper
+    This is alias for `sys.stderr` and referenced to console standard
+    error.
+
 TMPDIR : str
     Provides path to the logs directory that used by this package,
     the path itself is relative to `BASEDIR`.
+
+    This is alias for `_JMCustomPath().tmpdir`.
 """
 
 import os as _os
@@ -39,15 +55,6 @@ from typing import (
     Type,
     TypeVar
 )
-
-# Please note, that 'typing.Self' only supported on
-# Python 3.11 and later. For earlier version, here we just simply
-# create a global variable with name the same as 'Self'
-if _sys.version_info < (3, 11):
-    global Self
-    Self = None
-else:
-    from typing import Self
 
 from _io import TextIOWrapper as _TextIOWrapper
 
@@ -106,14 +113,14 @@ class _JMCustomPath:
     __logsdir:  str = _os.path.join(__basedir, 'logs')
     __confdir:  str = _os.path.join(__basedir, '.config')
 
-    def __init__(self, _type: Type[C] = str) -> Self:
+    def __init__(self, _type: Type[C] = str) -> None:
         """Initialize self. See ``help(type(self))``, for accurate signature."""
         self.__type = _type
 
         if not isinstance(_type, type):
             raise TypeError(
-                f'Unexpected type of `_type`: "{type(_type).__name__}". ' + \
-                'Expected type is "type"')
+                f'Invalid type of `_type`: "{type(_type).__name__}". ' + \
+                'Expected "type"')
 
         # Cast all attributes with the specified class type
         self.__basedir = self.__type(self.__basedir)
@@ -122,7 +129,7 @@ class _JMCustomPath:
         self.__confdir = self.__type(self.__confdir)
 
     def __repr__(self) -> str:
-        return f'{self.__class__.__name__}(type: {self.__type.__name__})'
+        return f'{self.__class__.__name__}(type: {self.__type.__name__!r})'
 
     @property
     def basedir(self) -> C:
@@ -131,7 +138,7 @@ class _JMCustomPath:
 
         Returns
         -------
-        C -> type :
+        C :
             The current working directory path.
         """
         return self.__basedir
@@ -143,7 +150,7 @@ class _JMCustomPath:
 
         Returns
         -------
-        C -> type :
+        C :
             The path to temporary directory.
         """
         return self.__tmpdir
@@ -155,7 +162,7 @@ class _JMCustomPath:
 
         Returns
         -------
-        C -> type :
+        C :
             The path to logs directory.
         """
         return self.__logsdir
@@ -167,25 +174,26 @@ class _JMCustomPath:
 
         Returns
         -------
-        C -> type :
+        C :
             The path to the specified directory that contains configuration
             files for configuring ``JMBuilder`` package.
         """
         return self.__confdir
 
     @property
-    def type(self) -> C:
+    def type(self) -> Type[C]:
         """
         Returns the current class type for casting the path.
 
         Returns
         -------
-        Type[C] -> Type[type] :
-            The current class type.
+        Type[C] :
+            The class type.
         """
         return self.__type
 
 
+# Aliases
 BASEDIR: str = _JMCustomPath().basedir
 TMPDIR:  str = _JMCustomPath().tmpdir
 LOGSDIR: str = _JMCustomPath().logsdir
@@ -205,6 +213,10 @@ __all__    = [
     'STDOUT', 'STDERR'
 ]
 
-# Remove unnecessary variables
-del _os, _sys, _Path, _TextIOWrapper
-del C, Self, Type, TypeVar
+# Remove unnecessary variables,
+# only if the Python version is 3.11 and later...
+if _sys.version_info >= (3, 11):
+    del _os, _sys, _Path, _TextIOWrapper
+
+# ...except for these variables, can be safely removed
+del C, Type, TypeVar
