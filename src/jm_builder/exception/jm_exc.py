@@ -19,11 +19,19 @@ import sys as _sys
 import traceback as _tb
 from datetime import datetime as _dtime
 from typing import (
-    Optional as _Optional,
-    Union as _Union,
-    Any as _Any,
-    Self as _Self
+    Optional,
+    Union,
+    Any
 )
+
+# Please note, that 'typing.Self' only supported on
+# Python 3.11 and later. For earlier version, here we just simply
+# create a global variable with name the same as 'Self'
+if _sys.version_info < (3, 11):
+    global Self
+    Self = None
+else:
+    from typing import Self
 
 from .._globals import AUTHOR
 
@@ -43,15 +51,15 @@ class JMException(Exception):
     **kwargs
         Arbitrary keyword arguments.
 
-    Attributes
+    Properties
     ----------
-    __message : str or None
+    message : str or None
         The message of this exception.
 
         To specify the message of this exception, consider place the message
         string at first argument.
 
-    __traces : traceback.StackSummary or None
+    traces : traceback.StackSummary or None
         The stack traces of this exception. If no traceback is provided during
         the exception creation, it will be set to ``None`` and will be overrided
         by ``traceback.extract_stack()``.
@@ -71,10 +79,10 @@ class JMException(Exception):
     a custom exception with an optional message and traceback information.
     """
 
-    __message:  _Optional[str]
-    __traces:   _Optional[_tb.StackSummary]
+    __message:  Optional[str]
+    __traces:   Optional[_tb.StackSummary]
 
-    def __init__(self, /, *args, **kwargs) -> _Self:
+    def __init__(self, *args, **kwargs) -> Self:
         """Initialize self. For accurate signature, see ``help(type(self))``."""
 
         if len(args) > 0 and (args[0] and not isinstance(args[0], str)):
@@ -136,7 +144,7 @@ class JMException(Exception):
         """
         return f'{self.__message}' if self.__message is not None else ''
 
-    def __eq__(self, other: _Any) -> bool:
+    def __eq__(self, other: Any) -> bool:
         """
         Return ``self==value``.
 
@@ -159,7 +167,7 @@ class JMException(Exception):
 
 
     @property
-    def message(self) -> _Optional[str]:
+    def message(self) -> Optional[str]:
         """
         Get the message of this exception.
 
@@ -206,19 +214,19 @@ class JMUnknownTypeError(JMException, TypeError):
 
     Attributes
     ----------
-    __message : str or None
+    message : str or None
         The message of this exception.
 
-    __traces : traceback.StackSummary or None
+    traces : traceback.StackSummary or None
         The stack traces of this exception. If no traceback is provided during
         the exception creation, it will be set to ``None`` and will be overrided
         by ``traceback.extract_stack()``.
     """
 
-    __message: _Optional[str]
-    __traces:  _Optional[_tb.StackSummary]
+    __message: Optional[str]
+    __traces:  Optional[_tb.StackSummary]
 
-    def __init__(self, /, *args, **kwargs) -> _Self:
+    def __init__(self, *args, **kwargs) -> Self:
         """Initialize self. See ``help(type(self))`` for accurate signature."""
 
         super().__init__(*args, **kwargs)
@@ -226,7 +234,7 @@ class JMUnknownTypeError(JMException, TypeError):
         self.__traces = super().traces
 
     @property
-    def message(self) -> _Optional[str]:
+    def message(self) -> Optional[str]:
         """
         Get the message of this exception.
 
@@ -252,3 +260,7 @@ class JMUnknownTypeError(JMException, TypeError):
             return self.__traces
 
         return _tb.extract_stack()
+
+
+# Remove unnecessary variables
+del Any, Optional, Union, Self

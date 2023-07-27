@@ -36,19 +36,28 @@ import os as _os
 import sys as _sys
 from pathlib import Path as _Path
 from typing import (
-    Self as _Self,
-    ClassVar as _ClassVar,
-    Type as _Type,
-    TypeVar as _TypeVar
+    Type,
+    TypeVar
 )
+
+# Please note, that 'typing.Self' only supported on
+# Python 3.11 and later. For earlier version, here we just simply
+# create a global variable with name the same as 'Self'
+if _sys.version_info < (3, 11):
+    global Self
+    Self = None
+else:
+    from typing import Self
+
 from _io import TextIOWrapper as _TextIOWrapper
+
 
 if '_global_imported' in globals():
     raise RuntimeError(
-        "Cannot import the '_globals' more than once.")
+        "Cannot import the '_globals' module more than once.")
 _global_imported: bool = True
 
-C = _TypeVar('C', bound=type)
+C = TypeVar('C', bound=type)
 
 class _JMCustomPath:
     """
@@ -97,7 +106,7 @@ class _JMCustomPath:
     __logsdir:  str = _os.path.join(__basedir, 'logs')
     __confdir:  str = _os.path.join(__basedir, '.config')
 
-    def __init__(self, _type: _Type[C] = str) -> _Self:
+    def __init__(self, _type: Type[C] = str) -> Self:
         """Initialize self. See ``help(type(self))``, for accurate signature."""
         self.__type = _type
 
@@ -111,6 +120,9 @@ class _JMCustomPath:
         self.__tmpdir  = self.__type(self.__tmpdir)
         self.__logsdir = self.__type(self.__logsdir)
         self.__confdir = self.__type(self.__confdir)
+
+    def __repr__(self) -> str:
+        return f'{self.__class__.__name__}(type: {self.__type.__name__})'
 
     @property
     def basedir(self) -> C:
@@ -194,4 +206,5 @@ __all__    = [
 ]
 
 # Remove unnecessary variables
-del _os, _sys, _Self, _Path, _ClassVar, _Type, _TypeVar, C, _TextIOWrapper
+del _os, _sys, _Path, _TextIOWrapper
+del C, Self, Type, TypeVar
