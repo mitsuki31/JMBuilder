@@ -6,13 +6,61 @@ This module provides a custom logger utility that initializes and creates a new
 To use the custom logger in your project, you can import the `init_logger` function
 from this module and create a new `Logger` object with desired settings.
 
-Copyright (c) 2023 Ryuu Mitsuki
+Copyright (c) 2023 Ryuu Mitsuki.
 
+
+Available Functions
+-------------------
+init_logger
+    Initialize and create new `Logger` object for logging any
+    information or errors to file, if specified, otherwise the output
+    will be written to console standard output.
+
+Available Constants
+-------------------
+BASIC_FORMAT : str
+    The basic (default) format for `logging.Formatter`.
+    This is alias for `logging.BASIC_FORMAT`.
+
+CUSTOM_FORMAT : str
+    The custom format for `logging.Formatter`.
+
+CRITICAL : int
+    The integer value representation of logging level 50.
+    This is alias for `logging.CRITICAL`.
+
+DEBUG : int
+    The integer value representation of logging level 10.
+    This is alias for `logging.DEBUG`.
+
+ERROR : int
+    The integer value representation of logging level 40.
+    This is alias for `logging.ERROR`.
+
+FATAL : int
+    The integer value representation of logging level 50.
+    This is alias for `logging.FATAL`.
+
+INFO : int
+    The integer value representation of logging level 20.
+    This is alias for `logging.INFO`.
+
+NOTSET : int
+    The integer value of representation of logging level 0.
+    This is alias for `logging.NOTSET`.
+
+WARN : int
+    The integer value of representation of logging level 30.
+    This is alias for `logging.WARN`.
+
+WARNING : int
+    The integer value of representation of logging level 30.
+    This is alias for `logging.WARNING`.
 
 Example
 -------
 # Import the module
->>> import logger
+>>> from jm_builder.utils import logger
 
 # Create a new logger object
 >>> log = logger.init_logger(fmt=logger.CUSTOM_FORMAT,
@@ -29,6 +77,8 @@ Example
 This is an information message.
 
 # Log some exception
+# You can also insert the traces by assign `exc_info` argument with
+# the raised exception.
 >>> try:
 ...     x = 3 / 0
 ... except ZeroDivisionError as div_err:
@@ -43,15 +93,14 @@ ZeroDivisionError: division by zero
 import os as _os
 import sys as _sys
 import logging as _log
-from typing import Union as _Union
+from typing import Union
 
 from .._globals import AUTHOR, STDERR
-from ..exception.jm_exc import JMException as _JME
+from ..exception.jm_exc import JMUnknownTypeError as _JMTypeError
 
 
 __all__ = [
     'init_logger', 'BASIC_FORMAT', 'CUSTOM_FORMAT',
-    'NOTSET', 'DEBUG', 'INFO', 'WARN', 'WARNING', 'ERROR', 'CRITICAL', 'FATAL'
 ]
 __author__ = AUTHOR
 
@@ -71,19 +120,19 @@ CRITICAL = _log.CRITICAL    # 50
 FATAL    = _log.FATAL       # 50
 
 
-def init_logger(filename: str = None, *, fmt: _Union[str, _log.Formatter] = None,
+def init_logger(filename: str = None, *, fmt: Union[str, _log.Formatter] = None,
                 level: int = DEBUG) -> _log.Logger:
     """
     Initializes and creates a new `Logger` object.
 
     Parameters
     ----------
-    filename : {str, None}, optional
+    filename : str or None, optional
         A string representing the name of the logger file. If specified,
         logs will be written to the specified file, otherwise logs
         will be printed to `stderr` (standard error). Default is ``None``.
 
-    fmt : {str, logging.Formatter}, optional
+    fmt : str or logging.Formatter, optional
         A string representation of the log formatter or an object
         of `logging.Formatter` class. If not specified, a customized
         formatter will be used. Default is ``None``.
@@ -99,11 +148,11 @@ def init_logger(filename: str = None, *, fmt: _Union[str, _log.Formatter] = None
 
     Raises
     ------
-    TypeError :
+    JMUnknownTypeError :
         If the 'fmt' are not instance of `str` or `logging.Formatter` class.
     """
 
-    handler: _log.Handler
+    handler: _log.Handler = None
 
     # Check whether the 'filename' is defined
     if filename is None:
@@ -127,12 +176,23 @@ def init_logger(filename: str = None, *, fmt: _Union[str, _log.Formatter] = None
         else:
             handler.setFormatter(fmt)
     else:
-        raise TypeError(
-            'Expected are `str` and `logging.Formatter`') from \
-        _JME('Invalid type argument')
+        raise _JMTypeError(
+            f'Invalid type of `fmt`: "{type(fmt).__name__}". ' + \
+            'Expected "str" and "logging.Formatter"')
 
-    logger = _log.getLogger(_os.path.basename(filename)) if filename else _log.getLogger()
+    logger = _log.getLogger(
+        _os.path.basename(filename)
+    ) if filename else _log.getLogger('JMBuilder log')
     logger.setLevel(level)      # set the logger level, default is DEBUG
     logger.addHandler(handler)  # set the handler
 
     return logger
+
+
+# Remove unnecessary variables,
+# only if the Python version is 3.11 and later...
+if _sys.version_info >= (3, 11):
+    del _os, _sys, _log, _JMTypeError, STDERR
+
+# ...except for these variables, can be safely removed
+del AUTHOR, Union
