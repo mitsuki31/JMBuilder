@@ -61,7 +61,7 @@ __all__ = []
 __all__.extend(_globals.__all__)
 __all__.extend(exception.__all__)
 __all__.extend(utils.__all__)
-__all__.extend(_config.__all__)
+# __all__.extend(_config.__all__)
 
 # Remove unnecessary variables
 del AUTHOR
