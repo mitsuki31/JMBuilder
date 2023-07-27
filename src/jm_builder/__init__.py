@@ -10,6 +10,10 @@ Available Classes
 JMException
     This class is a base exception for this package.
 
+JMUnknownTypeError
+    This exception is raised when an unknown type error occurs during
+    the execution of the package.
+
 _JMCustomPath
     This class provides all path variables that used by ``JMBuilder`` package.
     All path variables in this class are read-only properties.
@@ -35,10 +39,18 @@ TMPDIR
     that being used by this package to store some temporary file(s) or cache(s).
 """
 
+# exception
 from . import exception
 from .exception import *
+
+# utils
 from . import utils
 from .utils import *
+
+# _config
+from . import _config
+
+# _globals
 from . import _globals
 from ._globals import AUTHOR
 from ._globals import *
@@ -49,6 +61,7 @@ __all__ = []
 __all__.extend(_globals.__all__)
 __all__.extend(exception.__all__)
 __all__.extend(utils.__all__)
+__all__.extend(_config.__all__)
 
 # Remove unnecessary variables
 del AUTHOR
