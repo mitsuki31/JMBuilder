@@ -17,21 +17,13 @@ JMUnknownTypeError
 import os as _os
 import sys as _sys
 import traceback as _tb
+
 from datetime import datetime as _dtime
 from typing import (
     Optional,
     Union,
     Any
 )
-
-# Please note, that 'typing.Self' only supported on
-# Python 3.11 and later. For earlier version, here we just simply
-# create a global variable with name the same as 'Self'
-if _sys.version_info < (3, 11):
-    global Self
-    Self = None
-else:
-    from typing import Self
 
 from .._globals import AUTHOR
 
@@ -65,13 +57,17 @@ class JMException(Exception):
         by ``traceback.extract_stack()``.
 
         To specify the stack traces of this exception, consider use keyword
-        `trace` or `traces`, with the value separated by `=`. For example::
+        `tb`, `trace` or `traces`, with the value separated by `=`.
+        For example::
 
-        # Use the `trace` keyword
-        >>> JMException('An error occured', trace=foo)
+          # Use the `tb` keyword
+          >>> JMException('An error occured', tb=foo)
 
-        # Use the `traces` keyword
-        >>> JMException('An error occured', traces=foo)
+          # Use the `trace` keyword
+          >>> JMException('An error occured', trace=foo)
+
+          # Use the `traces` keyword
+          >>> JMException('An error occured', traces=foo)
 
     Notes
     -----
@@ -82,15 +78,15 @@ class JMException(Exception):
     __message:  Optional[str]
     __traces:   Optional[_tb.StackSummary]
 
-    def __init__(self, *args, **kwargs) -> Self:
+    def __init__(self, *args, **kwargs) -> None:
         """Initialize self. For accurate signature, see ``help(type(self))``."""
 
         if len(args) > 0 and (args[0] and not isinstance(args[0], str)):
             raise self.__class__(
                 f'Error occured during initializing {type(self)}') from \
                 TypeError(
-                    f'Unexpected type of `message`: "{type(args[0]).__name__}". ' + \
-                    'Expected type is "str"'
+                    f'Invalid type of `message`: "{type(args[0]).__name__}". ' + \
+                    'Expected "str"'
                 )
 
         if len(args) > 1:
@@ -103,7 +99,9 @@ class JMException(Exception):
             self._traces = kwargs.get('tb') or _tb.extract_stack()
             del kwargs['tb']
         elif ('trace', 'traces') in kwargs:
-            self._traces = kwargs.get('trace', kwargs.get('traces')) or _tb.extract_stack()
+            self._traces = kwargs.get(
+                'trace', kwargs.get('traces')) or _tb.extract_stack()
+
             try:
                 del kwargs['trace']
             except KeyError:
@@ -126,7 +124,8 @@ class JMException(Exception):
         if self.__message is None:
             return f"{self.__class__.__name__}()"
 
-        return f"{self.__class__.__name__}({self.__message!r})"
+        return f"{self.__class__.__name__}({self.__message!r}, " + \
+               f"traceback: {type(self.__traces)!r})"
 
     def __str__(self) -> str:
         """
@@ -226,7 +225,7 @@ class JMUnknownTypeError(JMException, TypeError):
     __message: Optional[str]
     __traces:  Optional[_tb.StackSummary]
 
-    def __init__(self, *args, **kwargs) -> Self:
+    def __init__(self, *args, **kwargs) -> None:
         """Initialize self. See ``help(type(self))`` for accurate signature."""
 
         super().__init__(*args, **kwargs)
@@ -262,5 +261,10 @@ class JMUnknownTypeError(JMException, TypeError):
         return _tb.extract_stack()
 
 
-# Remove unnecessary variables
-del Any, Optional, Union, Self
+# Remove unnecessary variables,
+# only if the Python version is 3.11 and later...
+if _sys.version_info >= (3, 11):
+    del _os, _sys, _tb, _dtime
+
+# ...except for these variables, they can be safely removed
+del Any, Optional, Union
