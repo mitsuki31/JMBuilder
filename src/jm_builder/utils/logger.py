@@ -99,9 +99,7 @@ from .._globals import AUTHOR, STDERR
 from ..exception.jm_exc import JMUnknownTypeError as _JMTypeError
 
 
-__all__ = [
-    'init_logger', 'BASIC_FORMAT', 'CUSTOM_FORMAT',
-]
+__all__ = ['init_logger']
 __author__ = AUTHOR
 
 
