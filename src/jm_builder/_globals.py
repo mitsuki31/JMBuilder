@@ -1,52 +1,61 @@
 """Global Module for ``JM Builder``
 
-All global variables and properties are defined in this module.
+This module contains all global variables, constants, and classes
+used by the ``JM Builder`` package. It provides access to various
+path variables and other configurations used throughout the package.
 
 Copyright (c) 2023 Ryuu Mitsuki.
 
 
 Available Classes
 -----------------
-_JMCustomPath
-    This class provides all path variables that is used by ``JM Builder`` package.
-    All path variables in this class are read-only properties.
+_JMCustomPath :
+    A custom class that provides all path variables used by
+    the ``JM Builder`` package. All path variables in this class
+    are read-only properties, this means they cannot be modified.
+
 
 Available Constants
 -------------------
 AUTHOR : str
-    The author name.
+    The name of the author of the ``JM Builder`` package.
 
 BASEDIR : str or pathlib.Path
-    Provides path to the base directory of this package.
+    Provides the path to the base directory of the ``JM Builder`` package.
 
-    This is alias for `_JMCustomPath().basedir`.
+    This is an alias for `_JMCustomPath().basedir`.
 
 CONFDIR : str or pathlib.Path
-    Provides path to the specified directory that contains configuration
-    files for configuring ``JMBuilder`` package, the path itself is
-    relative to `BASEDIR`.
+    Provides the path to the directory that contains configuration
+    files for configuring the ``JM Builder`` package. The path itself
+    is relative to `BASEDIR`.
 
-    This is alias for `_JMCustomPath().confdir`.
+    This is an alias for `_JMCustomPath().confdir`.
 
 LOGSDIR : str or pathlib.Path
-    Provides path to the temporary directory that used by this package,
-    the path itself is relative to `BASEDIR`.
+    Provides the path to the directory used for logging by the
+    ``JM Builder`` package. The path itself is relative to `BASEDIR`.
 
-    This is alias for `_JMCustomPath().logsdir`.
+    This is an alias for `_JMCustomPath().logsdir`.
 
 STDOUT : TextIO
-    This is alias for `sys.stdout` and referenced to console standard
-    output.
+    An alias for `sys.stdout`, representing the standard output console.
 
 STDERR : TextIO
-    This is alias for `sys.stderr` and referenced to console standard
-    error.
+    An alias for `sys.stderr`, representing the standard error console.
 
 TMPDIR : str or pathlib.Path
-    Provides path to the logs directory that used by this package,
-    the path itself is relative to `BASEDIR`.
+    Provides the path to the temporary directory used by the
+    ``JM Builder`` package. The path itself is relative to `BASEDIR`.
 
-    This is alias for `_JMCustomPath().tmpdir`.
+    This is an alias for `_JMCustomPath().tmpdir`.
+
+
+Notes
+-----
+The `_JMCustomPath` class contains read-only properties for the path
+variables, and attempts to modify them will raise an `AttributeError`.
+
 """
 
 import os as _os
@@ -226,8 +235,7 @@ CONFDIR: Union[str, _Path] = _JMCustomPath().confdir
 STDOUT: TextIO = _sys.stdout
 STDERR: TextIO = _sys.stderr
 
-
-AUTHOR:  str = 'Ryuu Mitsuki'
+AUTHOR: str    = 'Ryuu Mitsuki'
 
 __author__ = AUTHOR
 __all__    = [
