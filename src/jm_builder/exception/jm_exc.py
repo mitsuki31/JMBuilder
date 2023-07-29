@@ -1,15 +1,16 @@
-"""Custom Exception Module for JMBuilder
+"""Custom Exception Module for ``JM Builder``
 
-This module contains all custom exception for ``JMBuilder`` package.
+This module contains all custom exception for ``JM Builder`` package.
 
 Copyright (c) 2023 Ryuu Mitsuki.
 
+
 Available Classes
 -----------------
-JMException
-    The base custom exception for ``JMBuilder`` package.
+JMException :
+    The base custom exception for ``JM Builder`` package.
 
-JMUnknownTypeError
+JMUnknownTypeError :
     The custom exception that raised when an unknown type error
     occurs during the execution of the package.
 """
@@ -29,11 +30,11 @@ from .._globals import AUTHOR
 
 __all__    = ['JMException', 'JMUnknownTypeError']
 __author__ = AUTHOR
-del AUTHOR
+
 
 class JMException(Exception):
     """
-    Base custom exception for ``JMBuilder`` package.
+    Base custom exception for ``JM Builder`` package.
 
     Parameters
     ----------
@@ -62,17 +63,22 @@ class JMException(Exception):
 
           # Use the `tb` keyword
           >>> JMException('An error occured', tb=foo)
+          JMException('An error occured', with_traceback: 'True')
 
           # Use the `trace` keyword
           >>> JMException('An error occured', trace=foo)
+          JMException('An error occured', with_traceback: 'True')
 
           # Use the `traces` keyword
           >>> JMException('An error occured', traces=foo)
+          JMException('An error occured', with_traceback: 'True')
 
     Notes
     -----
-    This custom exception extends the base ``Exception`` class and allows you to create
-    a custom exception with an optional message and traceback information.
+    This custom exception extends the base `Exception` class and allows
+    you to create a custom exception with an optional message and traceback
+    information.
+
     """
 
     __message:  Optional[str]
@@ -81,35 +87,49 @@ class JMException(Exception):
     def __init__(self, *args, **kwargs) -> None:
         """Initialize self. For accurate signature, see ``help(type(self))``."""
 
+        baseerr: str = f'Error occured during initializing {type(self)}'
+        tb_key:  str = None
+
         if len(args) > 0 and (args[0] and not isinstance(args[0], str)):
-            raise self.__class__(
-                f'Error occured during initializing {type(self)}') from \
+            raise self.__class__(baseerr) from \
                 TypeError(
                     f'Invalid type of `message`: "{type(args[0]).__name__}". ' + \
                     'Expected "str"'
                 )
 
-        if len(args) > 1:
-            self.__message = args[0] % args[1:]
-
-        self.__message = args[0] if len(args) > 0 else None
+        self.__message = None
         self.__traces  = None
 
-        if 'tb' in kwargs:
-            self._traces = kwargs.get('tb') or _tb.extract_stack()
-            del kwargs['tb']
-        elif ('trace', 'traces') in kwargs:
-            self._traces = kwargs.get(
-                'trace', kwargs.get('traces')) or _tb.extract_stack()
-
+        if len(args) > 1:
             try:
-                del kwargs['trace']
-            except KeyError:
-                del kwargs['traces']
+                self.__message = args[0] % args[1:]
+            except TypeError as type_err:
+                raise self.__class__(baseerr) from type_err
+
+        elif len(args) == 1:
+            self.__message = args[0]
+
+
+        if 'tb' in kwargs:
+            tb_key = 'tb'
+        elif ('trace', 'traces') in kwargs:
+            tb_key = 'trace' if 'trace' in kwargs else 'traces'
         else:
-            self._traces = _tb.extract_stack()
+            self.__traces = _tb.extract_stack()
+
+        if tb_key:
+            if not isinstance(kwargs[tb_key], _tb.StackSummary):
+                raise self.__class__(baseerr) from \
+                    TypeError(
+                        f'Invalid type of `tb`: "{type(kwargs[tb_key]).__name__}". ' +
+                        'Expected "traceback.StackSummary"'
+                    )
+
+            self.__traces = kwargs.get(tb_key)
+            del kwargs[tb_key]  # delete after stack traces retrieved
 
         super().__init__(self.__message, **kwargs)
+
 
     def __repr__(self) -> str:
         """
@@ -119,13 +139,19 @@ class JMException(Exception):
         -------
         str :
             The string representation of this exception, including the class name
-            and the message of this exception (if specified).
-        """
-        if self.__message is None:
-            return f"{self.__class__.__name__}()"
+            and the message of this exception (if specified), and the
+            `with_traceback` with a stringized boolean value.
 
+        Notes
+        -----
+        The `with_traceback` will have ``True`` value if and only if the
+        stack traces are defined either given from initialization class
+        or defaults to `traceback.extract_stack()`, otherwise ``False``
+        if there is no stack traces defined in this exception.
+
+        """
         return f"{self.__class__.__name__}({self.__message!r}, " + \
-               f"traceback: {type(self.__traces)!r})"
+               f"with_traceback: '{bool(self.__traces)}')"
 
     def __str__(self) -> str:
         """
@@ -154,7 +180,7 @@ class JMException(Exception):
 
         Returns
         -------
-        bool :
+        bool
             ``True`` if the given object are the same exception with the same message
             or if the given object are string with the same message as this exception,
             otherwise ``False``.
@@ -172,7 +198,7 @@ class JMException(Exception):
 
         Returns
         -------
-        str or None:
+        str or None
             The message of this exception. If not specified, returns ``None``.
         """
         return self.__message
@@ -184,7 +210,7 @@ class JMException(Exception):
 
         Returns
         -------
-        traceback.StackSummary :
+        traceback.StackSummary
             The stack traces of this exception. If not specified, returns
             the stack traces from ``traceback.extract_stack()``.
         """
@@ -204,23 +230,23 @@ class JMUnknownTypeError(JMException, TypeError):
 
     Parameters
     ----------
-    msg : str, optional
-        The error message to be displayed. If not specified, the message
-        will be set to ``None``.
+    *args
+        Variable length argument list.
 
     **kwargs
         Additional keyword arguments to customize the exception.
 
-    Attributes
+    Properties
     ----------
     message : str or None
         The message of this exception.
 
     traces : traceback.StackSummary or None
         The stack traces of this exception. If no traceback is provided during
-        the exception creation, it will be set to ``None`` and will be overrided
-        by ``traceback.extract_stack()``.
-    """
+        the exception creation, it will be set to ``None`` and will be
+        assigned with value of `traceback.extract_stack()`.
+
+   """
 
     __message: Optional[str]
     __traces:  Optional[_tb.StackSummary]
@@ -266,5 +292,5 @@ class JMUnknownTypeError(JMException, TypeError):
 if _sys.version_info >= (3, 11):
     del _os, _sys, _tb, _dtime
 
-# ...except for these variables, they can be safely removed
-del Any, Optional, Union
+# ...except for these variables, they can be safely deleted
+del AUTHOR, Any, Optional, Union
