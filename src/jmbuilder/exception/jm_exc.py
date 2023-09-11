@@ -13,6 +13,10 @@ JMException :
 JMUnknownTypeError :
     The custom exception that raised when an unknown type error
     occurs during the execution of the package.
+
+JMParserError :
+    Raised when an error has occurred during parsing the configuration.
+
 """
 
 import os as _os
@@ -28,7 +32,7 @@ from typing import (
 
 from .._globals import AUTHOR
 
-__all__    = ['JMException', 'JMUnknownTypeError']
+__all__    = ['JMException', 'JMUnknownTypeError', 'JMParserError']
 __author__ = AUTHOR
 
 
@@ -38,21 +42,21 @@ class JMException(Exception):
 
     Parameters
     ----------
-    *args
+    *args :
         Variable length argument list.
 
-    **kwargs
+    **kwargs :
         Arbitrary keyword arguments.
 
     Properties
     ----------
-    message : str or None
+    __message : str or None
         The message of this exception.
 
         To specify the message of this exception, consider place the message
         string at first argument.
 
-    traces : traceback.StackSummary or None
+    __traces : traceback.StackSummary or None
         The stack traces of this exception. If no traceback is provided during
         the exception creation, it will be set to ``None`` and will be overrided
         by ``traceback.extract_stack()``.
@@ -194,7 +198,7 @@ class JMException(Exception):
     @property
     def message(self) -> Optional[str]:
         """
-        Get the message of this exception.
+        Get the detail message of this exception.
 
         Returns
         -------
@@ -223,33 +227,20 @@ class JMException(Exception):
 
 class JMUnknownTypeError(JMException, TypeError):
     """
-    Custom exception for unknown type errors in the ``JMBuilder`` package.
+    Custom exception for unknown type errors in the ``JM Builder`` package.
 
     This exception is raised when an unknown type error occurs during
     the execution of the package.
 
     Parameters
     ----------
-    *args
+    *args :
         Variable length argument list.
 
-    **kwargs
+    **kwargs :
         Additional keyword arguments to customize the exception.
 
-    Properties
-    ----------
-    message : str or None
-        The message of this exception.
-
-    traces : traceback.StackSummary or None
-        The stack traces of this exception. If no traceback is provided during
-        the exception creation, it will be set to ``None`` and will be
-        assigned with value of `traceback.extract_stack()`.
-
-   """
-
-    __message: Optional[str]
-    __traces:  Optional[_tb.StackSummary]
+    """
 
     def __init__(self, *args, **kwargs) -> None:
         """Initialize self. See ``help(type(self))`` for accurate signature."""
@@ -261,7 +252,7 @@ class JMUnknownTypeError(JMException, TypeError):
     @property
     def message(self) -> Optional[str]:
         """
-        Get the message of this exception.
+        Get the detail message of this exception.
 
         Returns
         -------
@@ -279,7 +270,7 @@ class JMUnknownTypeError(JMException, TypeError):
         -------
         traceback.StackSummary :
             The stack traces of this exception. If not specified, returns
-            the stack traces from ``traceback.extract_stack()``.
+            the stack traces from `traceback.extract_stack()`.
         """
         if self.__traces and isinstance(self.__traces, _tb.StackSummary):
             return self.__traces
@@ -287,10 +278,56 @@ class JMUnknownTypeError(JMException, TypeError):
         return _tb.extract_stack()
 
 
-# Remove unnecessary variables,
-# only if the Python version is 3.11 and later...
-if _sys.version_info >= (3, 11):
-    del _os, _sys, _tb, _dtime
 
-# ...except for these variables, they can be safely deleted
+class JMParserError(JMException):
+    """
+    Raised when an error has occurred during parsing the configuration.
+
+    Parameters
+    ----------
+    *args :
+        Variable length argument list.
+
+    **kwargs :
+        Additional keyword arguments to customize the exception.
+
+    """
+
+    def __init__(self, *args, **kwargs) -> None:
+        """Initialize self. See ``help(type(self))`` for accurate signature."""
+
+        super().__init__(*args, **kwargs)
+        self.__message = super().message
+        self.__traces = super().traces
+
+    @property
+    def message(self) -> Optional[str]:
+        """
+        Get the detail message of this exception.
+
+        Returns
+        -------
+        str or None :
+            The detail message of this exception. If not specified, returns ``None``.
+
+        """
+        return self.__message
+
+    @property
+    def traces(self) -> _tb.StackSummary:
+        """
+        Get the stack traces of this exception.
+
+        Returns
+        -------
+        traceback.StackSummary :
+            The stack traces of this exception. If not specified, returns
+            the stack traces from `traceback.extract_stack()`.
+
+        """
+        return self.__traces
+
+
+
+# Remove unnecessary variables
 del AUTHOR, Any, Optional, Union

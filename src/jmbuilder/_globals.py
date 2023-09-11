@@ -245,10 +245,5 @@ __all__    = [
     'STDOUT', 'STDERR'
 ]
 
-# Remove unnecessary variables,
-# only if the Python version is 3.11 and later...
-if _sys.version_info >= (3, 11):
-    del _os, _sys, _Path
-
-# ...except for these variables, they can be safely deleted
+# Remove unnecessary variables
 del Type, TypeVar, TextIO, Union

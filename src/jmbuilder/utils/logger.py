@@ -187,10 +187,5 @@ def init_logger(filename: str = None, *, fmt: Union[str, _log.Formatter] = None,
     return logger
 
 
-# Remove unnecessary variables,
-# only if the Python version is 3.11 and later...
-if _sys.version_info >= (3, 11):
-    del _os, _sys, _log, _JMTypeError, STDERR
-
-# ...except for these variables, can be safely removed
+# Remove unnecessary variables
 del AUTHOR, Union
