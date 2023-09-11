@@ -47,9 +47,6 @@ from .exception import *
 from . import utils
 from .utils import *
 
-# _config
-from . import _config
-
 # _globals
 from . import _globals
 from ._globals import AUTHOR
@@ -61,7 +58,6 @@ __all__ = []
 __all__.extend(_globals.__all__)
 __all__.extend(exception.__all__)
 __all__.extend(utils.__all__)
-# __all__.extend(_config.__all__)
 
 # Remove unnecessary variables
 del AUTHOR
