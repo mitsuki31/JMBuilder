@@ -199,6 +199,21 @@ class _JMSetupConfRetriever:
 
 
     class FrozenJMVersion:
+        """
+        This class create frozen version for JMBuilder's version.
+
+        Parameters
+        ----------
+        major : int
+            The major version.
+
+        minor : int
+            The minor version.
+
+        patch : int
+            The patch version.
+
+        """
         def __init__(self, major: int, minor: int, patch: int) -> None:
             """Initialize self."""
             self.__frozen_version: tuple = (major, minor, patch)
@@ -287,7 +302,7 @@ class _JMSetupConfRetriever:
         ver: tuple = configs.get('Version')
 
         self.__jm_program_name: str = configs.get('Program-Name')
-        self.__jm_version: FrozenJMVersion = self.FrozenJMVersion(ver[0], ver[1], ver[2])
+        self.__jm_version: self.FrozenJMVersion = self.FrozenJMVersion(ver[0], ver[1], ver[2])
         self.__jm_author: str = configs.get('Author')
         self.__jm_license: str = configs.get('License')
 
@@ -342,6 +357,11 @@ class _JMSetupConfRetriever:
 
         """
         return self.__jm_license
+
+
+def setupinit() -> _JMSetupConfRetriever:
+    """Do nothing. This is alias to `_JMSetupConfRetriever()`."""
+    return _JMSetupConfRetriever()
 
 
 
