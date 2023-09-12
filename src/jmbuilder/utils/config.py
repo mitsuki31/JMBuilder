@@ -140,36 +140,36 @@ def json_parser(path: Optional[str] = None) -> dict:
         ) from _JMParserError(
             "Something went wrong while parsing the configuration file"
         )
-    else:
-        # Raise an error if the given path not `str` type
-        if not isinstance(path, str):
-            raise _JMTypeError(
-                f"Unknown type '{type(path).__name__}'. Expected 'str'"
-            ) from _JMParserError(
-                "Something went wrong while parsing the configuration file"
-            )
 
-        # Check existence
-        if not _os.path.exists(path):
-            raise FileNotFoundError(
-                f"No such file or directory: '{path}'"
-            ) from _JMParserError(
-                'Configuration file was not found'
-            )
+    # Raise an error if the given path not `str` type
+    if not isinstance(path, str):
+        raise _JMTypeError(
+            f"Unknown type '{type(path).__name__}'. Expected 'str'"
+        ) from _JMParserError(
+            "Something went wrong while parsing the configuration file"
+        )
 
-        # Check whether a directory or regular file
-        if _os.path.isdir(path):
-            raise IsADirectoryError(
-                f"Is a directory: '{path}'"
-            ) from _JMParserError(
-                'Directory found. No such configuration file'
-            )
+    # Check existence
+    if not _os.path.exists(path):
+        raise FileNotFoundError(
+            f"No such file or directory: '{path}'"
+        ) from _JMParserError(
+            'Configuration file was not found'
+        )
 
-        # Check the extension file
-        if not path.endswith('.json'):
-            raise _JMParserError(
-                'Unknown file type. No such JSON configuration file'
-            )
+    # Check whether a directory or regular file
+    if _os.path.isdir(path):
+        raise IsADirectoryError(
+            f"Is a directory: '{path}'"
+        ) from _JMParserError(
+            'Directory found. No such configuration file'
+        )
+
+    # Check the extension file
+    if not path.endswith('.json'):
+        raise _JMParserError(
+            'Unknown file type. No such JSON configuration file'
+        )
 
     configs: dict = {}
 
