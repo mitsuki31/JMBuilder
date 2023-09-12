@@ -142,7 +142,8 @@ class _JMCustomPath:
         if not isinstance(_type, type):
             err = TypeError(err % type(_type).__name__)
             raise err
-        elif isinstance(_type, type) and \
+
+        if isinstance(_type, type) and \
                  _type.__name__ not in ('str', 'Path', 'pathlib.Path'):
             err = TypeError(err % _type.__name__)
             raise err
