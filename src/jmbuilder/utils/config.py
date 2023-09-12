@@ -183,5 +183,167 @@ def json_parser(path: Optional[str] = None) -> dict:
     return configs
 
 
+
+class _JMSetupConfRetriever:
+    """
+    A class that retrieves and provides all setup configuration.
+
+    Notes
+    -----
+    This class only retrieves the setup configuration without any modification
+    methods to their values.
+
+    """
+
+    setupfile: str = _os.path.join(_get_confdir(str), 'setup.json')
+
+
+    class FrozenJMVersion:
+        def __init__(self, major: int, minor: int, patch: int) -> None:
+            """Initialize self."""
+            self.__frozen_version: tuple = (major, minor, patch)
+
+        def __repr__(self) -> str:
+            """
+            Return a string representation of the frozen version.
+
+            Returns
+            -------
+            str :
+                A string representation of the frozen version.
+
+            """
+            return f"{self.__class__.__name__}("         + \
+                   f"major={self.__frozen_version[0]}, " + \
+                   f"minor={self.__frozen_version[1]}, " + \
+                   f"patch={self.__frozen_version[2]})"
+
+        def __getitem__(self, index: int) -> int:
+            """
+            Get the version number with specified index.
+
+            Parameters
+            ----------
+            index : int
+                An index, the index must be 0 <= index < 3.
+
+            Returns
+            -------
+            int :
+                An integer representation the specified version number.
+
+            """
+            if 0 <= index < 3:
+                return self.__frozen_version[index]
+
+            raise IndexError(f'Index out of range: {index}')
+
+        @property
+        def major(self) -> int:
+            """
+            Get the major version from frozen version.
+
+            Returns
+            -------
+            int :
+                An integer representation of major version.
+
+            """
+            return self.__frozen_version[0]
+
+        @property
+        def minor(self) -> int:
+            """
+            Get the minot version from frozen version.
+
+            Returns
+            -------
+            int :
+                An integer representation of minor version.
+
+            """
+            return self.__frozen_version[1]
+
+        @property
+        def patch(self) -> int:
+            """
+            Get the patch version from frozen version.
+
+            Returns
+            -------
+            int :
+                An integer representation of patch version.
+
+            """
+            return self.__frozen_version[2]
+
+
+    def __init__(self) -> None:
+        """Initialize self."""
+
+        # Get all properties
+        configs: dict = json_parser(self.setupfile)
+
+        ver: tuple = configs.get('Version')
+
+        self.__jm_program_name: str = configs.get('Program-Name')
+        self.__jm_version: FrozenJMVersion = self.FrozenJMVersion(ver[0], ver[1], ver[2])
+        self.__jm_author: str = configs.get('Author')
+        self.__jm_license: str = configs.get('License')
+
+    @property
+    def progname(self) -> str:
+        """
+        Get the program name from setup configuration.
+
+        Returns
+        -------
+        str :
+            A string representation of program name.
+
+        """
+        return self.__jm_program_name
+
+    @property
+    def version(self) -> FrozenJMVersion:
+        """
+        Get the program version from setup configuration.
+
+        Returns
+        -------
+        tuple :
+            A tuple representation of program version.
+
+        """
+        return self.__jm_version
+
+    @property
+    def author(self) -> str:
+        """
+        Get the author name from setup configuration.
+
+        Returns
+        -------
+        str :
+            A string representation of author name.
+
+        """
+        return self.__jm_author
+
+    @property
+    def license(self) -> str:
+        """
+        Get the license name from setup configuration.
+
+        Returns
+        -------
+        str :
+            A string representation of license name.
+
+        """
+        return self.__jm_license
+
+
+
 # Delete unnecessary variables
 del Optional, Union, Type
