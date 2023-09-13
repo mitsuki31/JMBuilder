@@ -39,6 +39,9 @@ json_parser
         >>> json_parser('path/to/configs_file.json')
         {'foo': False, 'bar': True}
 
+setupinit
+    This function is alias function to initialize the `_JMSetupConfRetriever`.
+
 """
 
 import os as _os
@@ -71,7 +74,7 @@ def _get_confdir(_type: Union[Type[str], Type[_Path]] = str) -> Union[str, _Path
     ----------
     _type : type, optional
         The class type to cast the path. Defaults to Python's built-in
-        string type (`str`).
+        string type (`str`). Supported type is `str` and `pathlib.Path`.
 
     Returns
     -------
@@ -87,7 +90,7 @@ def _get_confdir(_type: Union[Type[str], Type[_Path]] = str) -> Union[str, _Path
     Notes
     -----
     This function returns the path to the configuration directory,
-    and you can specify the desired type of the output using the
+    and users can specify the desired type of the output using the
     `_type` parameter. By default, it returns the path as a string.
 
     Example
@@ -125,6 +128,23 @@ def json_parser(path: Optional[str] = None) -> dict:
     dict :
         A dictionary containing all parsed configurations from specified
         configuration file.
+
+    Raises
+    ------
+    JMParserError :
+        If something went wrong during parsing the configuration file.
+
+    ValueError :
+        If the given path is `None`.
+
+    JMUnknownTypeError :
+        If the given path's type are not `str`.
+
+    FileNotFoundError :
+        If the given path are refers to a non-existing file.
+
+    IsADirectoryError :
+        If the given path are refers to a directory instead a configuration file.
 
     Notes
     -----
@@ -246,6 +266,11 @@ class _JMSetupConfRetriever:
             -------
             int :
                 An integer representation the specified version number.
+
+            Raises
+            ------
+            IndexError :
+                If the given index is negative or greater than 2.
 
             """
             if 0 <= index < 3:

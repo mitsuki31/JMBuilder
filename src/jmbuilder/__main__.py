@@ -90,9 +90,10 @@ def main() -> None:
     # Trim the file name from command line arguments (at the first index)
     args: list = __sys.argv[1:]
 
+    # Check for `-V` or `--version` in the arguments
+    # If found, print the version info then exit with exit code zero (success)
     if __argchck(version_args, args):
         __print_version(_exit=True)
-
 
     # ... Still in development
 

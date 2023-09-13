@@ -1,6 +1,6 @@
-"""Custom Exception Module for ``JM Builder``
+"""Custom Exceptions Module for `JMBuilder`
 
-This module contains all custom exception for ``JM Builder`` package.
+This module provides all custom exceptions for `JMBuilder`.
 
 Copyright (c) 2023 Ryuu Mitsuki.
 
@@ -8,11 +8,11 @@ Copyright (c) 2023 Ryuu Mitsuki.
 Available Classes
 -----------------
 JMException :
-    The base custom exception for ``JM Builder`` package.
+    The base custom exception for `JMBuilder`.
 
 JMUnknownTypeError :
     The custom exception that raised when an unknown type error
-    occurs during the execution of the package.
+    occurs during the execution of the software.
 
 JMParserError :
     Raised when an error has occurred during parsing the configuration.
@@ -23,12 +23,7 @@ import os as _os
 import sys as _sys
 import traceback as _tb
 
-from datetime import datetime as _dtime
-from typing import (
-    Optional,
-    Union,
-    Any
-)
+from typing import Optional, Any
 
 from .._globals import AUTHOR
 
@@ -38,55 +33,84 @@ __author__ = AUTHOR
 
 class JMException(Exception):
     """
-    Base custom exception for ``JM Builder`` package.
+    Base custom exception for `JMBuilder`. This class also provides
+    traceback control (i.e., customizable).
 
     Parameters
     ----------
-    *args :
-        Variable length argument list.
+    *args : list of positional arguments
+        This parameter accepts a variable number of arguments. It treats the
+        first argument as a format message and the subsequent arguments as
+        format arguments. If only one argument is specified, it will be treated
+        as a literal message. The formatting follows the conventions of C-style
+        string formatting. For example::
 
-    **kwargs :
-        Arbitrary keyword arguments.
+            # Assuming we have an index variable with a value of 5
+            >>> JMException('Invalid index: %d', index)
+            JMException('Invalid index: 5', custom_traceback=False)
+
+            # Using multiple format arguments
+            >>> JMException('Invalid index: %d, at file: %s', 2, 'foo.py')
+            JMException('Invalid index: 2, at file foo.py', custom_traceback=False)
+
+    **kwargs : keyword arguments
+        Arbitrary keyword arguments are accepted. Users can also unpack a
+        dictionary into this parameter. All keyword arguments will be passed to
+        the base exception class (i.e., the `Exception` class), except for the
+        following reserved keywords:
+
+            - `tb`
+            - `trace`
+            - `traces`
+
+        These reserved keywords allow users to control the exception's
+        traceback behavior. If more than one of these keywords is specified,
+        the `tb` keyword will take precedence. However, be cautious when
+        specifying multiple reserved keywords, as this can lead to unexpected
+        behavior due to other arguments being passed to the base exception
+        class.
 
     Properties
     ----------
-    __message : str or None
+    message : str or None
         The message of this exception.
 
         To specify the message of this exception, consider place the message
         string at first argument.
 
-    __traces : traceback.StackSummary or None
+    traces : traceback.StackSummary
         The stack traces of this exception. If no traceback is provided during
-        the exception creation, it will be set to ``None`` and will be overrided
-        by ``traceback.extract_stack()``.
+        the exception creation, it will be overrided by `traceback.extract_stack()`.
 
-        To specify the stack traces of this exception, consider use keyword
-        `tb`, `trace` or `traces`, with the value separated by `=`.
+        To manually override the stack traces of this exception, consider use keyword
+        `tb`, `trace` or `traces`, with the value separated by equals sign (`=`).
         For example::
 
-          # Use the `tb` keyword
-          >>> JMException('An error occured', tb=foo)
-          JMException('An error occured', with_traceback: 'True')
+            # Use the `tb` keyword
+            >>> JMException('An error occured', tb=foo)
+            JMException('An error occured', custom_traceback=True)
 
-          # Use the `trace` keyword
-          >>> JMException('An error occured', trace=foo)
-          JMException('An error occured', with_traceback: 'True')
+            # Use the `trace` keyword
+            >>> JMException('An error occured', trace=foo)
+            JMException('An error occured', custom_traceback=True)
 
-          # Use the `traces` keyword
-          >>> JMException('An error occured', traces=foo)
-          JMException('An error occured', with_traceback: 'True')
+            # Use the `traces` keyword
+            >>> JMException('An error occured', traces=foo)
+            JMException('An error occured', custom_traceback=True)
 
-    Notes
-    -----
-    This custom exception extends the base `Exception` class and allows
-    you to create a custom exception with an optional message and traceback
-    information.
+    Raises
+    ------
+    TypeError :
+        If the given arguments (other than the first argument) are different with
+        the format specifier at the first argument. For instance::
+
+            >>> JMBuilder('Syntax error at line: %d', '44')
+            TypeError: %d format: a real number is required, not str
 
     """
 
-    __message:  Optional[str]
-    __traces:   Optional[_tb.StackSummary]
+    message:  Optional[str]
+    traces:   _tb.StackSummary
 
     def __init__(self, *args, **kwargs) -> None:
         """Initialize self. For accurate signature, see ``help(type(self))``."""
@@ -101,8 +125,9 @@ class JMException(Exception):
                     'Expected "str"'
                 )
 
-        self.__message = None
-        self.__traces  = None
+        self.__message              = None
+        self.__traces               = None
+        self.__use_custom_traceback = False
 
         if len(args) > 1:
             try:
@@ -113,24 +138,28 @@ class JMException(Exception):
         elif len(args) == 1:
             self.__message = args[0]
 
-
+        # Check the custom stack traces in keyword arguments (kwargs)
         if 'tb' in kwargs:
             tb_key = 'tb'
-        elif ('trace', 'traces') in kwargs:
+            self.__use_custom_traceback = True
+        elif 'trace' in kwargs or 'traces' in kwargs:
             tb_key = 'trace' if 'trace' in kwargs else 'traces'
+            self.__use_custom_traceback = True
         else:
             self.__traces = _tb.extract_stack()
 
+        # Check the instance of 'tb_key', otherwise pass if None
         if tb_key:
             if not isinstance(kwargs[tb_key], _tb.StackSummary):
                 raise self.__class__(baseerr) from \
                     TypeError(
-                        f'Invalid type of `tb`: "{type(kwargs[tb_key]).__name__}". ' +
+                        f'Unknown type: "{type(kwargs[tb_key]).__name__}". ' +
                         'Expected "traceback.StackSummary"'
                     )
 
+            # Retrieve the custom traceback
             self.__traces = kwargs.get(tb_key)
-            del kwargs[tb_key]  # delete after stack traces retrieved
+            del kwargs[tb_key]  # delete after retrieved the stack traces
 
         super().__init__(self.__message, **kwargs)
 
@@ -155,7 +184,7 @@ class JMException(Exception):
 
         """
         return f"{self.__class__.__name__}({self.__message!r}, " + \
-               f"with_traceback: '{bool(self.__traces)}')"
+               f"custom_traceback={self.__use_custom_traceback})"
 
     def __str__(self) -> str:
         """
@@ -170,6 +199,7 @@ class JMException(Exception):
         -----
         This method will never returns ``NoneType`` when the message are not specified,
         instead it returns the empty string.
+
         """
         return f'{self.__message}' if self.__message is not None else ''
 
@@ -188,6 +218,7 @@ class JMException(Exception):
             ``True`` if the given object are the same exception with the same message
             or if the given object are string with the same message as this exception,
             otherwise ``False``.
+
         """
         if isinstance(other, (self.__class__, str)):
             return str(self) == str(other)
@@ -204,6 +235,7 @@ class JMException(Exception):
         -------
         str or None
             The message of this exception. If not specified, returns ``None``.
+
         """
         return self.__message
 
@@ -217,6 +249,7 @@ class JMException(Exception):
         traceback.StackSummary
             The stack traces of this exception. If not specified, returns
             the stack traces from ``traceback.extract_stack()``.
+
         """
         if self.__traces and isinstance(self.__traces, _tb.StackSummary):
             return self.__traces
@@ -227,18 +260,22 @@ class JMException(Exception):
 
 class JMUnknownTypeError(JMException, TypeError):
     """
-    Custom exception for unknown type errors in the ``JM Builder`` package.
+    Custom exception for unknown type errors.
 
     This exception is raised when an unknown type error occurs during
-    the execution of the package.
+    the execution of the software.
 
     Parameters
     ----------
-    *args :
-        Variable length argument list.
+    *args : list of arguments
+        This parameter accepts a variable number of arguments.
 
-    **kwargs :
+    **kwargs : keyword arguments
         Additional keyword arguments to customize the exception.
+
+    Notes
+    -----
+    For more details about arguments, see `JMException` documentation.
 
     """
 
@@ -258,6 +295,7 @@ class JMUnknownTypeError(JMException, TypeError):
         -------
         str or None :
             The message of this exception. If not specified, returns ``None``.
+
         """
         return self.__message
 
@@ -271,6 +309,7 @@ class JMUnknownTypeError(JMException, TypeError):
         traceback.StackSummary :
             The stack traces of this exception. If not specified, returns
             the stack traces from `traceback.extract_stack()`.
+
         """
         if self.__traces and isinstance(self.__traces, _tb.StackSummary):
             return self.__traces
@@ -285,11 +324,15 @@ class JMParserError(JMException):
 
     Parameters
     ----------
-    *args :
-        Variable length argument list.
+    *args : list of arguments
+        This parameter accepts a variable number of arguments.
 
-    **kwargs :
+    **kwargs : keyword arguments
         Additional keyword arguments to customize the exception.
+
+    Notes
+    -----
+    For more details about arguments, see `JMException` documentation.
 
     """
 
@@ -330,4 +373,4 @@ class JMParserError(JMException):
 
 
 # Remove unnecessary variables
-del AUTHOR, Any, Optional, Union
+del AUTHOR, Any, Optional
