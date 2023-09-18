@@ -45,14 +45,18 @@ setupinit
 """
 
 import os as _os
+import io as _io
 import sys as _sys
 import json as _json
+import locale as _locale
+import collections as _collections
 from pathlib import Path as _Path
 from typing import (
     List,
     Optional,
     Union,
-    Type
+    Type,
+    TextIO
 )
 
 from .._globals import AUTHOR, CONFDIR
@@ -463,5 +467,120 @@ def setupinit() -> _JMSetupConfRetriever:
 
 
 
+class JMProperties(_collections.UserDict):
+    """
+    This class provides a convenient way to parse properties files
+    and access their contents.
+
+    Parameters
+    ----------
+    filename : str or TextIO
+        The filename or file object to read properties from. If a filename is
+        provided, it checks for the file's existence, opens the file stream,
+        and retrieves the properties. If a file object is provided, it directly
+        reads the properties from it.
+
+    encoding : str, optional
+        The encoding to use when opening the file stream. If not specified,
+        it uses the encoding from `locale.getpreferredencoding()`.
+
+    Attributes
+    ----------
+    data : dict
+        A dictionary containing all the parsed properties.
+
+    filename : str
+        The path to the property file.
+
+    Raises
+    ------
+    JMParserError :
+        If an error occurs while reading and parsing the properties file.
+
+    FileNotFoundError :
+        If the specified file path does not exist.
+
+    ValueError :
+        If the `filename` parameter is None.
+
+    """
+    def __init__(self, filename: Union[str, TextIO], *,
+                 encoding: str = None) -> None:
+        """Initialize self."""
+
+        if isinstance(filename, str):
+            self.filename = _os.path.abspath(filename)
+
+        # If encoding is not specified, use the system's preferred encoding
+        encoding = encoding if encoding else _locale.getencoding()
+
+        # Raise FileNotFoundError, if the given file are not exist
+        # First these code below will checks whether the given file is not None
+        # and its type is `str`
+        if self.filename and \
+                isinstance(self.filename, str) and \
+                not _os.path.exists(self.filename):
+            raise FileNotFoundError(f"File not found: '{filename}'") \
+                from _JMParserError(
+                    'The specified path does not reference any property file ' +
+                    'or the file does not exist'
+                )
+        elif not self.filename:
+            raise ValueError('The file parameter cannot be None')
+
+        self.data = {}
+        contents: list = []
+
+        # Open and read the contents if the given file is of type `str`
+        if isinstance(filename, str):
+            with open(filename, 'r', encoding=encoding) as prop:
+                contents = prop.readlines()
+        elif isinstance(filename, _io.TextIOWrapper):
+            contents = filename.readlines()
+
+            # Get the name of property file
+            self.filename = filename.name
+
+        # Define lambda functions to clean and split lines
+        blank_remover = lambda line: line.strip()
+        colon_splitter = lambda line: line.split(':', maxsplit=1)
+        equalsign_splitter = lambda line: line.split('=', maxsplit=1)
+
+        # Extract file contents, remove comments and empty strings
+        contents = list(map(blank_remover, contents))
+        contents = remove_comments(contents, '#')
+        contents = remove_empty(contents, none=True)
+
+        # First, try to split the keys and values using equals sign (=) as a delimiter
+        data: Optional[list] = list(map(equalsign_splitter, contents))
+        keys, values = None, None
+
+        # Check if the first try has extracted the keys and values successfully
+        # If the length of each element is one, it indicates extraction failure,
+        # so we try splitting using a colon (:) as a delimiter
+        if data and len(data[0]) == 1:
+            # In this second try, use a colon (:) as a delimiter
+            # for keys and values
+            data = list(map(colon_splitter, contents))
+
+        try:
+            # Unpack keys and values into variables (errors can occur here)
+            keys, values = zip(*data)
+        except (ValueError, TypeError) as type_val_err:
+            raise type_val_err from _JMParserError(
+                'Unable to unpack keys and values'
+            )
+
+        # Remove trailing whitespace in keys and values
+        keys = tuple(map(blank_remover, keys))
+        values = tuple(map(blank_remover, values))
+
+        # Build the dictionary from extracted keys and values
+        self.data = dict(zip(keys, values))
+
+
+
 # Delete unnecessary variables
-del Optional, Union, Type
+del List, Optional, Union, Type, TextIO
+
+
