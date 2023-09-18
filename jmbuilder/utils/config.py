@@ -49,6 +49,7 @@ import sys as _sys
 import json as _json
 from pathlib import Path as _Path
 from typing import (
+    List,
     Optional,
     Union,
     Type
@@ -112,16 +113,15 @@ def _get_confdir(_type: Union[Type[str], Type[_Path]] = str) -> Union[str, _Path
     return _type(CONFDIR)
 
 
-def json_parser(path: Optional[str] = None) -> dict:
+def json_parser(path: str) -> dict:
     """
     Parse and retrieve all configurations from specified JSON
     configuration file.
 
     Parameters
     ----------
-    path : str or None, optional
+    path : str
         The path to specify the configuration file to be parsed.
-        Defaults to `_get_confdir(str)`.
 
     Returns
     -------
@@ -201,6 +201,79 @@ def json_parser(path: Optional[str] = None) -> dict:
             configs = _json.loads(contents)  # return a dictionary
 
     return configs
+
+
+
+def remove_comments(contents: List[str], delim: str = '#') -> List[str]:
+    """
+    Remove lines starting with a specified delimiter.
+
+    This function removes lines from the input list of contents that start
+    with the specified delimiter. It returns a new contents with comments removed.
+
+    Parameters
+    ----------
+    contents : List[str]
+        A list of strings representing the contents of a file.
+
+    delim : str, optional
+        The delimiter used to identify comment lines. Lines starting with
+        this delimiter will be removed. The default is '#'.
+
+    Returns
+    -------
+    List[str] :
+        A new contents with comment lines (specified by delimiter) removed.
+
+    Raises
+    ------
+    ValueError :
+        If the input list `contents` is empty.
+
+    """
+    if not contents or len(contents) == 0:
+        raise ValueError('File contents cannot be empty')
+
+    # Use a list comprehension to filter out lines starting with the delimiter
+    return [line for line in contents if not line.startswith(delim)]
+
+
+
+def remove_empty(contents: List[str], none: bool = True) -> List[str]:
+    """
+    Remove empty lines from a list of strings.
+
+    This function removes empty lines (lines with no content) and lines
+    containing only whitespace from the input list of strings. Optionally,
+    it can removes lines containing `None`.
+
+    Parameters
+    ----------
+    contents : List[str]
+        A list of strings representing the contents of a file.
+
+    none : bool, optional
+        If True, lines containing `None` are also removed.
+        If False, only lines with no content are removed. The default is True.
+
+    Returns
+    -------
+    List[str] :
+        A new contents with empty lines removed.
+
+    Raises
+    ------
+    ValueError :
+        If the input list `contents` is empty.
+
+    """
+    if not contents or len(contents) == 0:
+        raise ValueError('File contents cannot be empty')
+
+    if none:
+        return [line for line in contents if line or line.strip() != '']
+
+    return [line for line in contents if line.strip() != '']
 
 
 
