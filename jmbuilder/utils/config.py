@@ -9,38 +9,68 @@ Copyright (c) 2023 Ryuu Mitsuki.
 Available Functions
 -------------------
 _get_confdir
-    This method returns the path to the configuration directory with
+    This utility function returns the path to the configuration directory with
     the specified class type for casting the path. Defaults to `str`.
 
     The class type is only supported the `str` and `pathlib.Path`.
-    For example::
 
-      # Import the module
-      >>> import pathlib
-      >>> from jm_builder import _config
+    Examples::
 
       # Get the path without argument, it will default returns `str`
-      >>> _config._get_confdir()
+      >>> _get_confdir()
       '/path/to/configuration/directory'
 
       # Get the path with argument and cast the path with `Path` class
-      >>> _config._get_confdir(pathlib.Path)
+      >>> _get_confdir(pathlib.Path)
       PosixPath('/path/to/configuration/directory')
 
-    This method is alias for `_JMCustomPath(T).confdir`, with ``T``
+    This function is alias for `jmbuilder._JMCustomPath(T).confdir`, with `T`
     is the class type for cast the path.
 
 json_parser
-    This function provides an easy way to parses and retrieves all
+    This utility function provides an easy way to parses and retrieves all
     configurations from JSON configuration files.
 
-    For example::
+    Examples::
 
         >>> json_parser('path/to/configs_file.json')
         {'foo': False, 'bar': True}
 
 setupinit
-    This function is alias function to initialize the `_JMSetupConfRetriever`.
+    This utility function is alias function to initialize the `_JMSetupConfRetriever`.
+
+remove_comments
+    This utility function can remove lines from a list of strings representing
+    the file contents that starting with a specified delimiter and returns
+    a new list with lines starting with a specified delimiter removed.
+    This function are designed for removing comments lines from file contents.
+
+    Examples::
+
+        # Read file contents
+        >>> contents = []
+        >>> with open('path/to/example.txt') as f:
+        ...     contents = f.readlines()
+        ...
+        >>> contents
+        ['Hello', '# This is comment line', 'World']
+
+        >>> remove_comments(contents, delim='#')
+        ['Hello', 'World']
+
+remove_blanks
+    This utility function can remove blank lines from the list of strings
+    representing the file contents, and optionally remove lines with value `None`.
+    Return a new list with blank lines removed.
+
+    Examples::
+
+        >>> contents = ['', 'Foo', None, '', '1234']
+        >>> remove_blanks(contents, none=False)  # Ignore None
+        ['Foo', None, '1234']
+
+        >>> remove_blanks(contents, none=True)
+        ['Foo', '1234']
 
 """
 
@@ -98,8 +128,8 @@ def _get_confdir(_type: Union[Type[str], Type[_Path]] = str) -> Union[str, _Path
     and users can specify the desired type of the output using the
     `_type` parameter. By default, it returns the path as a string.
 
-    Example
-    -------
+    Examples
+    --------
     >>> jmbuilder._config.get_confdir()
     '/path/to/configuration/directory'
 
@@ -234,6 +264,20 @@ def remove_comments(contents: List[str], delim: str = '#') -> List[str]:
     ValueError :
         If the input list `contents` is empty.
 
+    Notes
+    -----
+    Multiple specified delimiters cannot be removed in a single call to
+    this function. Although the problem can be fixed by executing the
+    procedure as many times depending on the delimiters that need
+    to be removed. But still it is not a convenient way.
+
+    Examples::
+
+        # Suppose we want to remove lines that starting with
+        # hashtags (#) and exclamation marks (!).
+        >>> remove_comments(
+        ...     remove_comments(contents, delim='#'), delim='!')
+
     """
     if not contents or len(contents) == 0:
         raise ValueError('File contents cannot be empty')
@@ -284,6 +328,11 @@ def remove_blanks(contents: List[str], none: bool = True) -> List[str]:
 class _JMSetupConfRetriever:
     """
     A class that retrieves and provides all setup configuration.
+
+    Attributes
+    ----------
+    setupfile :
+        A string path reference to the setup configuration file.
 
     Notes
     -----
@@ -416,7 +465,7 @@ class _JMSetupConfRetriever:
         Returns
         -------
         str :
-            A string representation of program name.
+            A string representing the program name.
 
         """
         return self.__jm_program_name
@@ -429,7 +478,7 @@ class _JMSetupConfRetriever:
         Returns
         -------
         tuple :
-            A tuple representation of program version.
+            A tuple representing the module version.
 
         """
         return self.__jm_version
@@ -442,7 +491,7 @@ class _JMSetupConfRetriever:
         Returns
         -------
         str :
-            A string representation of author name.
+            A string representing the author name.
 
         """
         return self.__jm_author
@@ -455,7 +504,7 @@ class _JMSetupConfRetriever:
         Returns
         -------
         str :
-            A string representation of license name.
+            A string representing the license name.
 
         """
         return self.__jm_license
