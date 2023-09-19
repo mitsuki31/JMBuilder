@@ -97,7 +97,7 @@ from ..exception.jm_exc import (
 
 
 __author__ = AUTHOR
-__all__    = ['json_parser']
+__all__    = ['json_parser', 'remove_comments', 'remove_blanks']
 del AUTHOR
 
 
