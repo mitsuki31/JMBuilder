@@ -243,7 +243,7 @@ def remove_comments(contents: List[str], delim: str = '#') -> List[str]:
 
 
 
-def remove_empty(contents: List[str], none: bool = True) -> List[str]:
+def remove_blanks(contents: List[str], none: bool = True) -> List[str]:
     """
     Remove empty lines from a list of strings.
 
@@ -549,7 +549,7 @@ class JMProperties(_collections.UserDict):
         # Extract file contents, remove comments and empty strings
         contents = list(map(blank_remover, contents))
         contents = remove_comments(contents, '#')
-        contents = remove_empty(contents, none=True)
+        contents = remove_blanks(contents, none=True)
 
         # First, try to split the keys and values using equals sign (=) as a delimiter
         data: Optional[list] = list(map(equalsign_splitter, contents))
@@ -582,5 +582,3 @@ class JMProperties(_collections.UserDict):
 
 # Delete unnecessary variables
 del List, Optional, Union, Type, TextIO
-
-
