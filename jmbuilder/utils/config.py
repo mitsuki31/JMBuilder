@@ -556,11 +556,71 @@ class JMProperties(_collections.UserDict):
                  encoding: str = None) -> None:
         """Initialize self."""
 
+        def __blank_remover(contents: list) -> list:
+            """
+            Remove trailing whitespace and newline character from the contents.
+
+            Parameters
+            ----------
+            contents : list
+                A list representing contents of file.
+
+            Returns
+            -------
+            list :
+                A new list with trailing whitespace and newline characters removed.
+
+            """
+            return [line.strip() for line in contents]
+
+        def __line_splitter(contents: list, delim: str) -> list:
+            """
+            Split the given string using specified delimiters from the contents.
+
+            Parameters
+            ----------
+            contents : list
+                A list representing contents of file.
+
+            delim: str
+                The delimiter to be used for.
+
+            Returns
+            -------
+            list :
+                A new list with each entries contains two strings that
+                representing a key and value respectively.
+
+            Notes
+            -----
+            The failed result can be indicated by checking the length of
+            an entry from the returned list. If the length is equals to 1,
+            it indicates the function cannot splits the contents using the
+            given delimiter (it may due to the delimiter does not present
+            in the contents).
+
+            For clarity, here's some examples::
+
+                >>> contents = ['foo: bar', 'pswd: helloWORLD']
+                >>> new_contents = __line_splitter(contents, '$')
+                >>> len(new_contents[0])  # Check the length
+                1  # Failed to split due to the delim not present in contents
+
+                >>> new_contents = __line_splitter(contents, ':')
+                >>> len(new_contents[0])
+                2  # Succeed
+
+            """
+            return [line.split(delim, maxsplit=1) for line in contents]
+
         if isinstance(filename, str):
             self.filename = _os.path.abspath(filename)
 
         # If encoding is not specified, use the system's preferred encoding
         encoding = encoding if encoding else _locale.getencoding()
+
+        if not self.filename:
+            raise ValueError("The 'filename' parameter cannot be None")
 
         # Raise FileNotFoundError, if the given file are not exist
         # First these code below will checks whether the given file is not None
@@ -573,10 +633,8 @@ class JMProperties(_collections.UserDict):
                     'The specified path does not reference any property file ' +
                     'or the file does not exist'
                 )
-        elif not self.filename:
-            raise ValueError('The file parameter cannot be None')
 
-        self.data = {}
+        properties_data: dict = {}
         contents: list = []
 
         # Open and read the contents if the given file is of type `str`
@@ -589,18 +647,13 @@ class JMProperties(_collections.UserDict):
             # Get the name of property file
             self.filename = filename.name
 
-        # Define lambda functions to clean and split lines
-        blank_remover = lambda line: line.strip()
-        colon_splitter = lambda line: line.split(':', maxsplit=1)
-        equalsign_splitter = lambda line: line.split('=', maxsplit=1)
-
         # Extract file contents, remove comments and empty strings
-        contents = list(map(blank_remover, contents))
+        contents = __blank_remover(contents)
         contents = remove_comments(contents, '#')
         contents = remove_blanks(contents, none=True)
 
         # First, try to split the keys and values using equals sign (=) as a delimiter
-        data: Optional[list] = list(map(equalsign_splitter, contents))
+        data: Optional[list] = __line_splitter(contents, delim='=')
         keys, values = None, None
 
         # Check if the first try has extracted the keys and values successfully
@@ -609,7 +662,7 @@ class JMProperties(_collections.UserDict):
         if data and len(data[0]) == 1:
             # In this second try, use a colon (:) as a delimiter
             # for keys and values
-            data = list(map(colon_splitter, contents))
+            data = __line_splitter(contents, delim=':')
 
         try:
             # Unpack keys and values into variables (errors can occur here)
@@ -620,11 +673,13 @@ class JMProperties(_collections.UserDict):
             )
 
         # Remove trailing whitespace in keys and values
-        keys = tuple(map(blank_remover, keys))
-        values = tuple(map(blank_remover, values))
+        keys = tuple(__blank_remover(keys))
+        values = tuple(__blank_remover(values))
 
         # Build the dictionary from extracted keys and values
-        self.data = dict(zip(keys, values))
+        properties_data = dict(zip(keys, values))
+
+        super().__init__(properties_data)
 
 
 
