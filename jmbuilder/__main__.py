@@ -46,7 +46,7 @@ def __print_version(_exit: bool = False, *, file: TextIO = __sys.stdout) -> None
     _setupcls: __config._JMSetupConfRetriever = __config.setupinit()
 
     program_name: str = _setupcls.progname
-    version:      str = 'v{}'.format('.'.join(map(str, _setupcls.version)))
+    version:      str = f"v{'.'.join(map(str, _setupcls.version))}"
     author:       str = _setupcls.author
 
     print(
