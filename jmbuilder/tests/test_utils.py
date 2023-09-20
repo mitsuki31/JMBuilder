@@ -26,25 +26,29 @@ class TestUtilities(unittest.TestCase):
 
     def test_get_confdir(self) -> None:
         """Test the `jmbuilder.utils.config._get_confdir` function."""
+        test_obj = jmutils.config._get_confdir
+
         expected_types: tuple = (type(CONFDIR), pathlib.Path)
         expected_reprs: tuple = (repr(CONFDIR), repr(pathlib.Path(CONFDIR)))
 
         confdirs: tuple = (
-            jmutils.config._get_confdir(expected_types[0]),
-            jmutils.config._get_confdir(expected_types[1])
+            test_obj(expected_types[0]),
+            test_obj(expected_types[1])
         )
 
         for i in range(2):
             self.assertIsInstance(confdirs[i], expected_types[i])
             self.assertEqual(repr(confdirs[0]), expected_reprs[0])
 
-    def test_jsonparser(self) -> None:
-        """Test the `jmbuilder.utils.config.jsonparser` function."""
+    def test_json_parser(self) -> None:
+        """Test the `jmbuilder.utils.config.json_parser` function."""
+        test_obj = jmutils.config.json_parser
+
         # Check the existence of config file
         self.assertTrue(os.path.exists(self.jsonfile))
 
         # Get the config data
-        jsondata: dict = jmutils.config.json_parser(self.jsonfile)
+        jsondata: dict = test_obj(self.jsonfile)
         self.assertIsNotNone(jsondata)
         self.assertIsInstance(jsondata, dict)
 
@@ -57,7 +61,9 @@ class TestUtilities(unittest.TestCase):
 
     def test_setupinit(self) -> None:
         """Test the `jmbuilder.utils.config.setupinit` function."""
-        jm_setup = jmutils.config.setupinit()
+        test_obj = jmutils.config.setupinit
+
+        jm_setup = test_obj()
         jsondata: dict = jmutils.config.json_parser(self.jsonfile)
 
         self.assertIsNotNone(jm_setup)  # First check that returned instance is not None
@@ -75,6 +81,48 @@ class TestUtilities(unittest.TestCase):
 
         # Check the equality for both dictionaries
         self.assertDictEqual(jm_setup, jsondata)
+
+
+    def test_remove_comments(self) -> None:
+        """Test the `jmbuilder.utils.config.remove_comments` function."""
+        test_obj = jmutils.config.remove_comments
+
+        contents: list = [
+            'Hello, world!',
+            '# This is a comment, you know.',
+            '! This is also a comment',
+            'Foo And Bar'
+        ]
+
+        expected_contents: tuple = (
+            [
+                'Hello, world!',
+                '! This is also a comment',
+                'Foo And Bar'
+            ],
+            [
+                'Hello, world!',
+                '# This is a comment, you know.',
+                'Foo And Bar'
+            ],
+            [
+                'Hello, world!',
+                'Foo And Bar'
+            ]
+        )
+
+        expected_delimiters: tuple = ('#', '!')
+
+        for i, delimiter in enumerate(expected_delimiters):
+            self.assertListEqual(
+                test_obj(contents, delim=delimiter),
+                expected_contents[i]
+            )
+
+        self.assertListEqual(test_obj(
+            test_obj(contents, delim=expected_delimiters[0]),
+            delim=expected_delimiters[1]
+        ), expected_contents[2])
 
 
 if __name__ == '__main__':
