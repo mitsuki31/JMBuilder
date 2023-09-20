@@ -25,8 +25,8 @@ class TestUtilities(unittest.TestCase):
     jsonfile: str = os.path.join(CONFDIR, 'setup.json')
 
     def test_get_confdir(self) -> None:
-        """Test the `jmbuilder.utils.config._get_confdir` function."""
-        test_obj = jmutils.config._get_confdir
+        """Test the `jmbuilder.utils.config.get_confdir` function."""
+        test_obj = jmutils.config.get_confdir
 
         expected_types: tuple = (type(CONFDIR), pathlib.Path)
         expected_reprs: tuple = (repr(CONFDIR), repr(pathlib.Path(CONFDIR)))
@@ -145,7 +145,9 @@ class TestUtilities(unittest.TestCase):
             ]
         )
 
-        for i in range(len(expected_contents)):
+
+        len_exp_contents: int = len(expected_contents)
+        for i in range(len_exp_contents):
             self.assertListEqual(
                 # Pass any numbers other than zero to `bool` will returning True value,
                 # including negative numbers

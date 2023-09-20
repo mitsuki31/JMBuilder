@@ -8,7 +8,7 @@ Copyright (c) 2023 Ryuu Mitsuki.
 
 Available Functions
 -------------------
-_get_confdir
+get_confdir
     This utility function returns the path to the configuration directory with
     the specified class type for casting the path. Defaults to `str`.
 
@@ -17,11 +17,11 @@ _get_confdir
     Examples::
 
       # Get the path without argument, it will default returns `str`
-      >>> _get_confdir()
+      >>> get_confdir()
       '/path/to/configuration/directory'
 
       # Get the path with argument and cast the path with `Path` class
-      >>> _get_confdir(pathlib.Path)
+      >>> get_confdir(pathlib.Path)
       PosixPath('/path/to/configuration/directory')
 
     This function is alias for `jmbuilder._JMCustomPath(T).confdir`, with `T`
@@ -101,7 +101,7 @@ __all__    = ['json_parser', 'remove_comments', 'remove_blanks']
 del AUTHOR
 
 
-def _get_confdir(_type: Union[Type[str], Type[_Path]] = str) -> Union[str, _Path]:
+def get_confdir(_type: Union[Type[str], Type[_Path]] = str) -> Union[str, _Path]:
     """
     Get the path to the configuration directory.
 
@@ -340,7 +340,7 @@ class _JMSetupConfRetriever:
 
     """
 
-    setupfile: str = _os.path.join(_get_confdir(str), 'setup.json')
+    setupfile: str = _os.path.join(get_confdir(str), 'setup.json')
 
 
     class FrozenJMVersion:
