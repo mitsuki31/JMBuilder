@@ -124,6 +124,34 @@ class TestUtilities(unittest.TestCase):
             delim=expected_delimiters[1]
         ), expected_contents[2])
 
+    def test_remove_blanks(self) -> None:
+        """Test the `jmbuilder.utils.config.remove_blanks` function."""
+        test_obj = jmutils.config.remove_blanks
+
+        contents: list = [
+            '',      # blank line
+            'Not blank line',
+            '    ',  # line with trailing whitespace
+            None
+        ]
+
+        expected_contents: tuple = (
+            [
+                'Not blank line',
+                None
+            ],
+            [
+                'Not blank line'
+            ]
+        )
+
+        for i in range(len(expected_contents)):
+            self.assertListEqual(
+                # Pass any numbers other than zero to `bool` will returning True value,
+                # including negative numbers
+                test_obj(contents, none=bool(i)), expected_contents[i]
+            )
+
 
 if __name__ == '__main__':
     unittest.main()
