@@ -318,11 +318,10 @@ def remove_blanks(contents: List[str], none: bool = True) -> List[str]:
     if not contents or len(contents) == 0:
         raise ValueError('File contents cannot be empty')
 
-    if none:
-        return [line for line in contents if line or line.strip() != '']
-
-    return [line for line in contents if line.strip() != '']
-
+    return [
+        line for line in contents
+        if (line is None and not none) or (line is not None and line.strip() != '')
+    ]
 
 
 class _JMSetupConfRetriever:
