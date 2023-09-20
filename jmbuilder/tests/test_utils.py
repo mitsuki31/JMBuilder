@@ -9,6 +9,7 @@ Copyright (c) 2023 Ryuu Mitsuki
 import os
 import json
 import unittest
+import pathlib
 
 from .._globals import AUTHOR, CONFDIR
 from .. import utils as jmutils
@@ -23,8 +24,22 @@ class TestUtilities(unittest.TestCase):
     # The path reference to JSON config file
     jsonfile: str = os.path.join(CONFDIR, 'setup.json')
 
+    def test_get_confdir(self) -> None:
+        """Test the `jmbuilder.utils.config._get_confdir` function."""
+        expected_types: tuple = (type(CONFDIR), pathlib.Path)
+        expected_reprs: tuple = (repr(CONFDIR), repr(pathlib.Path(CONFDIR)))
+
+        confdirs: tuple = (
+            jmutils.config._get_confdir(expected_types[0]),
+            jmutils.config._get_confdir(expected_types[1])
+        )
+
+        for i in range(2):
+            self.assertIsInstance(confdirs[i], expected_types[i])
+            self.assertEqual(repr(confdirs[0]), expected_reprs[0])
+
     def test_jsonparser(self) -> None:
-        """Test the `jmbuilder.utils.config.jsonparser` method."""
+        """Test the `jmbuilder.utils.config.jsonparser` function."""
         # Check the existence of config file
         self.assertTrue(os.path.exists(self.jsonfile))
 
@@ -41,7 +56,7 @@ class TestUtilities(unittest.TestCase):
         self.assertDictEqual(jsondata, jsondata_manual)
 
     def test_setupinit(self) -> None:
-        """Test the `jmbuilder.utils.config.setupinit` method."""
+        """Test the `jmbuilder.utils.config.setupinit` function."""
         jm_setup = jmutils.config.setupinit()
         jsondata: dict = jmutils.config.json_parser(self.jsonfile)
 
