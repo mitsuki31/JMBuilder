@@ -36,9 +36,10 @@ class TestUtilities(unittest.TestCase):
             test_obj(expected_types[1])
         )
 
-        for i in range(2):
+        len_confdirs: int = len(confdirs)
+        for i in range(len_confdirs):
             self.assertIsInstance(confdirs[i], expected_types[i])
-            self.assertEqual(repr(confdirs[0]), expected_reprs[0])
+            self.assertEqual(repr(confdirs[i]), expected_reprs[i])
 
     def test_json_parser(self) -> None:
         """Test the `jmbuilder.utils.config.json_parser` function."""
