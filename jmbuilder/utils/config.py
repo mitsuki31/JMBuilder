@@ -617,7 +617,7 @@ class JMProperties(_collections.UserDict):
             self.filename = _os.path.abspath(filename)
 
         # If encoding is not specified, use the system's preferred encoding
-        encoding = encoding if encoding else _locale.getencoding()
+        encoding = encoding if encoding else _locale.getpreferredencoding()
 
         if not self.filename:
             raise ValueError("The 'filename' parameter cannot be None")
