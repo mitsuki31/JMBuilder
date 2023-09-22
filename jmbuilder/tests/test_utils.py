@@ -26,7 +26,7 @@ class TestUtilities(unittest.TestCase):
 
     def test_get_confdir(self) -> None:
         """Test the `jmbuilder.utils.config.get_confdir` function."""
-        test_obj = jmutils.config.get_confdir
+        test_obj = jmutils.get_confdir
 
         expected_types: tuple = (type(CONFDIR), pathlib.Path)
         expected_reprs: tuple = (repr(CONFDIR), repr(pathlib.Path(CONFDIR)))
@@ -43,7 +43,7 @@ class TestUtilities(unittest.TestCase):
 
     def test_json_parser(self) -> None:
         """Test the `jmbuilder.utils.config.json_parser` function."""
-        test_obj = jmutils.config.json_parser
+        test_obj = jmutils.json_parser
 
         # Check the existence of config file
         self.assertTrue(os.path.exists(self.jsonfile))
@@ -62,10 +62,10 @@ class TestUtilities(unittest.TestCase):
 
     def test_setupinit(self) -> None:
         """Test the `jmbuilder.utils.config.setupinit` function."""
-        test_obj = jmutils.config.setupinit
+        test_obj = jmutils.setupinit
 
         jm_setup = test_obj()
-        jsondata: dict = jmutils.config.json_parser(self.jsonfile)
+        jsondata: dict = jmutils.json_parser(self.jsonfile)
 
         self.assertIsNotNone(jm_setup)  # First check that returned instance is not None
 
@@ -86,7 +86,7 @@ class TestUtilities(unittest.TestCase):
 
     def test_remove_comments(self) -> None:
         """Test the `jmbuilder.utils.config.remove_comments` function."""
-        test_obj = jmutils.config.remove_comments
+        test_obj = jmutils.remove_comments
 
         contents: list = [
             'Hello, world!',
@@ -127,7 +127,7 @@ class TestUtilities(unittest.TestCase):
 
     def test_remove_blanks(self) -> None:
         """Test the `jmbuilder.utils.config.remove_blanks` function."""
-        test_obj = jmutils.config.remove_blanks
+        test_obj = jmutils.remove_blanks
 
         contents: list = [
             '',      # blank line

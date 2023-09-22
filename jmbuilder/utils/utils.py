@@ -1,7 +1,7 @@
-"""Config Parser Module for JMBuilder
+"""Utilities Module for JMBuilder
 
-This module provides some basic properties to parse configuration
-files for ``JMBuilder`` package.
+This module provide utilities members, including JSON parser and properties
+parser for `JMBuilder` module.
 
 Copyright (c) 2023 Ryuu Mitsuki.
 
@@ -82,6 +82,7 @@ import locale as _locale
 import collections as _collections
 from pathlib import Path as _Path
 from typing import (
+    Dict,
     List,
     Optional,
     Union,
@@ -330,7 +331,7 @@ class _JMSetupConfRetriever:
 
     Attributes
     ----------
-    setupfile :
+    setupfile : str
         A string path reference to the setup configuration file.
 
     Notes
@@ -531,14 +532,15 @@ class JMProperties(_collections.UserDict):
     encoding : str, optional
         The encoding to use when opening the file stream. If not specified,
         it uses the encoding from `locale.getpreferredencoding()`.
+        Defaults to system's preferred encoding.
 
     Attributes
     ----------
-    data : dict
+    data : Dict[str, str]
         A dictionary containing all the parsed properties.
 
     filename : str
-        The path to the property file.
+        An absolute path to the specified property file.
 
     Raises
     ------
@@ -553,7 +555,7 @@ class JMProperties(_collections.UserDict):
 
     """
     def __init__(self, filename: Union[str, TextIO], *,
-                 encoding: str = None) -> None:
+                 encoding: str = _locale.getpreferredencoding()) -> None:
         """Initialize self."""
 
         def __blank_remover(contents: list) -> list:
@@ -563,7 +565,7 @@ class JMProperties(_collections.UserDict):
             Parameters
             ----------
             contents : list
-                A list representing contents of file.
+                A list of strings representing contents of file.
 
             Returns
             -------
@@ -580,10 +582,10 @@ class JMProperties(_collections.UserDict):
             Parameters
             ----------
             contents : list
-                A list representing contents of file.
+                A list of strings representing contents of file.
 
             delim: str
-                The delimiter to be used for.
+                The delimiter to be used for splitting keys and values.
 
             Returns
             -------
@@ -593,10 +595,10 @@ class JMProperties(_collections.UserDict):
 
             Notes
             -----
-            The failed result can be indicated by checking the length of
-            an entry from the returned list. If the length is equals to 1,
-            it indicates the function cannot splits the contents using the
-            given delimiter (it may due to the delimiter does not present
+            The length of an entry in the returned list might be used to indicate
+            an unsuccessful result. If the length is equal to one, it indicates
+            that the function was unable to split the contents using the specified
+            delimiter (this could be due to the delimiter not being present
             in the contents).
 
             For clarity, here's some examples::
@@ -612,6 +614,7 @@ class JMProperties(_collections.UserDict):
 
             """
             return [line.split(delim, maxsplit=1) for line in contents]
+
 
         if isinstance(filename, str):
             self.filename = _os.path.abspath(filename)
@@ -634,7 +637,7 @@ class JMProperties(_collections.UserDict):
                     'or the file does not exist'
                 )
 
-        properties_data: dict = {}
+        properties_data: Dict[str, str] = {}
         contents: list = []
 
         # Open and read the contents if the given file is of type `str`
@@ -653,7 +656,7 @@ class JMProperties(_collections.UserDict):
         contents = remove_blanks(contents, none=True)
 
         # First, try to split the keys and values using equals sign (=) as a delimiter
-        data: Optional[list] = __line_splitter(contents, delim='=')
+        data: List[str] = __line_splitter(contents, delim='=')
         keys, values = None, None
 
         # Check if the first try has extracted the keys and values successfully
@@ -684,4 +687,4 @@ class JMProperties(_collections.UserDict):
 
 
 # Delete unnecessary variables
-del List, Optional, Union, Type, TextIO
+del Dict, List, Optional, Union, Type, TextIO
