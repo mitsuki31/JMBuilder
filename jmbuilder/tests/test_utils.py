@@ -24,23 +24,6 @@ class TestUtilities(unittest.TestCase):
     # The path reference to JSON config file
     jsonfile: str = os.path.join(CONFDIR, 'setup.json')
 
-    def test_get_confdir(self) -> None:
-        """Test the `jmbuilder.utils.config.get_confdir` function."""
-        test_obj = jmutils.get_confdir
-
-        expected_types: tuple = (type(CONFDIR), pathlib.Path)
-        expected_reprs: tuple = (repr(CONFDIR), repr(pathlib.Path(CONFDIR)))
-
-        confdirs: tuple = (
-            test_obj(expected_types[0]),
-            test_obj(expected_types[1])
-        )
-
-        len_confdirs: int = len(confdirs)
-        for i in range(len_confdirs):
-            self.assertIsInstance(confdirs[i], expected_types[i])
-            self.assertEqual(repr(confdirs[i]), expected_reprs[i])
-
     def test_json_parser(self) -> None:
         """Test the `jmbuilder.utils.config.json_parser` function."""
         test_obj = jmutils.json_parser

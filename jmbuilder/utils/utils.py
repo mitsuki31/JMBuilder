@@ -8,25 +8,6 @@ Copyright (c) 2023 Ryuu Mitsuki.
 
 Available Functions
 -------------------
-get_confdir
-    This utility function returns the path to the configuration directory with
-    the specified class type for casting the path. Defaults to `str`.
-
-    The class type is only supported the `str` and `pathlib.Path`.
-
-    Examples::
-
-      # Get the path without argument, it will default returns `str`
-      >>> get_confdir()
-      '/path/to/configuration/directory'
-
-      # Get the path with argument and cast the path with `Path` class
-      >>> get_confdir(pathlib.Path)
-      PosixPath('/path/to/configuration/directory')
-
-    This function is alias for `jmbuilder._JMCustomPath(T).confdir`, with `T`
-    is the class type for cast the path.
-
 json_parser
     This utility function provides an easy way to parses and retrieves all
     configurations from JSON configuration files.
@@ -90,62 +71,17 @@ from typing import (
     TextIO
 )
 
-from .._globals import AUTHOR, CONFDIR
 from ..exception.jm_exc import (
     JMUnknownTypeError as _JMTypeError,
     JMParserError as _JMParserError
 )
 
 
-__author__ = AUTHOR
-__all__    = ['json_parser', 'remove_comments', 'remove_blanks']
-del AUTHOR
-
-
-def get_confdir(_type: Union[Type[str], Type[_Path]] = str) -> Union[str, _Path]:
-    """
-    Get the path to the configuration directory.
-
-    Parameters
-    ----------
-    _type : type, optional
-        The class type to cast the path. Defaults to Python's built-in
-        string type (`str`). Supported type is `str` and `pathlib.Path`.
-
-    Returns
-    -------
-    str or pathlib.Path :
-        The path to the configuration directory. The returned type is
-        depends to class type that specified by `_type`.
-
-    Raises
-    ------
-    JMUnknownTypeError :
-        If the `_type` is not of class type `str` or `pathlib.Path`.
-
-    Notes
-    -----
-    This function returns the path to the configuration directory,
-    and users can specify the desired type of the output using the
-    `_type` parameter. By default, it returns the path as a string.
-
-    Examples
-    --------
-    >>> jmbuilder._config.get_confdir()
-    '/path/to/configuration/directory'
-
-    >>> import pathlib
-    >>> jmbuilder._config.get_confdir(pathlib.Path)
-    PosixPath('/path/to/configuration/directory')
-    """
-    err = _JMTypeError(
-        f'Unknown type: "{type(_type).__name__}". ' +
-        'Expected "str" and "pathlib.Path"')
-
-    if not (isinstance(_type, type) or isinstance(_type(), (str, _Path))):
-        raise err
-
-    return _type(CONFDIR)
+__all__ = [
+    'json_parser', 'setupinit',
+    'remove_comments', 'remove_blanks',
+    'JMProperties'
+]
 
 
 def json_parser(path: str) -> dict:
@@ -341,7 +277,9 @@ class _JMSetupConfRetriever:
 
     """
 
-    setupfile: str = _os.path.join(get_confdir(str), 'setup.json')
+    setupfile: str = _os.path.abspath(
+        _os.path.join(_os.path.dirname(__file__), '..', '.config', 'setup.json')
+    )
 
 
     class FrozenJMVersion:
