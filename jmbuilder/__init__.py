@@ -15,7 +15,7 @@ JMProperties
     A custom properties parser class, implemented in `jmbuilder.utils` package.
     Python does not provide an easy way to parsing files with extension of
     `.properties`, this class is designed to parse properties file and
-    access its contents with ease without any third-party modules.
+    access their contents with ease without any third-party modules.
 
 JMSetupConfRetriever
     A class that provides all configurations for setting up the `JMBuilder` module.
@@ -30,6 +30,7 @@ JMParserError
 JMUnknownTypeError
     This exception is raised when an unknown type error occurs during
     the execution in this module.
+
 
 Available Functions
 -------------------
@@ -46,9 +47,6 @@ remove_blanks
     and `None` within the given list of strings, and returning a new list
     of strings with empty lines and `None` removed.
 
-setupinit
-    This utility function is an alias to initialize the `_JMSetupConfRetriever`
-    class in module of `jmbuilder.utils`.
 
 Available Constants
 -------------------
@@ -82,10 +80,9 @@ from .utils import *
 
 # _globals
 from . import _globals
-from ._globals import AUTHOR
 from ._globals import *
+from ._globals import AUTHOR, VERSION, VERSION_INFO
 
-__author__ = AUTHOR
 
 __all__ = []
 __all__.extend(_globals.__all__)
@@ -101,10 +98,10 @@ __all__.extend(['exception', 'utils'])
 #__all__.extend(utils.__all__)
 
 
-def setupinit() -> utils.JMSetupConfRetriever:
-    """Do nothing. This is alias to `_JMSetupConfRetriever()`."""
-    return utils.JMSetupConfRetriever()
+__author__       = AUTHOR
+__version__      = VERSION
+__version_info__ = VERSION_INFO
 
 
-# Remove unnecessary variables
-del AUTHOR
+# Delete no longer used imported objects
+del AUTHOR, VERSION, VERSION_INFO

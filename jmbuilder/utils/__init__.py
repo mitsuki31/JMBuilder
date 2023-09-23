@@ -9,13 +9,17 @@ from . import logger, utils
 from .logger import *
 from .utils import *
 
-from .._globals import AUTHOR
-
-__author__ = AUTHOR
+from .._globals import AUTHOR, VERSION, VERSION_INFO
 
 __all__ = ['logger', 'utils']
 __all__.extend(logger.__all__)
 __all__.extend(utils.__all__)
 
-# Remove unnecessary variables
-del AUTHOR
+
+__author__       = AUTHOR
+__version__      = VERSION
+__version_info__ = VERSION_INFO
+
+
+# Delete imported objects that are no longer used
+del AUTHOR, VERSION, VERSION_INFO

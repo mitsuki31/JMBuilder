@@ -7,10 +7,16 @@ variables and other configurations used throughout the module.
 Copyright (c) 2023 Ryuu Mitsuki.
 
 
+Available Classes
+-----------------
+JMSetupConfRetriever
+    This class provide an easy way to retrieve and access the setup
+    configurations for `JMBuilder` module.
+
 Available Constants
 -------------------
 AUTHOR : str
-    The name of the author of the `JMBuilder` module.
+    The author name (as well as the creator) of the `JMBuilder` module.
 
 BASEDIR : str
     Provides the path to the base directory of the `JMBuilder` package.
@@ -42,10 +48,15 @@ TMPDIR : str or pathlib.Path
 
     This is an alias for `_JMCustomPath().tmpdir`.
 
+VERSION : str
+    A string representing the JMBuilder's version information.
+
 """
 
 import os as _os
 import sys as _sys
+import json as _json
+import collections as _collections
 from pathlib import Path as _Path
 from typing import (
     TextIO,
@@ -67,7 +78,7 @@ class _JMCustomPath:
 
     Parameters
     ----------
-    _type : type[str, pathlib.Path], optional
+    _type : Type[str] or Type[pathlib.Path], optional
         The class type used for casting the path variables. Defaults to
         Python built-in string class (`str`).
 
@@ -87,18 +98,15 @@ class _JMCustomPath:
 
     Examples
     --------
-      >>> from pathlib import Path
-      >>> from jm_builder import _JMCustomPath
-
       # Use `pathlib.Path` to cast the path
       >>> _JMCustomPath(Path).tmpdir
       PosixPath('.../tmp')  # if Windows, it will be `WindowsPath`
 
       # `str` type is the default value
       >>> _JMCustomPath().basedir
-      '/path/to/base/directory/package'
+      '/path/to/base/directory'
 
-      # You can also check the class type that currently
+      # User can also check the class type that currently
       # used for casting
       >>> _JMCustomPath(Path).type
       <class 'pathlib.Path'>
@@ -109,18 +117,12 @@ class _JMCustomPath:
         ...
       AttributeError: can't set attribute
 
-
     """
 
-    __basedir:  str = str(_Path(__file__).resolve().parent)
-    __tmpdir:   str = _os.path.join(__basedir, 'tmp')
-    __logsdir:  str = _os.path.join(__basedir, 'logs')
-    __confdir:  str = _os.path.join(__basedir, '.config')
-
-    def __init__(self, _type: type = str) -> None:
+    def __init__(self, _type: Union[Type[str], Type[_Path]] = str):
         """Initialize self. See ``help(type(self))``, for accurate signature."""
         self.__type = _type
-        err = 'Invalid type of `_type`: "%s". ' + \
+        err = 'Invalid type of `_type`: %r. ' + \
               'Expected "str" and "pathlib.Path"'
 
         if not isinstance(_type, type):
@@ -132,11 +134,10 @@ class _JMCustomPath:
             err = TypeError(err % _type.__name__)
             raise err
 
-        # Cast all attributes with the specified class type
-        self.__basedir = self.__type(self.__basedir)
-        self.__tmpdir  = self.__type(self.__tmpdir)
-        self.__logsdir = self.__type(self.__logsdir)
-        self.__confdir = self.__type(self.__confdir)
+        self.__basedir: str = self.__type(str(_Path(__file__).resolve().parent))
+        self.__tmpdir:  str = self.__type(_os.path.join(self.__basedir, 'tmp'))
+        self.__logsdir: str = self.__type(_os.path.join(self.__basedir, 'logs'))
+        self.__confdir: str = self.__type(_os.path.join(self.__basedir, '.config'))
 
     def __repr__(self) -> str:
         """
@@ -152,7 +153,7 @@ class _JMCustomPath:
     @property
     def basedir(self) -> Union[str, _Path]:
         """
-        The current working directory path based on parent directory of this file.
+        The JMBuilder's base directory path based on parent directory of this file.
 
         Returns
         -------
@@ -199,7 +200,7 @@ class _JMCustomPath:
         return self.__confdir
 
     @property
-    def type(self) -> Type[Union[str, _Path]]:
+    def type(self) -> Union[Type[str], Type[_Path]]:
         """
         Return the current class type for casting the path.
 
@@ -211,23 +212,130 @@ class _JMCustomPath:
         return self.__type
 
 
+class JMSetupConfRetriever:
+    """
+    A class that retrieves and provides all setup configuration.
+
+    Attributes
+    ----------
+    setupfile : str
+        A string path reference to the setup configuration file.
+
+    Notes
+    -----
+    This class only retrieves the setup configuration without any modification
+    methods to their values.
+
+    """
+
+    SETUPFILE: str = _os.path.join(_JMCustomPath(str).confdir, 'setup.json')
+
+    def __init__(self):
+        """Initialize self."""
+
+        # Get the properties
+        configs: dict = {}
+        with open(self.SETUPFILE, 'r', encoding='utf-8') as setupfile:
+            configs = _json.load(setupfile)
+
+        # Create an empty named tuple
+        frozen_ver = _collections.namedtuple(
+            'FrozenJMVersion',
+            ['major', 'minor', 'patch'],
+            module=__package__
+        )
+
+        # Change the named tuple's documentation
+        frozen_ver.__doc__ = f'{configs.get("Program-Name")}\'s ' + \
+            'version information as a frozen named tuple.'
+
+        key_names: list = ['progname', 'version', 'author', 'license']
+        self.__jmsetup_data: dict = dict(zip(key_names, configs.values()))
+
+        # Convert the version info to FrozenJMVersion (a named tuple)
+        self.__jmsetup_data['version'] = frozen_ver(*self.__jmsetup_data['version'])
+
+    @property
+    def progname(self) -> str:
+        """
+        Get the program name from setup configuration.
+
+        Returns
+        -------
+        str :
+            A string representing the program name.
+
+        """
+        return self.__jmsetup_data['progname']
+
+    @property
+    def version(self) -> 'FrozenJMVersion':
+        """
+        Get the module version from setup configuration.
+
+        Returns
+        -------
+        FrozenJMVersion :
+            A frozen named tuple representing the module version.
+
+        """
+        return self.__jmsetup_data['version']
+
+    @property
+    def author(self) -> str:
+        """
+        Get the author name from setup configuration.
+
+        Returns
+        -------
+        str :
+            A string representing the author name.
+
+        """
+        return self.__jmsetup_data['author']
+
+    @property
+    def license(self) -> str:
+        """
+        Get the license name from setup configuration.
+
+        Returns
+        -------
+        str :
+            A string representing the license name.
+
+        """
+        return self.__jmsetup_data['license']
+
+
 # Aliases
-BASEDIR: Union[str, _Path] = _JMCustomPath().basedir
-TMPDIR:  Union[str, _Path] = _JMCustomPath().tmpdir
-LOGSDIR: Union[str, _Path] = _JMCustomPath().logsdir
-CONFDIR: Union[str, _Path] = _JMCustomPath().confdir
+__jmsetup__ = JMSetupConfRetriever()
+__jmpath__  = _JMCustomPath()
+
+BASEDIR: Union[str, _Path] = __jmpath__.basedir
+TMPDIR:  Union[str, _Path] = __jmpath__.tmpdir
+LOGSDIR: Union[str, _Path] = __jmpath__.logsdir
+CONFDIR: Union[str, _Path] = __jmpath__.confdir
 
 STDOUT: TextIO = _sys.stdout
 STDERR: TextIO = _sys.stderr
 
-AUTHOR: str    = 'Ryuu Mitsuki'
+AUTHOR:       str = __jmsetup__.author
+VERSION:      str = '.'.join(map(str, __jmsetup__.version))
+VERSION_INFO: str = __jmsetup__.version
 
-__author__ = AUTHOR
-__all__    = [
+__author__        = AUTHOR
+__version__       = VERSION
+__version_info__  = VERSION_INFO
+
+
+__all__ = [
     'BASEDIR', 'CONFDIR',
     'LOGSDIR', 'TMPDIR',
-    'STDOUT', 'STDERR'
+    'STDOUT', 'STDERR',
+    'JMSetupConfRetriever'
 ]
+
 
 # Remove unnecessary variables
 del Type, TextIO, Union

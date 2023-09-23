@@ -6,6 +6,14 @@ parser for `JMBuilder` module.
 Copyright (c) 2023 Ryuu Mitsuki.
 
 
+Available Classes
+-----------------
+JMProperties
+    A custom properties parser class, implemented in `jmbuilder.utils` package.
+    Python does not provide an easy way to parsing files with extension of
+    `.properties`, this class is designed to parse properties file and
+    access their contents with ease without any third-party modules.
+
 Available Functions
 -------------------
 json_parser
@@ -16,9 +24,6 @@ json_parser
 
         >>> json_parser('path/to/configs_file.json')
         {'foo': False, 'bar': True}
-
-setupinit
-    This utility function is alias function to initialize the `_JMSetupConfRetriever`.
 
 remove_comments
     This utility function can remove lines from a list of strings representing
@@ -63,14 +68,11 @@ import locale as _locale
 import collections as _collections
 from pathlib import Path as _Path
 from typing import (
-    Dict,
-    List,
-    Optional,
-    Union,
-    Type,
-    TextIO
+    Dict, List, Optional,
+    Union, Type, TextIO
 )
 
+from .._globals import AUTHOR, VERSION, VERSION_INFO
 from ..exception.jm_exc import (
     JMUnknownTypeError as _JMTypeError,
     JMParserError as _JMParserError
@@ -78,7 +80,7 @@ from ..exception.jm_exc import (
 
 
 __all__ = [
-    'json_parser', 'remove_comments', 'remove_blanks', 'JMProperties', 'JMSetupConfRetriever'
+    'json_parser', 'remove_comments', 'remove_blanks', 'JMProperties'
 ]
 
 
@@ -259,193 +261,6 @@ def remove_blanks(contents: List[str], none: bool = True) -> List[str]:
     ]
 
 
-class JMSetupConfRetriever:
-    """
-    A class that retrieves and provides all setup configuration.
-
-    Attributes
-    ----------
-    setupfile : str
-        A string path reference to the setup configuration file.
-
-    Notes
-    -----
-    This class only retrieves the setup configuration without any modification
-    methods to their values.
-
-    """
-
-    setupfile: str = _os.path.abspath(
-        _os.path.join(_os.path.dirname(__file__), '..', '.config', 'setup.json')
-    )
-
-
-    class FrozenJMVersion:
-        """
-        This class create frozen version for JMBuilder's version.
-
-        Parameters
-        ----------
-        major : int
-            The major version.
-
-        minor : int
-            The minor version.
-
-        patch : int
-            The patch version.
-
-        """
-        def __init__(self, major: int, minor: int, patch: int) -> None:
-            """Initialize self."""
-            self.__frozen_version: tuple = (major, minor, patch)
-
-        def __repr__(self) -> str:
-            """
-            Return a string representation of the frozen version.
-
-            Returns
-            -------
-            str :
-                A string representation of the frozen version.
-
-            """
-            return f"{self.__class__.__name__}("         + \
-                   f"major={self.__frozen_version[0]}, " + \
-                   f"minor={self.__frozen_version[1]}, " + \
-                   f"patch={self.__frozen_version[2]})"
-
-        def __getitem__(self, index: int) -> int:
-            """
-            Get the version number with specified index.
-
-            Parameters
-            ----------
-            index : int
-                An index, the index must be 0 <= index < 3.
-
-            Returns
-            -------
-            int :
-                An integer representation the specified version number.
-
-            Raises
-            ------
-            IndexError :
-                If the given index is negative or greater than 2.
-
-            """
-            if 0 <= index < 3:
-                return self.__frozen_version[index]
-
-            raise IndexError(f'Index out of range: {index}')
-
-        @property
-        def major(self) -> int:
-            """
-            Get the major version from frozen version.
-
-            Returns
-            -------
-            int :
-                An integer representation of major version.
-
-            """
-            return self.__frozen_version[0]
-
-        @property
-        def minor(self) -> int:
-            """
-            Get the minot version from frozen version.
-
-            Returns
-            -------
-            int :
-                An integer representation of minor version.
-
-            """
-            return self.__frozen_version[1]
-
-        @property
-        def patch(self) -> int:
-            """
-            Get the patch version from frozen version.
-
-            Returns
-            -------
-            int :
-                An integer representation of patch version.
-
-            """
-            return self.__frozen_version[2]
-
-
-    def __init__(self) -> None:
-        """Initialize self."""
-
-        # Get all properties
-        configs: dict = json_parser(self.setupfile)
-
-        ver: tuple = configs.get('Version')
-
-        self.__jm_program_name: str = configs.get('Program-Name')
-        self.__jm_version: self.FrozenJMVersion = self.FrozenJMVersion(ver[0], ver[1], ver[2])
-        self.__jm_author: str = configs.get('Author')
-        self.__jm_license: str = configs.get('License')
-
-    @property
-    def progname(self) -> str:
-        """
-        Get the program name from setup configuration.
-
-        Returns
-        -------
-        str :
-            A string representing the program name.
-
-        """
-        return self.__jm_program_name
-
-    @property
-    def version(self) -> FrozenJMVersion:
-        """
-        Get the program version from setup configuration.
-
-        Returns
-        -------
-        tuple :
-            A tuple representing the module version.
-
-        """
-        return self.__jm_version
-
-    @property
-    def author(self) -> str:
-        """
-        Get the author name from setup configuration.
-
-        Returns
-        -------
-        str :
-            A string representing the author name.
-
-        """
-        return self.__jm_author
-
-    @property
-    def license(self) -> str:
-        """
-        Get the license name from setup configuration.
-
-        Returns
-        -------
-        str :
-            A string representing the license name.
-
-        """
-        return self.__jm_license
-
-
 class JMProperties(_collections.UserDict):
     """
     This class provides a convenient way to parse properties files
@@ -615,6 +430,11 @@ class JMProperties(_collections.UserDict):
         super().__init__(properties_data)
 
 
+__author__       = AUTHOR
+__version__      = VERSION
+__version_info__ = VERSION_INFO
 
-# Delete unnecessary variables
+
+# Delete imported objects that are no longer used
+del AUTHOR, VERSION, VERSION_INFO
 del Dict, List, Optional, Union, Type, TextIO
