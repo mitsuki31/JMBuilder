@@ -1,40 +1,32 @@
-"""Global Module for ``JM Builder``
+"""Global Module for `JMBuilder`
 
 This module contains all global variables, constants, and classes
-used by the ``JM Builder`` package. It provides access to various
-path variables and other configurations used throughout the package.
+used by the `JMBuilder` module. It provides access to various path
+variables and other configurations used throughout the module.
 
 Copyright (c) 2023 Ryuu Mitsuki.
-
-
-Available Classes
------------------
-_JMCustomPath :
-    A custom class that provides all path variables used by
-    the ``JM Builder`` package. All path variables in this class
-    are read-only properties, this means they cannot be modified.
 
 
 Available Constants
 -------------------
 AUTHOR : str
-    The name of the author of the ``JM Builder`` package.
+    The name of the author of the `JMBuilder` module.
 
-BASEDIR : str or pathlib.Path
-    Provides the path to the base directory of the ``JM Builder`` package.
+BASEDIR : str
+    Provides the path to the base directory of the `JMBuilder` package.
 
     This is an alias for `_JMCustomPath().basedir`.
 
-CONFDIR : str or pathlib.Path
+CONFDIR : str
     Provides the path to the directory that contains configuration
-    files for configuring the ``JM Builder`` package. The path itself
+    files for configuring the `JMBuilder` module. The path itself
     is relative to `BASEDIR`.
 
     This is an alias for `_JMCustomPath().confdir`.
 
-LOGSDIR : str or pathlib.Path
+LOGSDIR : str
     Provides the path to the directory used for logging by the
-    ``JM Builder`` package. The path itself is relative to `BASEDIR`.
+    `JMBuilder` module. The path itself is relative to `BASEDIR`.
 
     This is an alias for `_JMCustomPath().logsdir`.
 
@@ -46,15 +38,9 @@ STDERR : TextIO
 
 TMPDIR : str or pathlib.Path
     Provides the path to the temporary directory used by the
-    ``JM Builder`` package. The path itself is relative to `BASEDIR`.
+    `JMBuilder` module. The path itself is relative to `BASEDIR`.
 
     This is an alias for `_JMCustomPath().tmpdir`.
-
-
-Notes
------
-The `_JMCustomPath` class contains read-only properties for the path
-variables, and attempts to modify them will raise an `AttributeError`.
 
 """
 
@@ -64,7 +50,6 @@ from pathlib import Path as _Path
 from typing import (
     TextIO,
     Type,
-    TypeVar,
     Union
 )
 
@@ -75,7 +60,7 @@ _global_imported: bool = True
 
 class _JMCustomPath:
     """
-    Custom class to manage read-only path variables for ``JM Builder`` package.
+    Custom class to manage read-only path variables for `JMBuilder` module.
 
     This class provides read-only properties for common path variables
     such as `basedir`, `tmpdir`, `logsdir` and more.
@@ -98,7 +83,7 @@ class _JMCustomPath:
     Notes
     -----
     The path variables are read-only properties, and attempts to modify
-    them will raise an ``AttributeError``.
+    them will raise an `AttributeError`.
 
     Examples
     --------
@@ -127,7 +112,6 @@ class _JMCustomPath:
 
     """
 
-    __type:     type
     __basedir:  str = str(_Path(__file__).resolve().parent)
     __tmpdir:   str = _os.path.join(__basedir, 'tmp')
     __logsdir:  str = _os.path.join(__basedir, 'logs')
@@ -210,7 +194,7 @@ class _JMCustomPath:
         -------
         str or pathlib.Path
             The path to the specified directory that contains configuration
-            files for configuring ``JMBuilder`` package.
+            files for configuring `JMBuilder` module.
         """
         return self.__confdir
 
@@ -240,11 +224,10 @@ AUTHOR: str    = 'Ryuu Mitsuki'
 
 __author__ = AUTHOR
 __all__    = [
-    '_JMCustomPath',
     'BASEDIR', 'CONFDIR',
     'LOGSDIR', 'TMPDIR',
     'STDOUT', 'STDERR'
 ]
 
 # Remove unnecessary variables
-del Type, TypeVar, TextIO, Union
+del Type, TextIO, Union
