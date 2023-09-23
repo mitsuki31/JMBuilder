@@ -9,14 +9,9 @@ Copyright (c) 2023 Ryuu Mitsuki
 import os
 import json
 import unittest
-import pathlib
 
-from .. import setupinit
-from .._globals import AUTHOR, CONFDIR
+from .._globals import AUTHOR, CONFDIR, VERSION, VERSION_INFO
 from ..utils import utils as jmutils
-
-__author__ = AUTHOR
-del AUTHOR
 
 
 class TestUtilities(unittest.TestCase):
@@ -44,28 +39,14 @@ class TestUtilities(unittest.TestCase):
 
         self.assertDictEqual(jsondata, jsondata_manual)
 
+    @unittest.skip(reason="The 'setupinit' are no longer available in 'jmbuilder.utils'")
     def test_setupinit(self) -> None:
-        """Test the `jmbuilder.utils.config.setupinit` function."""
-        test_obj = setupinit
+        """
+        Deprecated, due to the function of `setupinit` are no longer
+        available in `jmbuilder.utils` package (i.e., has been removed).
 
-        jm_setup = test_obj()
-        jsondata: dict = jmutils.json_parser(self.jsonfile)
-
-        self.assertIsNotNone(jm_setup)  # First check that returned instance is not None
-
-        # Create new dictionary from _JMSetupConfRetriever instance
-        values: list = [
-            jm_setup.progname,
-            [jm_setup.version[i] for i in range(3)],
-            jm_setup.author,
-            jm_setup.license
-        ]
-
-        # Use the same key names with `jsondata.keys()`
-        jm_setup = dict(zip(jsondata.keys(), values))
-
-        # Check the equality for both dictionaries
-        self.assertDictEqual(jm_setup, jsondata)
+        Test the `jmbuilder.utils.config.setupinit` function.
+        """
 
 
     def test_remove_comments(self) -> None:
@@ -138,6 +119,15 @@ class TestUtilities(unittest.TestCase):
                 # including negative numbers
                 test_obj(contents, none=bool(i)), expected_contents[i]
             )
+
+
+__author__     = AUTHOR
+__version__    = VERSION
+__version_info = VERSION_INFO
+
+
+# Remove imported objects that are no longer used
+del AUTHOR, VERSION, VERSION_INFO
 
 
 if __name__ == '__main__':
