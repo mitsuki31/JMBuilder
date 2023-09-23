@@ -78,9 +78,7 @@ from ..exception.jm_exc import (
 
 
 __all__ = [
-    'json_parser', 'setupinit',
-    'remove_comments', 'remove_blanks',
-    'JMProperties'
+    'json_parser', 'remove_comments', 'remove_blanks', 'JMProperties', 'JMSetupConfRetriever'
 ]
 
 
@@ -261,7 +259,7 @@ def remove_blanks(contents: List[str], none: bool = True) -> List[str]:
     ]
 
 
-class _JMSetupConfRetriever:
+class JMSetupConfRetriever:
     """
     A class that retrieves and provides all setup configuration.
 
@@ -446,12 +444,6 @@ class _JMSetupConfRetriever:
 
         """
         return self.__jm_license
-
-
-def setupinit() -> _JMSetupConfRetriever:
-    """Do nothing. This is alias to `_JMSetupConfRetriever()`."""
-    return _JMSetupConfRetriever()
-
 
 
 class JMProperties(_collections.UserDict):

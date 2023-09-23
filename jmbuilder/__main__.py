@@ -11,15 +11,16 @@ from typing import Any, Union, TextIO
 
 
 try:
-    from _globals import AUTHOR
-    from utils import config as __config
+    from ._globals import AUTHOR
+    from . import setupinit as __setupinit
 except (ImportError, ModuleNotFoundError, ValueError):
     # Add a new Python search path to the first index
     __sys.path.insert(0, str(__Path(__sys.path[0]).parent))
-    del __Path  # This no longer used
 
     from jmbuilder._globals import AUTHOR
-    from jmbuilder.utils import config as __config
+    from jmbuilder import setupinit as __setupinit
+finally:
+    del __Path  # This no longer being used
 
 __author__ = AUTHOR
 del AUTHOR
@@ -43,16 +44,16 @@ def __print_version(_exit: bool = False, *, file: TextIO = __sys.stdout) -> None
     if not file:
         raise ValueError("File must be an opened file object, not None")
 
-    _setupcls: __config._JMSetupConfRetriever = __config.setupinit()
+    _setupcls = __setupinit()
 
     program_name: str = _setupcls.progname
     version:      str = f"v{'.'.join(map(str, _setupcls.version))}"
     author:       str = _setupcls.author
 
     print(
-        program_name, version,                                 # Program name and version
+        program_name, version, f'- {_setupcls.license}',  # Program name and version
         __os.linesep + \
-        f'Copyright (C) 2023 {author}. All rights reserved.',  # Copyright notice
+        f'Copyright (C) 2023 by {author}.',               # Copyright notice
         file=file
     )
     if _exit:

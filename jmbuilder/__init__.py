@@ -59,5 +59,10 @@ __all__.extend(_globals.__all__)
 __all__.extend(exception.__all__)
 __all__.extend(utils.__all__)
 
+def setupinit() -> utils.JMSetupConfRetriever:
+    """Do nothing. This is alias to `_JMSetupConfRetriever()`."""
+    return utils.JMSetupConfRetriever()
+
+
 # Remove unnecessary variables
 del AUTHOR

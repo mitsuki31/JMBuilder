@@ -11,8 +11,9 @@ import json
 import unittest
 import pathlib
 
+from .. import setupinit
 from .._globals import AUTHOR, CONFDIR
-from .. import utils as jmutils
+from ..utils import utils as jmutils
 
 __author__ = AUTHOR
 del AUTHOR
@@ -45,7 +46,7 @@ class TestUtilities(unittest.TestCase):
 
     def test_setupinit(self) -> None:
         """Test the `jmbuilder.utils.config.setupinit` function."""
-        test_obj = jmutils.setupinit
+        test_obj = setupinit
 
         jm_setup = test_obj()
         jsondata: dict = jmutils.json_parser(self.jsonfile)
