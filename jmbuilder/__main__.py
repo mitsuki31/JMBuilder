@@ -21,7 +21,7 @@ finally:
     del __Path  # This no longer being used
 
 
-def __print_version(exit: bool = False, *,
+def __print_version(_exit: bool = False, *,
                     only_ver: bool = False,
                     file: TextIO = __sys.stdout) -> None:
     """
@@ -62,7 +62,7 @@ def __print_version(exit: bool = False, *,
     else:
         print(version, file=file)
 
-    if exit:
+    if _exit:
         __sys.exit(0)
 
 
