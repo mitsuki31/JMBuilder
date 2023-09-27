@@ -25,10 +25,10 @@ import traceback as _tb
 
 from typing import Optional, Any
 
-from .._globals import AUTHOR
+from .._globals import AUTHOR, VERSION, VERSION_INFO
+
 
 __all__    = ['JMException', 'JMUnknownTypeError', 'JMParserError']
-__author__ = AUTHOR
 
 
 class JMException(Exception):
@@ -372,5 +372,10 @@ class JMParserError(JMException):
 
 
 
-# Remove unnecessary variables
-del AUTHOR, Any, Optional
+__author__       = AUTHOR
+__version__      = VERSION
+__version_info__ = VERSION_INFO
+
+
+# Delete imported objects that are no longer being used
+del AUTHOR, VERSION, VERSION_INFO, Any, Optional

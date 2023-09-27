@@ -1,6 +1,6 @@
 """Exception Module for JMBuilder
 
-This module contains several custom exception for ``JMBuilder`` package.
+This module contains several custom exception for `JMBuilder`.
 
 Copyright (c) 2023 Ryuu Mitsuki.
 
@@ -16,14 +16,18 @@ JMUnknownTypeError
     error occurs during the execution of the package.
 """
 
-from . import jm_exc
-from .jm_exc import *
-from .._globals import AUTHOR
+from . import exception
+from .exception import *
+from .._globals import AUTHOR, VERSION, VERSION_INFO
 
-__author__ = AUTHOR
+__all__ = ['exception']
+__all__.extend(exception.__all__)
 
-__all__ = ['jm_exc']
-__all__.extend(jm_exc.__all__)
 
-# Remove unnecessary variables
-del AUTHOR
+
+__author__       = AUTHOR
+__version__      = VERSION
+__version_info__ = VERSION_INFO
+
+# Delete imported objects that are no longer being used
+del AUTHOR, VERSION, VERSION_INFO

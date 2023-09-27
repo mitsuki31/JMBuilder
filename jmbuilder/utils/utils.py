@@ -73,7 +73,7 @@ from typing import (
 )
 
 from .._globals import AUTHOR, VERSION, VERSION_INFO
-from ..exception.jm_exc import (
+from ..exception import (
     JMUnknownTypeError as _JMTypeError,
     JMParserError as _JMParserError
 )

@@ -96,7 +96,7 @@ import logging as _log
 from typing import Union
 
 from .._globals import AUTHOR, STDERR
-from ..exception.jm_exc import JMUnknownTypeError as _JMTypeError
+from ..exception import JMUnknownTypeError as _JMTypeError
 
 
 __all__ = ['init_logger']
