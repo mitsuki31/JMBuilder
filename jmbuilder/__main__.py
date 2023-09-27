@@ -21,15 +21,22 @@ finally:
     del __Path  # This no longer being used
 
 
-def __print_version(_exit: bool = False, *, file: TextIO = __sys.stdout) -> None:
+def __print_version(exit: bool = False, *,
+                    only_ver: bool = False,
+                    file: TextIO = __sys.stdout) -> None:
     """
     Print the version info to specific opened file.
 
     Parameters
     ----------
-    _exit : bool, optional
+    exit : bool, optional
         Whether to exit and terminate the Python after printed the version.
         Defaults to False (disabled).
+
+    only_ver: bool, optional
+        Whether to print the version only. By activating this option,
+        other information like program name, license, and copyright
+        will not be printed. Defaults to False.
 
     file : TextIO, optional
         The file to print the version info.
@@ -44,13 +51,18 @@ def __print_version(_exit: bool = False, *, file: TextIO = __sys.stdout) -> None
     version:      str = f"v{'.'.join(map(str, __jmsetup__.version))}"
     author:       str = __jmsetup__.author
 
-    print(
-        program_name, version, f'- {__jmsetup__.license}',  # Program name and version
-        __os.linesep + \
-        f'Copyright (C) 2023 by {author}.',                 # Copyright notice
-        file=file
-    )
-    if _exit:
+    # Check if only_ver is False (or not specified)
+    if not only_ver:
+        print(
+            program_name, version, f'- {__jmsetup__.license}',  # Program name and version
+            __os.linesep + \
+            f'Copyright (C) 2023 by {author}.',                 # Copyright notice
+            file=file
+        )
+    else:
+        print(version, file=file)
+
+    if exit:
         __sys.exit(0)
 
 
@@ -88,6 +100,7 @@ def __argchck(targets: Any, args: Union[list, tuple]) -> bool:
 def main() -> None:
     """Main function for JMBuilder."""
     version_args: tuple = ('-V', '--version',)
+    only_version_args: tuple = ('-VV', '--only-ver', '--only-version')
 
     # Trim the file name from command line arguments (at the first index)
     args: list = __sys.argv[1:]
@@ -105,6 +118,10 @@ def main() -> None:
     #
     elif __argchck('-version', args):
         __print_version(True, file=__sys.stderr)
+
+    # To print the version only, user can use several arguments. See 'only_version_args'
+    elif __argchck(only_version_args, args):
+        __print_version(True, only_ver=True)
 
 
     # ... Still in development
