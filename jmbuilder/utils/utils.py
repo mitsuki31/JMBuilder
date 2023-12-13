@@ -58,6 +58,18 @@ remove_blanks
         >>> remove_blanks(contents, none=True)
         ['Foo', '1234']
 
+readfile
+    This utilty function will read the contents from the given file path and
+    return a list containing all contents from that file.
+    
+    If the given path does not refer to an existing regular file or the given path
+    is refer to a directory, it will raises an error.
+    
+    Examples::
+
+        # Read contents from file called 'myfile.txt'
+        >>> contents = readfile('myfile.txt')
+
 """
 
 import os as _os
@@ -257,8 +269,47 @@ def remove_blanks(contents: List[str], none: bool = True) -> List[str]:
 
     return [
         line for line in contents
-        if (line is None and not none) or (line is not None and line.strip() != '')
+        if (line is None and not none) or \
+            (line is not None and line.strip() != '')
     ]
+
+
+def readfile(path: str, encoding: str = 'UTF-8') -> List[str]:
+    """
+    Read all contents from the specified file.
+
+    Parameters
+    ----------
+    path : str
+        A string path refers to a regular file.
+
+    encoding : str, optional
+        An encoding to be used during read operation.
+        Defaults to `UTF-8`.
+
+    Returns
+    -------
+    List[str] :
+        A list of string containing contents from the specified file.
+
+    Raises
+    ------
+    FileNotFoundError
+        If the given path does not refer to the existing file.
+
+    PermissionError
+        If there is a permission restrictions during read operation.
+
+    IsADirectoryError
+        If the given path is refer to a directory, not a regular file.
+
+    """
+    
+    contents: List[str] = []
+    with open(path, 'r', encoding=encoding) as f:
+        contents = f.readlines()
+    
+    return contents
 
 
 class JMProperties(_collections.UserDict):
