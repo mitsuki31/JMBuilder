@@ -96,9 +96,46 @@ def __argchck(targets: Any, args: Union[list, tuple]) -> bool:
     return found
 
 
+def __print_help() -> None:
+    """Print the help message to the standard output."""
+
+    program_name: str = __jmsetup__.progname
+    version:      str = f"v{'.'.join(map(str, __jmsetup__.version))}"
+    author:       str = __jmsetup__.author
+
+    header: str = f'{program_name} {version}'
+
+    print(f"""\
+{header}
+{''.join(['-' for _ in range(len(header))])}
+
+USAGE:
+   python -m jmbuilder [OPTIONS]
+
+OPTIONS:
+   -V, --version, -version
+        Print the version and copyright. All of them will print
+        directly to the standard output, except for '-version'.
+
+   -VV, --only-ver, --only-version
+        Print the version number only.
+
+   -h, --help
+        Print this help message.
+
+ISSUES:
+   Report some issues and help us improve this builder.
+   <https://github.com/mitsuki31/JMBuilder/issues/new>
+
+AUTHOR:
+   {author}\
+""")
+
+
 #::#  Main Driver  #::#
 def main() -> None:
     """Main function for JMBuilder."""
+    help_args: tuple = ('-h', '--help')
     version_args: tuple = ('-V', '--version',)
     only_version_args: tuple = ('-VV', '--only-ver', '--only-version')
 
@@ -123,6 +160,9 @@ def main() -> None:
     elif __argchck(only_version_args, args):
         __print_version(True, only_ver=True)
 
+    # Print the help message
+    elif __argchck(help_args, args):
+        __print_help()
 
     # ... Still in development
 
