@@ -303,6 +303,9 @@ class JMProperties(_collections.UserDict):
                  encoding: str = _locale.getpreferredencoding()) -> None:
         """Initialize self."""
 
+        self.filename = filename
+        self.encoding = encoding
+
         def __blank_remover(contents: list) -> list:
             """
             Remove trailing whitespace and newline character from the contents.
