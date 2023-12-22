@@ -34,4 +34,4 @@ jobs:
 
     - name: Analyze code
       run: |
-        pylint --rcfile=.pylintrc $(git ls-files '*.py')
+        pylint --rcfile=.pylintrc .
