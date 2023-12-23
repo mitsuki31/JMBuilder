@@ -306,8 +306,8 @@ def readfile(path: str, encoding: str = 'UTF-8') -> List[str]:
     """
     
     contents: List[str] = []
-    with open(path, 'r', encoding=encoding) as f:
-        contents = f.readlines()
+    with open(path, 'r', encoding=encoding) as file:
+        contents = file.readlines()
     
     return contents
 
