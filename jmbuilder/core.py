@@ -25,18 +25,18 @@ except (ImportError, ModuleNotFoundError, ValueError):
 
 class PomParser:
     """
-    A class that provides an easy way to parse and get some useful
-    informations from the provided POM file.
+    A class that provides an easy way to parse and retrieve useful
+    information from the provided POM file.
 
     Parameters
     ----------
     soup : BeautifulSoup
-        A ``BeautifulSoup`` object.
+        A `bs4.BeautifulSoup` object representing the parsed POM file.
 
     """
     
-    def __init__(self, soup: _bs4.BeautifulSoup) -> '__Getter':
-        """Create a new instance of ``__Getter`` class."""
+    def __init__(self, soup: _bs4.BeautifulSoup) -> 'PomParser':
+        """Create a new instance of ``PomParser`` class."""
         if not isinstance(soup, _bs4.BeautifulSoup):
             # Raise an error
             raise TypeError(f'Invalid instance class: {soup.__class__}')
@@ -47,18 +47,16 @@ class PomParser:
     @staticmethod
     def parse(pom_file: str, encoding: str = 'UTF-8') -> 'PomParser':
         """
-        Parse the POM file (``pom.xml``) and return the instance of
-        this class. All comments and blank lines will be removed, keeping
-        the contents of POM clean.
+        Parse the POM file (``pom.xml``) and return an instance of
+        this class. Remove comments and blank lines to keep the POM clean.
 
         Parameters
         ----------
         pom_file : str
-            A string representing the path of pom.xml file to be parsed.
+            The path of the pom.xml file to be parsed.
 
         encoding : str, optional
-            The encoding to be used while parsing the pom.xml file.
-            Defaults to UTF-8.
+            The encoding used while parsing the pom.xml file. Defaults to UTF-8.
 
         Returns
         -------
@@ -79,6 +77,25 @@ class PomParser:
         return PomParser(soup)
 
     def get(self, key: Union[str, List[str]]) -> Optional[_bs4.element.Tag]:
+        """
+        Find the element tag based on the provided key, which can be a string
+        (separated by dots) or a list of tag names. The result could be a None,
+        this means that element are undefined or that users has specified wrong
+        element tree path.
+
+        Parameters
+        ----------
+        key : str or a list of str
+            The key representing the element tree path.
+
+        Returns
+        -------
+        Tag or None :
+            A ``bs4.element.Tag`` object representing the desired element tag,
+            or ``None`` if the element tag is undefined or cannot be found.
+
+        """
+
         # Split the key if the key is a string
         keys: List[str] = key.split('.') if isinstance(key, str) else key
 
@@ -93,16 +110,19 @@ class PomParser:
         return result
 
     def get_name(self) -> Optional[str]:
+        """Return the project name."""
         # => project.name
         name_element: _bs4.element.Tag = self.project_tag.find('name')
         return name_element.text if name_element else name_element
 
     def get_version(self) -> Optional[str]:
+        """Return the project version."""
         # => project.version
         version_element: _bs4.element.Tag = self.project_tag.find('version')
         return version_element.text if version_element else version_element
 
     def get_id(self) -> Dict[str, Optional[str]]:
+        """Return a dictionary with 'groupId' and 'artifactId'."""
         id_element: List[_bs4.element.Tag | None] = [
             self.project_tag.find('groupId'),    # => project.groupId
             self.project_tag.find('artifactId')  # => project.artifactId
@@ -114,16 +134,19 @@ class PomParser:
         }
 
     def get_url(self) -> Optional[str]:
+        """Return the project URL."""
         # => project.url
         url_element: _bs4.element.Tag = self.project_tag.find('url')
         return url_element.text if url_element else url_element
 
     def get_inception_year(self) -> Optional[str]:
+        """Return the project inception year."""
         # => project.inceptionYear
         inc_year_element: _bs4.element.Tag = self.project_tag.find('inceptionYear')
         return inc_year_element.text if inc_year_element else inc_year_element
 
     def get_author(self) -> Dict[str, Optional[str]]:
+        """Return a dictionary with 'id', 'name', and 'url' of the project author."""
         key: str = 'project.developers.developer'
         author_element: List[_bs4.element.Tag | None] = [
             self.get(key + '.id'),    # => project.developers[0].developer.id
@@ -138,6 +161,7 @@ class PomParser:
         }
 
     def get_license(self) -> Dict[str, str]:
+        """Return a dictionary with 'name', 'url', and 'distribution' of the project license."""
         key: str = 'project.licenses.license'
         license_element: List[_bs4.element.Tag | None] = [
             self.get(key + '.name'),         # => project.licenses[0].license.name
@@ -152,6 +176,28 @@ class PomParser:
         }
 
     def get_property(self, key: str, dot: bool = True) -> Optional[str]:
+        """
+        Return the value of the specified property key from the POM properties.
+
+        Parameters
+        ----------
+        key : str
+            The property key.
+
+        dot : bool, optional
+            If True, split the key using dots. Defaults to True.
+
+        Returns
+        -------
+        str or None :
+            The property value if found, otherwise, returns None.
+
+        Raises
+        ------
+        ValueError :
+            If the provided key is an empty string or None.
+
+        """
         # Raise an error if the provided key is an empty string or None
         if not (key or len(key)):
             raise ValueError('Key argument cannot be empty.')
