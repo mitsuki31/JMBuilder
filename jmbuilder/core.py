@@ -7,7 +7,7 @@ import os as _os
 import sys as _sys
 import re as _re
 import bs4 as _bs4
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 
 from . import utils as _jmutils
 from . import exception as _jmexc
@@ -78,44 +78,77 @@ class PomParser:
         # Return the instance of this class
         return PomParser(soup)
 
-    def get_name(self) -> str:
-        return self.project_tag.find('name').text  # => project.name
+    def get(self, key: Union[str, List[str]]) -> Optional[_bs4.element.Tag]:
+        # Split the key if the key is a string
+        keys: List[str] = key.split('.') if isinstance(key, str) else key
 
-    def get_version(self) -> str:
-        return self.project_tag.find('version').text  # => project.version
+        # Find the element according to the first key
+        result: _bs4.element.Tag = self.soup.find(keys[0])
+        for k in keys[1:]:
+            # Break the loop if the result is None
+            if not result:
+                break
+            result = result.find(k)
 
-    def get_id(self) -> Dict[str, str]:
+        return result
+
+    def get_name(self) -> Optional[str]:
+        # => project.name
+        name_element: _bs4.element.Tag = self.project_tag.find('name')
+        return name_element.text if name_element else name_element
+
+    def get_version(self) -> Optional[str]:
+        # => project.version
+        version_element: _bs4.element.Tag = self.project_tag.find('version')
+        return version_element.text if version_element else version_element
+
+    def get_id(self) -> Dict[str, Optional[str]]:
+        id_element: List[_bs4.element.Tag | None] = [
+            self.project_tag.find('groupId'),    # => project.groupId
+            self.project_tag.find('artifactId')  # => project.artifactId
+        ]
+
         return {  # Return a dictionary
-            'groupId': self.project_tag.find('groupId').text,       # => project.groupId
-            'artifactId': self.project_tag.find('artifactId').text  # => project.artifactId
+            'groupId': id_element[0].text if id_element[0] else id_element[0],
+            'artifactId': id_element[1].text if id_element[1] else id_element[1]
         }
 
-    def get_url(self) -> str:
-        return self.project_tag.find('url').text  # => project.url
+    def get_url(self) -> Optional[str]:
+        # => project.url
+        url_element: _bs4.element.Tag = self.project_tag.find('url')
+        return url_element.text if url_element else url_element
 
-    def get_inception_year(self) -> str:
-        return self.project_tag.find('inceptionYear').text  # => project.inceptionYear
+    def get_inception_year(self) -> Optional[str]:
+        # => project.inceptionYear
+        inc_year_element: _bs4.element.Tag = self.project_tag.find('inceptionYear')
+        return inc_year_element.text if inc_year_element else inc_year_element
 
-    def get_author(self) -> Dict[str, str]:
-        # => project.developers[0].developer
-        author_element: _bs4.element.Tag = \
-            self.project_tag.find('developers').find('developer')
+    def get_author(self) -> Dict[str, Optional[str]]:
+        key: str = 'project.developers.developer'
+        author_element: List[_bs4.element.Tag | None] = [
+            self.get(key + '.id'),    # => project.developers[0].developer.id
+            self.get(key + '.name'),  # => project.developers[0].developer.name
+            self.get(key + '.url')    # => project.developers[0].developer.url
+        ]
 
         return {  # Return a dictionary
-            'id': author_element.find('id').text,
-            'name': author_element.find('name').text,
-            'url': author_element.find('url').text
+            'id': author_element[0].text if author_element[0] else author_element[0],
+            'name': author_element[1].text if author_element[1] else author_element[1],
+            'url': author_element[2].text if author_element[2] else author_element[2],
         }
 
     def get_license(self) -> Dict[str, str]:
-        # => project.licenses[0].license
-        license_element: _bs4.element.Tag = \
-            self.project_tag.find('licenses').find('license')
+        key: str = 'project.licenses.license'
+        license_element: List[_bs4.element.Tag | None] = [
+            self.get(key + '.name'),         # => project.licenses[0].license.name
+            self.get(key + '.url'),          # => project.licenses[0].license.url
+            self.get(key + '.distribution')  # => project.licenses[0].license.distribution
+        ]
 
         return {
-            'name': license_element.find('name').text,
-            'url': license_element.find('url').text,
-            'distribution': license_element.find('distribution').text
+            'name': license_element[0].text if license_element[0] else license_element[0],
+            'url': license_element[1].text if license_element[1] else license_element[1],
+            'distribution': license_element[2].text if license_element[2] else license_element[2],
         }
 
     def get_property(self, key: str, dot: bool = True) -> Optional[str]:
@@ -133,14 +166,8 @@ class PomParser:
         if not dot or (dot and keys[0] != 'properties'):
             keys.insert(0, 'properties')  # Append to the first index
 
-        result: _bs4.element.Tag = self.soup.find(keys[0])
-        for k in keys[1:]:
-            # Break if the result is empty or none
-            if not result:
-                break
-            result = result.find(k)
-
-        # The returned value could be a NoneType value
+        # This way, we can prevent an error due to NoneType use
+        result: _bs4.element.Tag = self.get(keys)
         return result.text if result else result
 
 
