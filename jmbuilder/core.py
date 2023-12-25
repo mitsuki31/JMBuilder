@@ -218,6 +218,69 @@ class PomParser:
         return result.text if result else result
 
 
+def fix_manifest(pom: str, infile: str, outfile: str) -> None:
+    def __write_out(contents: List[str], out: str) -> None:
+        with open(out, 'w', encoding='UTF-8') as o_file:
+            for line in contents:
+                o_file.write(f'{line}{_os.linesep}')
+
+    core_err: _jmexc.JMException = _jmexc.JMException(
+        _os.linesep + '  CORE ERROR: An error occurred in core module.')
+
+    if not infile or len(infile) == 0:
+        raise ValueError('Argument cannot be empty') \
+            from core_err
+
+    if not _os.path.exists(infile):
+        raise FileNotFoundError(f'Cannot read non-existing file: {infile!r}') \
+            from core_err
+
+    if not (outfile or len(outfile)):
+        outfile = infile
+
+    pattern: _re.Pattern = _re.compile(r'\$\{([\w.-\[\]]+)\}')
+    manifest: _jmutils.JMProperties = _jmutils.JMProperties(infile)
+    soup: PomParser = PomParser.parse(pom)
+
+    project_id: Dict[str, Optional[str]] = soup.get_id()
+    project_author: Dict[str, Optional[str]] = soup.get_author()
+    project_license: Dict[str, Optional[str]] = soup.get_license()
+
+    # A dictionary stores all correct values from the parsed POM
+    values: Dict[str, Optional[str]] = {
+        'project.name': soup.get_name(),
+        'project.version': soup.get_version(),
+        'project.url': soup.get_url(),
+        'project.groupId': project_id['groupId'],
+        'project.artifactId': project_id['artifactId'],
+        'project.inceptionYear': soup.get_inception_year(),
+        'project.developers[0].name': project_author['name'],
+        'project.developers[0].url': project_author['url'],
+        'project.licenses[0].name': project_license['name'],
+        'project.licenses[0].url': project_license['url'],
+        'package.licenseFile': soup.get_property('package.licenseFile', dot=False),
+        'package.mainClass': soup.get_property('package.mainClass', dot=False),
+        'maven.build.timestamp': _dt.now(_tz.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+    }
+
+    # Fix the manifest
+    for key, val in manifest.items():
+        new_val = pattern.match(val)
+        if not new_val:
+            continue
+
+        new_val = new_val[1]
+        if key == 'ID':
+            manifest[key] = f"{values['project.groupId']}:{values['project.artifactId']}"
+        elif new_val in values:
+            manifest[key] = values[new_val]
+
+    __write_out(
+        [f'{key}: {val}' for key, val in manifest.items()],
+        out=outfile
+    )
+
+
 __author__       = AUTHOR
 __version__      = VERSION
 __version_info__ = VERSION_INFO
