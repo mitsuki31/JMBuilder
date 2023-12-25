@@ -6,8 +6,9 @@ Copyright (c) 2023 Ryuu Mitsuki.
 import os as _os
 import sys as _sys
 import re as _re
-import bs4 as _bs4
+from datetime import datetime as _dt, timezone as _tz
 from typing import Dict, List, Optional, Union
+import bs4 as _bs4
 
 from . import utils as _jmutils
 from . import exception as _jmexc
@@ -34,7 +35,7 @@ class PomParser:
         A `bs4.BeautifulSoup` object representing the parsed POM file.
 
     """
-    
+
     def __init__(self, soup: _bs4.BeautifulSoup) -> 'PomParser':
         """Create a new instance of ``PomParser`` class."""
         if not isinstance(soup, _bs4.BeautifulSoup):
@@ -67,7 +68,7 @@ class PomParser:
 
         # Read and convert the pom.xml file to BeautifulSoup object
         soup: _bs4.BeautifulSoup = _bs4.BeautifulSoup(
-            ''.join(_jmutils.readfile(pom_file)), 'xml')
+            ''.join(_jmutils.readfile(pom_file, encoding=encoding)), 'xml')
 
         # Find the comments using lambda, then extract them
         for element in soup(text=lambda t: isinstance(t, _bs4.Comment)):
