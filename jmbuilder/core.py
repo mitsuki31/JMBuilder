@@ -235,7 +235,9 @@ class JMRepairer:
             raise TypeError(f"Unknown type of 'pom' argument: {type(pom).__name__}") \
                 from CORE_ERR
 
+        self._val_pattern: _re.Pattern = _re.compile(r'\$\{([\w.-\[\]]+)\}')
         self._soup: PomParser = None
+
         if isinstance(pom, str):
             self._soup = PomParser.parse(pom)  # Need to be parsed first
         elif isinstance(pom, _bs4.BeautifulSoup):
@@ -289,12 +291,11 @@ class JMRepairer:
         # for the name of output file, which means will overwrite the infile
         outfile = infile if not outfile else outfile
 
-        pattern: _re.Pattern = _re.compile(r'\$\{([\w.-\[\]]+)\}')
         manifest: _jmutils.JMProperties = _jmutils.JMProperties(infile)
 
         # Fix the manifest
         for key, val in manifest.items():
-            new_val = pattern.match(val)
+            new_val = self._val_pattern.match(val)
             if not new_val:
                 continue
 
@@ -307,6 +308,37 @@ class JMRepairer:
 
         self.__write_out(
             [f'{key}: {val}' for key, val in manifest.items()] + [''],
+            out=outfile
+        )
+
+    def fix_properties(self, infile: str, outfile: str = None) -> None:
+        if not infile:
+            raise ValueError("Argument 'infile' cannot be empty") \
+                from CORE_ERR
+
+        if not _os.path.exists(infile):
+            raise FileNotFoundError(f'Cannot read non-existing file: {infile!r}') \
+                from CORE_ERR
+
+        # If the outfile argument were not specified, then use infile
+        # for the name of output file, which means will overwrite the infile
+        outfile = infile if not outfile else outfile
+
+        # Parse the properties file
+        properties: _jmutils.JMProperties = _jmutils.JMProperties(infile)
+
+        # Fix the properties file
+        for key, val in properties.items():
+            new_val = self._val_pattern.match(val)
+            if not new_val:
+                continue
+
+            new_val = new_val[1]
+            if new_val in self._pom_items:
+                properties[key] = self._pom_items[new_val]
+
+        self.__write_out(
+            [f'{key} = {val}' for key, val in properties.items()],
             out=outfile
         )
 
