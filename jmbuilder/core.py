@@ -218,29 +218,41 @@ class PomParser:
         return result.text if result else result
 
 
-def fix_manifest(pom: str, infile: str, outfile: str) -> None:
-    def __write_out(contents: List[str], out: str) -> None:
-        with open(out, 'w', encoding='UTF-8') as o_file:
-            for line in contents:
-                o_file.write(f'{line}{_os.linesep}')
-
+def fix_manifest(pom: Union[str, PomParser], infile: str, outfile: str = None) -> None:
     core_err: _jmexc.JMException = _jmexc.JMException(
         _os.linesep + '  CORE ERROR: An error occurred in core module.')
 
-    if not infile or len(infile) == 0:
-        raise ValueError('Argument cannot be empty') \
+    def __write_out(contents: List[str], out: str) -> None:
+        parentdir: str = _os.path.dirname(out)
+        if not _os.path.exists(parentdir):
+            _os.mkdir(parentdir)
+
+        try:
+            with open(out, 'w', encoding='UTF-8') as o_file:
+                for line in contents:
+                    o_file.write(f'{line}{_os.linesep}')
+        except Exception as e:
+            raise e from core_err
+
+    if not pom:
+        raise ValueError("Argument 'pom' cannot be empty") \
+            from core_err
+
+    if not infile:
+        raise ValueError("Argument 'infile' cannot be empty") \
             from core_err
 
     if not _os.path.exists(infile):
         raise FileNotFoundError(f'Cannot read non-existing file: {infile!r}') \
             from core_err
 
-    if not (outfile or len(outfile)):
-        outfile = infile
+    # When outfile argument not specified, then use infile
+    # for the name of output file, which means will overwrite the infile
+    outfile = infile if not outfile else outfile
 
     pattern: _re.Pattern = _re.compile(r'\$\{([\w.-\[\]]+)\}')
     manifest: _jmutils.JMProperties = _jmutils.JMProperties(infile)
-    soup: PomParser = PomParser.parse(pom)
+    soup: PomParser = PomParser.parse(pom) if isinstance(pom, str) else pom
 
     project_id: Dict[str, Optional[str]] = soup.get_id()
     project_author: Dict[str, Optional[str]] = soup.get_author()
