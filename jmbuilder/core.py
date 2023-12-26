@@ -7,7 +7,7 @@ import os as _os
 import sys as _sys
 import re as _re
 from datetime import datetime as _dt, timezone as _tz
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional, Union, TextIO
 import bs4 as _bs4
 
 from . import utils as _jmutils
@@ -23,6 +23,10 @@ except (ImportError, ModuleNotFoundError, ValueError):
     del Path
 
     from jmbuilder._globals import AUTHOR, VERSION, VERSION_INFO
+
+CORE_ERR: _jmexc.JMException = _jmexc.JMException(
+    _os.linesep + '  CORE ERROR: An error occurred in core module.')
+
 
 class PomParser:
     """
@@ -218,11 +222,46 @@ class PomParser:
         return result.text if result else result
 
 
-def fix_manifest(pom: Union[str, PomParser], infile: str, outfile: str = None) -> None:
-    core_err: _jmexc.JMException = _jmexc.JMException(
-        _os.linesep + '  CORE ERROR: An error occurred in core module.')
+class JMRepairer:
+    def __init__(self, pom: Union[str, PomParser, _bs4.BeautifulSoup]) -> 'JMRepairer':
+        if not pom:
+            raise ValueError("Argument 'pom' cannot be empty") \
+                from CORE_ERR
 
-    def __write_out(contents: List[str], out: str) -> None:
+        if not isinstance(pom, (str, PomParser, _bs4.BeautifulSoup)):
+            raise TypeError(f"Unknown type of 'pom' argument: {type(pom).__name__}") \
+                from CORE_ERR
+
+        self._soup: PomParser = None
+        if isinstance(pom, str):
+            self._soup = PomParser.parse(pom)  # Need to be parsed first
+        elif isinstance(pom, _bs4.BeautifulSoup):
+            self._soup = PomParser(pom)        # Pass directly to the constructor
+        elif isinstance(pom, PomParser):
+            self._soup = pom                   # Already an instance of PomParser
+
+        project_id: Dict[str, Optional[str]] = self._soup.get_id()
+        project_author: Dict[str, Optional[str]] = self._soup.get_author()
+        project_license: Dict[str, Optional[str]] = self._soup.get_license()
+
+        self._pom_items: Dict[str, Optional[str]] = {
+            'project.name': self._soup.get_name(),
+            'project.version': self._soup.get_version(),
+            'project.url': self._soup.get_url(),
+            'project.groupId': project_id['groupId'],
+            'project.artifactId': project_id['artifactId'],
+            'project.inceptionYear': self._soup.get_inception_year(),
+            'project.developers[0].name': project_author['name'],
+            'project.developers[0].url': project_author['url'],
+            'project.licenses[0].name': project_license['name'],
+            'project.licenses[0].url': project_license['url'],
+            'package.licenseFile': self._soup.get_property('package.licenseFile', dot=False),
+            'package.mainClass': self._soup.get_property('package.mainClass', dot=False),
+            'maven.build.timestamp': _dt.now(_tz.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+        }
+
+    @classmethod
+    def __write_out(cls, contents: List[str], out: str) -> None:
         parentdir: str = _os.path.dirname(out)
         if not _os.path.exists(parentdir):
             _os.mkdir(parentdir)
@@ -232,65 +271,41 @@ def fix_manifest(pom: Union[str, PomParser], infile: str, outfile: str = None) -
                 for line in contents:
                     o_file.write(f'{line}{_os.linesep}')
         except Exception as e:
-            raise e from core_err
+            raise e from CORE_ERR
 
-    if not pom:
-        raise ValueError("Argument 'pom' cannot be empty") \
-            from core_err
+    def fix_manifest(self, infile: str, outfile: str = None) -> None:
+        if not infile:
+            raise ValueError("Argument 'infile' cannot be empty") \
+                from CORE_ERR
 
-    if not infile:
-        raise ValueError("Argument 'infile' cannot be empty") \
-            from core_err
+        if not _os.path.exists(infile):
+            raise FileNotFoundError(f'Cannot read non-existing file: {infile!r}') \
+                from CORE_ERR
 
-    if not _os.path.exists(infile):
-        raise FileNotFoundError(f'Cannot read non-existing file: {infile!r}') \
-            from core_err
+        # When outfile argument not specified, then use infile
+        # for the name of output file, which means will overwrite the infile
+        outfile = infile if not outfile else outfile
 
-    # When outfile argument not specified, then use infile
-    # for the name of output file, which means will overwrite the infile
-    outfile = infile if not outfile else outfile
+        pattern: _re.Pattern = _re.compile(r'\$\{([\w.-\[\]]+)\}')
+        manifest: _jmutils.JMProperties = _jmutils.JMProperties(infile)
 
-    pattern: _re.Pattern = _re.compile(r'\$\{([\w.-\[\]]+)\}')
-    manifest: _jmutils.JMProperties = _jmutils.JMProperties(infile)
-    soup: PomParser = PomParser.parse(pom) if isinstance(pom, str) else pom
+        # Fix the manifest
+        for key, val in manifest.items():
+            new_val = pattern.match(val)
+            if not new_val:
+                continue
 
-    project_id: Dict[str, Optional[str]] = soup.get_id()
-    project_author: Dict[str, Optional[str]] = soup.get_author()
-    project_license: Dict[str, Optional[str]] = soup.get_license()
+            new_val = new_val[1]
+            if key == 'ID':
+                manifest[key] = f"{self._pom_items['project.groupId']}:" + \
+                    f"{self._pom_items['project.artifactId']}"
+            elif new_val in self._pom_items:
+                manifest[key] = self._pom_items[new_val]
 
-    # A dictionary stores all correct values from the parsed POM
-    values: Dict[str, Optional[str]] = {
-        'project.name': soup.get_name(),
-        'project.version': soup.get_version(),
-        'project.url': soup.get_url(),
-        'project.groupId': project_id['groupId'],
-        'project.artifactId': project_id['artifactId'],
-        'project.inceptionYear': soup.get_inception_year(),
-        'project.developers[0].name': project_author['name'],
-        'project.developers[0].url': project_author['url'],
-        'project.licenses[0].name': project_license['name'],
-        'project.licenses[0].url': project_license['url'],
-        'package.licenseFile': soup.get_property('package.licenseFile', dot=False),
-        'package.mainClass': soup.get_property('package.mainClass', dot=False),
-        'maven.build.timestamp': _dt.now(_tz.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
-    }
-
-    # Fix the manifest
-    for key, val in manifest.items():
-        new_val = pattern.match(val)
-        if not new_val:
-            continue
-
-        new_val = new_val[1]
-        if key == 'ID':
-            manifest[key] = f"{values['project.groupId']}:{values['project.artifactId']}"
-        elif new_val in values:
-            manifest[key] = values[new_val]
-
-    __write_out(
-        [f'{key}: {val}' for key, val in manifest.items()],
-        out=outfile
-    )
+        self.__write_out(
+            [f'{key}: {val}' for key, val in manifest.items()] + [''],
+            out=outfile
+        )
 
 
 __author__       = AUTHOR
