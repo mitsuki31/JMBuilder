@@ -124,7 +124,7 @@ class PomParser:
 
     def get_id(self) -> Dict[str, Optional[str]]:
         """Return a dictionary with 'groupId' and 'artifactId'."""
-        id_element: List[_bs4.element.Tag | None] = [
+        id_element: List[Optional[_bs4.element.Tag]] = [
             self.project_tag.find('groupId'),    # => project.groupId
             self.project_tag.find('artifactId')  # => project.artifactId
         ]
@@ -149,7 +149,7 @@ class PomParser:
     def get_author(self) -> Dict[str, Optional[str]]:
         """Return a dictionary with 'id', 'name', and 'url' of the project author."""
         key: str = 'project.developers.developer'
-        author_element: List[_bs4.element.Tag | None] = [
+        author_element: List[Optional[_bs4.element.Tag]] = [
             self.get(key + '.id'),    # => project.developers[0].developer.id
             self.get(key + '.name'),  # => project.developers[0].developer.name
             self.get(key + '.url')    # => project.developers[0].developer.url
@@ -164,7 +164,7 @@ class PomParser:
     def get_license(self) -> Dict[str, str]:
         """Return a dictionary with 'name', 'url', and 'distribution' of the project license."""
         key: str = 'project.licenses.license'
-        license_element: List[_bs4.element.Tag | None] = [
+        license_element: List[Optional[_bs4.element.Tag]] = [
             self.get(key + '.name'),         # => project.licenses[0].license.name
             self.get(key + '.url'),          # => project.licenses[0].license.url
             self.get(key + '.distribution')  # => project.licenses[0].license.distribution
