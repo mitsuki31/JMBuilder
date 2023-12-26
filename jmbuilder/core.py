@@ -81,11 +81,14 @@ class PomParser:
         # Return the instance of this class
         return PomParser(soup)
 
+    def printsoup(self, *, pretty: bool = True, file: TextIO = _sys.stdout) -> None:
+        print(self.soup.prettify() if pretty else self.soup, file=file)
+
     def get(self, key: Union[str, List[str]]) -> Optional[_bs4.element.Tag]:
         """
         Find the element tag based on the provided key, which can be a string
         (separated by dots) or a list of tag names. The result could be a None,
-        this means that element are undefined or that users has specified wrong
+        this means that element are undefined or the users has specified wrong
         element tree path.
 
         Parameters
