@@ -7,7 +7,7 @@ Copyright (c) 2023 Ryuu Mitsuki.
 import os as __os
 import sys as __sys
 from pathlib import Path as __Path
-from typing import Any, Union, TextIO
+from typing import Iterable, Union, List, Tuple, TextIO
 
 
 try:
@@ -45,7 +45,7 @@ def __print_version(_exit: bool = False, *,
     """
 
     if not file:
-        raise ValueError("File must be an opened file object, not None")
+        raise ValueError(f"File must be a file object, got {type(file).__name__!r}")
 
     program_name: str = __jmsetup__.progname
     version:      str = f"v{'.'.join(map(str, __jmsetup__.version))}"
@@ -66,16 +66,16 @@ def __print_version(_exit: bool = False, *,
         __sys.exit(0)
 
 
-def __argchck(targets: Any, args: Union[list, tuple]) -> bool:
+def __argchck(targets: Union[str, Iterable], args: Union[List[str], Tuple[str]]) -> bool:
     """
     Check whether specified argument are presented in `args`.
 
     Paramaters
     ----------
-    targets : Any
+    targets : str or Iterable
         An argument or a list of arguments (must iterable) to searched for.
 
-    args : list or tuple
+    args : list or tuple of str
         A list of arguments.
 
     Returns
@@ -135,12 +135,12 @@ AUTHOR:
 #::#  Main Driver  #::#
 def main() -> None:
     """Main function for JMBuilder."""
-    help_args: tuple = ('-h', '--help')
-    version_args: tuple = ('-V', '--version',)
-    only_version_args: tuple = ('-VV', '--only-ver', '--only-version')
+    help_args: Tuple[str] = ('-h', '--help')
+    version_args: Tuple[str] = ('-V', '--version',)
+    only_version_args: Tuple[str] = ('-VV', '--only-ver', '--only-version')
 
     # Trim the file name from command line arguments (at the first index)
-    args: list = __sys.argv[1:]
+    args: List[str] = __sys.argv[1:]
 
     # Check for `-V` or `--version` in the arguments
     # If found, print the version info then exit with exit code zero (success)
@@ -174,7 +174,7 @@ __version_info__ = VERSION_INFO
 
 # Delete unused imported objects
 del AUTHOR, VERSION, VERSION_INFO
-del Any, Union, TextIO
+del Iterable, Union, TextIO, List, Tuple
 
 
 if __name__ == '__main__':
