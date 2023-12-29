@@ -88,7 +88,37 @@ class PomParser:
         return PomParser(soup)
 
     def printsoup(self, *, pretty: bool = True, file: TextIO = _sys.stdout) -> None:
-        print(self.soup.prettify() if pretty else self.soup, file=file)
+        """
+        Print the ``BeautifulSoup`` object, optionally prettified, for debugging purposes.
+
+        Parameters
+        ----------
+        pretty : bool, optional
+            If True, the BeautifulSoup object will be prettified for better readability.
+            Defaults to True.
+
+        file : TextIO, optional
+            A file-like object to which the output will be printed.
+            Defaults to ``sys.stdout``.
+
+        Notes
+        -----
+        This method is intended for debugging and allows you to print the
+        current state of the ``BeautifulSoup`` object. The output can be customized
+        with the `pretty` parameter to control prettification and the `file`
+        parameter to redirect the output to a specific file-like object.
+
+        Example
+        -------
+        # Print the soup to the console standard output
+        >>> soup_instance.printsoup()
+
+        # Print and save the soup to the specified file
+        >>> with open('output.xml', 'w') as f:
+        ...     soup_instance.printsoup(pretty=True, file=f)
+
+        """
+        print(self.soup.prettify() if pretty else str(self.soup).strip(), file=file)
 
     def get(self, key: Union[str, List[str]]) -> Optional[_bs4.element.Tag]:
         """
