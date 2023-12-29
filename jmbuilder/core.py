@@ -46,7 +46,8 @@ class PomParser:
         """Create a new instance of ``PomParser`` class."""
         if not isinstance(soup, _bs4.BeautifulSoup):
             # Raise an error
-            raise TypeError(f'Invalid instance class: {soup.__class__}')
+            raise TypeError(f'Invalid instance class: {soup.__class__}') \
+                from CORE_ERR
 
         self.soup: _bs4.BeautifulSoup = soup
         self.project_tag: _bs4.element.Tag = soup.find('project')
@@ -72,13 +73,16 @@ class PomParser:
 
         """
 
-        # Read and convert the pom.xml file to BeautifulSoup object
-        soup: _bs4.BeautifulSoup = _bs4.BeautifulSoup(
-            ''.join(_jmutils.readfile(pom_file, encoding=encoding)), 'xml')
-
-        # Find the comments using lambda, then extract them
-        for element in soup(text=lambda t: isinstance(t, _bs4.Comment)):
-            element.extract()
+        try:
+            # Read and convert the pom.xml file to BeautifulSoup object
+            soup: _bs4.BeautifulSoup = _bs4.BeautifulSoup(
+                ''.join(_jmutils.readfile(pom_file, encoding=encoding)), 'xml')
+    
+            # Find the comments using lambda, then extract them
+            for element in soup(text=lambda t: isinstance(t, _bs4.Comment)):
+                element.extract()
+        except Exception as exc:
+            raise exc from CORE_ERR
 
         # Return the instance of this class
         return PomParser(soup)
