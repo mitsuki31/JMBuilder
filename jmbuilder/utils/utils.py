@@ -81,7 +81,7 @@ import collections as _collections
 from pathlib import Path as _Path
 from typing import (
     Dict, List, Optional,
-    Union, Type, TextIO
+    Union, Type, TextIO, Sequence
 )
 
 from .._globals import AUTHOR, VERSION, VERSION_INFO
@@ -304,12 +304,43 @@ def readfile(path: str, encoding: str = 'UTF-8') -> List[str]:
         If the given path is refer to a directory, not a regular file.
 
     """
-    
+
     contents: List[str] = []
     with open(path, 'r', encoding=encoding) as file:
         contents = file.readlines()
-    
+
     return contents
+
+
+def remove_duplicates(seq: Sequence) -> Sequence:
+    """
+    Remove duplicates from a sequence while preserving the original order.
+
+    Parameters
+    ----------
+    seq : list or iterable
+        The input sequence containing elements with potential duplicates.
+
+    Returns
+    -------
+    list
+        A new list containing unique elements from the input sequence,
+        while maintaining the original order.
+
+    Notes
+    -----
+    This function uses a set to keep track of seen elements and filters
+    out duplicates while preserving the order of the original sequence.
+
+    Example
+    -------
+    >>> foo = [1, 2, 3, 1, 2, 4, 5]
+    >>> remove_duplicates(foo)
+    [1, 2, 3, 4, 5]
+
+    """
+    seen = set()
+    return [x for x in seq if not (x in seen or seen.add(x))]
 
 
 class JMProperties(_collections.UserDict):
@@ -491,4 +522,4 @@ __version_info__ = VERSION_INFO
 
 # Delete imported objects that are no longer used
 del AUTHOR, VERSION, VERSION_INFO
-del Dict, List, Optional, Union, Type, TextIO
+del Dict, List, Optional, Union, Type, TextIO, Sequence
