@@ -8,6 +8,7 @@ import sys as _sys
 import re as _re
 from datetime import datetime as _dt, timezone as _tz
 from typing import Dict, List, Optional, Union, TextIO
+from warnings import warn as __warn
 import bs4 as _bs4
 
 from . import utils as _jmutils
@@ -27,6 +28,7 @@ except (ImportError, ModuleNotFoundError, ValueError):
 CORE_ERR: _jmexc.JMException = _jmexc.JMException(
     _os.linesep + '  CORE ERROR: An error occurred in core module.')
 
+__all__ = ['PomParser', 'JMRepairer']
 
 class PomParser:
     """
@@ -349,3 +351,10 @@ __version_info__ = VERSION_INFO
 
 # Delete unused variables
 del AUTHOR, VERSION, VERSION_INFO
+del Dict, List, Union, Optional, TextIO
+
+if __name__ == '__main__':
+    __warn(
+'''You are attempting to run this module directly (i.e. as main module), \
+which is not permitted. It is designed to be imported, not as main module.''')
+    _sys.exit()
