@@ -6,20 +6,24 @@ Copyright (c) 2023 Ryuu Mitsuki.
 
 import os as __os
 import sys as __sys
+import re as __re
 from pathlib import Path as __Path
 from typing import Iterable, Union, List, Tuple, TextIO
 
 
 try:
+    from . import utils as __jmutils
     from ._globals import AUTHOR, VERSION, VERSION_INFO, __jmsetup__
 except (ImportError, ModuleNotFoundError, ValueError):
     # Add a new Python search path to the first index
     __sys.path.insert(0, str(__Path(__sys.path[0]).parent))
 
+    from . import utils as __jmutils
     from jmbuilder._globals import AUTHOR, VERSION, VERSION_INFO, __jmsetup__
 finally:
     del __Path  # This no longer being used
 
+CLEAN_ARGS: Tuple[str] = __jmutils.remove_duplicates(__sys.argv[1:])
 
 def __print_version(_exit: bool = False, *,
                     only_ver: bool = False,
@@ -94,6 +98,47 @@ def __argchck(targets: Union[str, Iterable], args: Union[List[str], Tuple[str]])
             found = True
 
     return found
+
+
+def __find_arg(val: Union[str, __re.Pattern]) -> int:
+    """
+    Find the index of specified argument from the command-line arguments.
+
+    Parameters
+    ----------
+    val : str or re.Pattern
+        A regular expression pattern used to search for the argument within
+        the command-line arguments. Accepts a string literal representing
+        the regular expression or a compiled regular expression.
+
+    Returns
+    -------
+    int :
+        The index of the specified argument in the command-line arguments.
+        Returns -1 if the argument cannot be found or if the command-line
+        arguments are empty.
+
+    Notes
+    -----
+    This function utilizes the global constant ``CLEAN_ARGS``, ensuring that
+    it searches for the desired argument within the command-line arguments
+    with all duplicate arguments omitted.
+
+    """
+    # Use the fixed arguments; global constant
+    if len(CLEAN_ARGS) == 0:
+        return -1
+
+    # Convert to regular expression
+    val = __re.compile(val) if isinstance(val, str) else val
+
+    res: __re.Match = None
+    for arg in CLEAN_ARGS:
+        res = val.search(arg)
+        if res:
+            break
+
+    return CLEAN_ARGS.index(res.group()) if res else -1
 
 
 def __print_help() -> None:
