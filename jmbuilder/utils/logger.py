@@ -14,7 +14,7 @@ Available Functions
 init_logger
     Initialize and create new `Logger` object for logging any
     information or errors to file, if specified, otherwise the output
-    will be written to console standard output.
+    will be written to console standard error.
 
 Available Constants
 -------------------
@@ -60,7 +60,7 @@ WARNING : int
 Example
 -------
 # Import the module
->>> from jm_builder.utils import logger
+>>> from jmbuilder import logger
 
 # Create a new logger object
 >>> log = logger.init_logger(fmt=logger.CUSTOM_FORMAT,
@@ -77,13 +77,11 @@ Example
 This is an information message.
 
 # Log some exception
-# You can also insert the traces by assign `exc_info` argument with
-# the raised exception.
+# To trace the error, pass any true value to `exc_info` argument.
 >>> try:
 ...     x = 3 / 0
 ... except ZeroDivisionError as div_err:
-...     log.error('An error occurred.',
-...               exc_info=div_err)
+...     log.error('An error occurred.', exc_info=1)
 An error occurred.
 Traceback (most recent call last):
   ...
@@ -95,12 +93,14 @@ import sys as _sys
 import logging as _log
 from typing import Union
 
-from .._globals import AUTHOR, STDERR
+from .._globals import AUTHOR, VERSION, VERSION_INFO, STDERR
 from ..exception import JMUnknownTypeError as _JMTypeError
 
 
 __all__ = ['init_logger']
 __author__ = AUTHOR
+__version__ = VERSION
+__version_info__ = VERSION_INFO
 
 
 # References of formatter
@@ -133,7 +133,7 @@ def init_logger(filename: str = None, *, fmt: Union[str, _log.Formatter] = None,
     fmt : str or logging.Formatter, optional
         A string representation of the log formatter or an object
         of `logging.Formatter` class. If not specified, a customized
-        formatter will be used. Default is ``None``.
+        formatter will be used. See ``CUSTOM_FORMAT`` constant variable.
 
     level : int, optional
         An integer value that specifies the logging level for the logger.
@@ -148,15 +148,19 @@ def init_logger(filename: str = None, *, fmt: Union[str, _log.Formatter] = None,
     ------
     JMUnknownTypeError :
         If the 'fmt' are not instance of `str` or `logging.Formatter` class.
+
     """
 
     handler: _log.Handler = None
 
-    # Check whether the 'filename' is defined
-    if filename is None:
+    # Check whether the 'filename' are specified
+    if not filename:
         handler = _log.StreamHandler(STDERR)
-    elif filename:
-        if not filename.endswith('.log'):
+    else:
+        if not isinstance(filename, str):
+            filename = str(filename)
+
+        if isinstance(filename, str) and not filename.endswith('.log'):
             filename += '.log'
 
         # Check whether the parent directory of 'filename' exist
@@ -165,8 +169,8 @@ def init_logger(filename: str = None, *, fmt: Union[str, _log.Formatter] = None,
             _os.mkdir(_os.path.dirname(filename))
         handler = _log.FileHandler(filename)
 
-    # Check whether the 'fmt' as log formatter is defined
-    if fmt is None:
+    # Check whether the 'fmt' as log formatter are specified
+    if not fmt:
         handler.setFormatter(_log.Formatter(CUSTOM_FORMAT))
     elif fmt and isinstance(fmt, (str, _log.Formatter)):
         if isinstance(fmt, str):
@@ -188,4 +192,4 @@ def init_logger(filename: str = None, *, fmt: Union[str, _log.Formatter] = None,
 
 
 # Remove unnecessary variables
-del AUTHOR, Union
+del AUTHOR, VERSION, VERSION_INFO, Union
