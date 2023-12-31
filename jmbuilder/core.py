@@ -77,7 +77,7 @@ class PomParser:
             # Read and convert the pom.xml file to BeautifulSoup object
             soup: _bs4.BeautifulSoup = _bs4.BeautifulSoup(
                 ''.join(_jmutils.readfile(pom_file, encoding=encoding)), 'xml')
-    
+
             # Find the comments using lambda, then extract them
             for element in soup(text=lambda t: isinstance(t, _bs4.Comment)):
                 element.extract()
@@ -262,7 +262,41 @@ class PomParser:
 
 
 class JMRepairer:
+    """
+    A class for repairing manifest and properties files using information
+    from a POM file.
+
+    Parameters
+    ----------
+    pom : str, PomParser, or _bs4.BeautifulSoup
+        The POM file, either as a path (str), a `PomParser` instance,
+        or a `BeautifulSoup` object.
+
+    Raises
+    ------
+    ValueError
+        If the 'pom' argument is empty.
+
+    TypeError
+        If the type of 'pom' argument is unknown, neither of str,
+        a `PomParser` instance, nor a `BeautifulSoup` object.
+
+    Attributes
+    ----------
+    _val_pattern : re.Pattern
+        Regular expression pattern for extracting values from curly
+        braces in strings.
+
+    _soup : PomParser
+        Instance of `PomParser` representing the parsed POM file.
+
+    _pom_items : Dict[str, str (could possibly None)]
+        Dictionary containing key-value pairs extracted from the POM file.
+
+    """
+
     def __init__(self, pom: Union[str, PomParser, _bs4.BeautifulSoup]) -> 'JMRepairer':
+        """Create a new instance of this class."""
         if not pom:
             raise ValueError("Argument 'pom' cannot be empty") \
                 from CORE_ERR
@@ -303,6 +337,24 @@ class JMRepairer:
 
     @classmethod
     def __write_out(cls, contents: List[str], out: str) -> None:
+        """
+        Write the given contents to the specified output file.
+
+        Parameters
+        ----------
+        contents : a list of str
+            List of strings to be written to the file.
+
+        out : str
+            Path to the output file.
+
+        Raises
+        ------
+        Exception
+            If an error occurs while writing to the output file.
+    
+        """
+
         parentdir: str = _os.path.dirname(out)
         if not _os.path.exists(parentdir):
             _os.mkdir(parentdir)
@@ -315,6 +367,29 @@ class JMRepairer:
             raise e from CORE_ERR
 
     def fix_manifest(self, infile: str, outfile: str = None) -> None:
+        """
+        Fix the given manifest file by replacing placeholders with values
+        from the POM file.
+
+        Parameters
+        ----------
+        infile : str
+            Path to the input manifest file.
+
+        outfile : str, optional
+            Path to the output manifest file. If not specified,
+            the input file will be overwritten.
+
+        Raises
+        ------
+        ValueError
+            If the 'infile' argument is empty.
+
+        FileNotFoundError
+            If the specified input file does not exist.
+
+        """
+
         if not infile:
             raise ValueError("Argument 'infile' cannot be empty") \
                 from CORE_ERR
@@ -348,6 +423,29 @@ class JMRepairer:
         )
 
     def fix_properties(self, infile: str, outfile: str = None) -> None:
+        """
+        Fix the given properties file by replacing placeholders with values
+        from the POM file.
+
+        Parameters
+        ----------
+        infile : str
+            Path to the input properties file.
+
+        outfile : str, optional
+            Path to the output properties file. If not specified,
+            the input file will be overwritten.
+
+        Raises
+        ------
+        ValueError
+            If the 'infile' argument is empty.
+
+        FileNotFoundError
+            If the specified input file does not exist.
+
+        """
+
         if not infile:
             raise ValueError("Argument 'infile' cannot be empty") \
                 from CORE_ERR
