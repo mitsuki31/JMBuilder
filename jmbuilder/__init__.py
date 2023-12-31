@@ -31,6 +31,13 @@ JMUnknownTypeError
     This exception is raised when an unknown type error occurs during
     the execution in this module.
 
+JMRepairer
+    A class for repairing manifest and properties files using information
+    from a POM file.
+
+PomParser
+    A class that provides an easy way to parse and retrieve useful
+    information from the provided POM file.
 
 Available Functions
 -------------------
@@ -78,6 +85,10 @@ from .exception import *
 from . import utils
 from .utils import *
 
+# core
+from . import core
+from .core import *
+
 # _globals
 from . import _globals
 from ._globals import *
@@ -92,7 +103,7 @@ __all__.extend(_globals.__all__)
 # Import statement here are no longer being used to prevent the accumulation
 # of names after using wildcard imports. Instead, it exports only a few related modules
 # without directly exporting the global classes and functions within those modules.
-__all__.extend(['exception', 'utils'])
+__all__.extend(['exception', 'utils', 'core'])
 
 #__all__.extend(exception.__all__)
 #__all__.extend(utils.__all__)
