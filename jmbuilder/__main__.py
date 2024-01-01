@@ -249,11 +249,10 @@ def main() -> None:
 
     # Only executed if and only if both options not specified simultaneously
     elif __argchck(fix_mf_args, CLEAN_ARGS) ^ __argchck(fix_prop_args, CLEAN_ARGS):
-        opt_idx: int = -1
-        if __argchck(fix_mf_args, CLEAN_ARGS):
-            opt_idx = __find_arg('(' + '|'.join(fix_mf_args) + ')')
-        elif __argchck(fix_prop_args, CLEAN_ARGS):
-            opt_idx = __find_arg('(' + '|'.join(fix_prop_args) + ')')
+        fix_args = fix_mf_args if __argchck(fix_mf_args, CLEAN_ARGS) else fix_prop_args
+        opt_idx = __find_arg('(' + '|'.join(fix_args) + ')') \
+            if __argchck(fix_args, CLEAN_ARGS) else -1
+        del fix_args
 
         # Keep the unformatted brackets, with this we can format and
         # write the actual error message on later.
@@ -271,21 +270,20 @@ def main() -> None:
         method_name: Any = 'fix_manifest' \
             if CLEAN_ARGS[opt_idx] in fix_mf_args else 'fix_properties'
 
-        # Get the argument right after the option argument, and treat it
-        # as a path to specific POM file, otherwise an error raised if not specified.
-        if (len(CLEAN_ARGS) - 1) >= (opt_idx + 1):
-            option_args['pom'] = __core_PomParser.parse(CLEAN_ARGS[opt_idx + 1])
-        else:
+        if not (len(CLEAN_ARGS) - 1) >= (opt_idx + 1):
             raise __jmexc.JMException(
                 option_err_msg.format('No POM file were specified'))
+        if not (len(CLEAN_ARGS) - 1) >= (opt_idx + 2):
+            raise __jmexc.JMException(
+                option_err_msg.format('No input file were specified'))
+
+        # Get the argument right after the option argument, and treat it
+        # as a path to specific POM file, otherwise an error raised if not specified.
+        option_args['pom'] = __core_PomParser.parse(CLEAN_ARGS[opt_idx + 1])
 
         # Get the input file (infile) argument,
         # otherwise raise an error if not specified
-        if (len(CLEAN_ARGS) - 1) >= (opt_idx + 2):
-            option_args['infile'] = CLEAN_ARGS[opt_idx + 2]
-        else:
-            raise __jmexc.JMException(
-                option_err_msg.format('No input file were specified'))
+        option_args['infile'] = CLEAN_ARGS[opt_idx + 2]
 
         # Get the outfile argument, otherwise use the infile argument
         # if not specified (i.e., overwrite the input file)
