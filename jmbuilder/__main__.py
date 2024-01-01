@@ -8,18 +8,30 @@ import os as __os
 import sys as __sys
 import re as __re
 from pathlib import Path as __Path
-from typing import Iterable, Union, List, Tuple, TextIO
+from typing import (
+    Any,
+    Iterable,
+    Union,
+    Set,
+    List,
+    Dict,
+    Tuple,
+    TextIO
+)
 
 
 try:
     from . import utils as __jmutils
+    from . import exception as __jmexc
     from ._globals import AUTHOR, VERSION, VERSION_INFO, __jmsetup__
+    from .core import PomParser as __core_PomParser, JMRepairer as __core_JMRepairer
 except (ImportError, ModuleNotFoundError, ValueError):
     # Add a new Python search path to the first index
     __sys.path.insert(0, str(__Path(__sys.path[0]).parent))
 
     from . import utils as __jmutils
     from jmbuilder._globals import AUTHOR, VERSION, VERSION_INFO, __jmsetup__
+    from jmbuilder.core import PomParser as __core_PomParser, JMRepairer as __core_JMRepairer
 finally:
     del __Path  # This no longer being used
 
@@ -60,7 +72,7 @@ def __print_version(_exit: bool = False, *,
         print(
             program_name, version, f'- {__jmsetup__.license}',  # Program name and version
             __os.linesep + \
-            f'Copyright (C) 2023 by {author}.',                 # Copyright notice
+            f'Copyright (C) 2023-2024 by {author}.',                 # Copyright notice
             file=file
         )
     else:
@@ -76,7 +88,7 @@ def __argchck(targets: Union[str, Iterable], args: Union[List[str], Tuple[str]])
 
     Paramaters
     ----------
-    targets : str or Iterable
+    targets : str or iterable
         An argument or a list of arguments (must iterable) to searched for.
 
     args : list or tuple of str
@@ -155,12 +167,27 @@ def __print_help() -> None:
 {''.join(['-' for _ in range(len(header))])}
 
 USAGE:
-   python -m jmbuilder [OPTIONS]
+   python -m {__package__} [OPTIONS]
 
 OPTIONS:
+   --fix-mf <pom> <in> [out],
+   --fix-manifest <pom> <in> [out]
+        Run the builder to correct the specified manifest file containing
+        Maven's variables. Utilizes information from the provided POM file.
+        The output will be written to the given output file, if provided;
+        otherwise, it will overwrite the input file.
+
+   --fix-prop <pom> <in> [out],
+   --fix-properties <pom> <in> [out]
+        Run the builder to rectify the specified properties file with
+        Maven's variables. Incorporates information from the provided POM file.
+        The output will be written to the given output file, if provided;
+        otherwise, it will overwrite the input file.
+
    -V, --version, -version
-        Print the version and copyright. All of them will print
-        directly to the standard output, except for '-version'.
+        Print the version and copyright information. All details will be printed
+        directly to the standard output, except for '-version', it goes
+        to the standard error.
 
    -VV, --only-ver, --only-version
         Print the version number only.
@@ -181,16 +208,27 @@ AUTHOR:
 def main() -> None:
     """Main function for JMBuilder."""
     help_args: Tuple[str] = ('-h', '--help')
-    version_args: Tuple[str] = ('-V', '--version',)
+    version_args: Tuple[str] = ('-V', '--version', '-version')
     only_version_args: Tuple[str] = ('-VV', '--only-ver', '--only-version')
+    fix_mf_args: Tuple[str] = ('--fix-manifest', '--fix-mf')
+    fix_prop_args: Tuple[str] = ('--fix-properties', '--fix-prop')
+    all_known_args: Set[str] = {
+        *help_args, *version_args, *only_version_args,
+        *fix_mf_args, *fix_prop_args
+    }
 
-    # Trim the file name from command line arguments (at the first index)
-    args: List[str] = __sys.argv[1:]
+    if len(CLEAN_ARGS) == 0:
+        print(
+            f'Nothing to run.{__os.linesep * 2}' +
+            f'USAGE: python -m {__package__} [-h | -V | -VV]{__os.linesep}' +
+            '\t\t[--fix-mf <pom> <in> [out] | --fix-prop <pom> <in> [out]]'
+        )
+        __sys.exit(0)
 
     # Check for `-V` or `--version` in the arguments
     # If found, print the version info then exit with exit code zero (success)
     #
-    if __argchck(version_args, args):
+    if __argchck(version_args[:-1], CLEAN_ARGS):
         __print_version(True)
 
     # For `-version` argument, the output will be redirected
@@ -198,18 +236,81 @@ def main() -> None:
     #   `-V`, `--version` -> sys.stdout
     #   `-version`        -> sys.stderr
     #
-    elif __argchck('-version', args):
+    elif __argchck(version_args[-1], CLEAN_ARGS):
         __print_version(True, file=__sys.stderr)
 
     # To print the version only, user can use several arguments. See 'only_version_args'
-    elif __argchck(only_version_args, args):
+    elif __argchck(only_version_args, CLEAN_ARGS):
         __print_version(True, only_ver=True)
 
     # Print the help message
-    elif __argchck(help_args, args):
+    elif __argchck(help_args, CLEAN_ARGS):
         __print_help()
 
-    # ... Still in development
+    # Only executed if and only if both options not specified simultaneously
+    elif __argchck(fix_mf_args, CLEAN_ARGS) ^ __argchck(fix_prop_args, CLEAN_ARGS):
+        opt_idx: int = -1
+        if __argchck(fix_mf_args, CLEAN_ARGS):
+            opt_idx = __find_arg('(' + '|'.join(fix_mf_args) + ')')
+        elif __argchck(fix_prop_args, CLEAN_ARGS):
+            opt_idx = __find_arg('(' + '|'.join(fix_prop_args) + ')')
+
+        # Keep the unformatted brackets, with this we can format and
+        # write the actual error message on later.
+        option_err_msg: str = \
+            '{}' + f'.{__os.linesep * 2}' + \
+            f'USAGE: python -m {__package__} {CLEAN_ARGS[opt_idx]} <pom> <in> [out]'
+
+        # This dictionary will holds the builder arguments
+        option_args: Dict[str, Any] = {
+            'pom': None,     # 1
+            'infile': None,  # 2
+            'outfile': None  # 3
+        }
+        # Get the builder method name
+        method_name: Any = 'fix_manifest' \
+            if CLEAN_ARGS[opt_idx] in fix_mf_args else 'fix_properties'
+
+        # Get the argument right after the option argument, and treat it
+        # as a path to specific POM file, otherwise an error raised if not specified.
+        if (len(CLEAN_ARGS) - 1) >= (opt_idx + 1):
+            option_args['pom'] = __core_PomParser.parse(CLEAN_ARGS[opt_idx + 1])
+        else:
+            raise __jmexc.JMException(
+                option_err_msg.format('No POM file were specified'))
+
+        # Get the input file (infile) argument,
+        # otherwise raise an error if not specified
+        if (len(CLEAN_ARGS) - 1) >= (opt_idx + 2):
+            option_args['infile'] = CLEAN_ARGS[opt_idx + 2]
+        else:
+            raise __jmexc.JMException(
+                option_err_msg.format('No input file were specified'))
+
+        # Get the outfile argument, otherwise use the infile argument
+        # if not specified (i.e., overwrite the input file)
+        if (len(CLEAN_ARGS) - 1) >= (opt_idx + 3):
+            option_args['outfile'] = CLEAN_ARGS[opt_idx + 3]
+        else:
+            option_args['outfile'] = option_args.get('infile')
+
+        repairer: __core_JMRepairer = __core_JMRepairer(option_args.pop('pom'))
+        # Call the method dynamically
+        args_vals: Tuple[str] = (*option_args.values(),)
+        getattr(repairer, method_name)(args_vals[0], outfile=args_vals[1])
+
+    # This for causing the error when both options are specified
+    elif __argchck(fix_mf_args, CLEAN_ARGS) and __argchck(fix_prop_args, CLEAN_ARGS):
+        raise __jmexc.JMException(
+            'Program was unable to run both options simultaneously')
+    elif not __argchck(CLEAN_ARGS, all_known_args):
+        err: str = "Unknown argument detected: '{}'" + (__os.linesep * 2) + \
+            'For more details, type argument `-h` or `--help`.'
+
+        arg_idx: int = next((idx for idx, arg in enumerate(CLEAN_ARGS)
+            if not __argchck(arg, all_known_args)), -1)
+
+        raise __jmexc.JMException(err.format(CLEAN_ARGS[arg_idx]))
 
 
 __author__       = AUTHOR
@@ -219,8 +320,16 @@ __version_info__ = VERSION_INFO
 
 # Delete unused imported objects
 del AUTHOR, VERSION, VERSION_INFO
-del Iterable, Union, TextIO, List, Tuple
+del Iterable, Union, Any, TextIO, List, Tuple, Dict, Set
 
 
 if __name__ == '__main__':
     main()
+else:
+    # Remove the `main` function when this module is being imported,
+    # but it's a bit silly if there someone imports this module.
+    # The reason is the function implementation are strongly depends on
+    # the command-line arguments (`sys.argv`). However, if this is imported
+    # users can still modify the `sys.argv` manually, right?
+    # But we restricted that, we want the function to run as main driver only.
+    del main
