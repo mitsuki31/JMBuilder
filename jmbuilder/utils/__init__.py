@@ -2,7 +2,7 @@
 
 This module provide utilities for `JMBuilder` package.
 
-Copyright (c) 2023 Ryuu Mitsuki.
+Copyright (c) 2023-2024 Ryuu Mitsuki.
 """
 
 from . import logger, utils

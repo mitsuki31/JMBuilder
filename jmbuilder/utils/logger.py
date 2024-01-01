@@ -6,7 +6,7 @@ This module provides a custom logger utility that initializes and creates a new
 To use the custom logger in your project, you can import the `init_logger` function
 from this module and create a new `Logger` object with desired settings.
 
-Copyright (c) 2023 Ryuu Mitsuki.
+Copyright (c) 2023-2024 Ryuu Mitsuki.
 
 
 Available Functions

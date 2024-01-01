@@ -4,7 +4,7 @@ This module contains all global variables, constants, and classes
 used by the `JMBuilder` module. It provides access to various path
 variables and other configurations used throughout the module.
 
-Copyright (c) 2023 Ryuu Mitsuki.
+Copyright (c) 2023-2024 Ryuu Mitsuki.
 
 
 Available Classes

@@ -2,7 +2,7 @@
 Test suite for utilities members and properties parser, exclusively
 for `jmbuilder.utils` submodule.
 
-Copyright (c) 2023 Ryuu Mitsuki
+Copyright (c) 2023-2024 Ryuu Mitsuki.
 
 """
 

@@ -2,7 +2,7 @@
 
 This module contains several custom exception for `JMBuilder`.
 
-Copyright (c) 2023 Ryuu Mitsuki.
+Copyright (c) 2023-2024 Ryuu Mitsuki.
 
 
 Available Classes

@@ -6,7 +6,7 @@ For more information about `JMatrix` you can refer to link below.
 
     https://github.com/mitsuki31/jmatrix.git
 
-Copyright (c) 2023 Ryuu Mitsuki
+Copyright (c) 2023-2024 Ryuu Mitsuki
 
 
 Available Classes

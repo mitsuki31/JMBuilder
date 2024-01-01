@@ -3,7 +3,7 @@
 This module provide utilities members, including JSON parser and properties
 parser for `JMBuilder` module.
 
-Copyright (c) 2023 Ryuu Mitsuki.
+Copyright (c) 2023-2024 Ryuu Mitsuki.
 
 
 Available Classes
