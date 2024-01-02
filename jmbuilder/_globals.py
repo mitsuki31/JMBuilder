@@ -216,11 +216,6 @@ class JMSetupConfRetriever:
     """
     A class that retrieves and provides all setup configuration.
 
-    Attributes
-    ----------
-    setupfile : str
-        A string path reference to the setup configuration file.
-
     Notes
     -----
     This class only retrieves the setup configuration without any modification
@@ -228,15 +223,14 @@ class JMSetupConfRetriever:
 
     """
 
-    SETUPFILE: str = _os.path.join(_JMCustomPath(str).confdir, 'setup.json')
-
     def __init__(self):
         """Initialize self."""
 
+        setupfile: str = _os.path.join(_JMCustomPath(str).confdir, 'setup.json')
         # Get the properties
         configs: dict = {}
-        with open(self.SETUPFILE, 'r', encoding='utf-8') as setupfile:
-            configs = _json.load(setupfile)
+        with open(setupfile, 'r', encoding='utf-8') as setup_file:
+            configs = _json.load(setup_file)
 
         # Create an empty named tuple
         frozen_ver = _collections.namedtuple(
