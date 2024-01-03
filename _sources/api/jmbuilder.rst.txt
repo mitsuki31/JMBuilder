@@ -1,0 +1,47 @@
+jmbuilder package
+=================
+
+.. automodule:: jmbuilder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   jmbuilder.exception
+   jmbuilder.utils
+
+Submodules
+----------
+
+jmbuilder.\_\_main\_\_ module
+-----------------------------
+
+.. automodule:: jmbuilder.__main__
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+jmbuilder.\_globals module
+--------------------------
+
+.. automodule:: jmbuilder._globals
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+jmbuilder.core module
+---------------------
+
+.. automodule:: jmbuilder.core
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

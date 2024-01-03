@@ -1,0 +1,886 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jmbuilder.utils.utils &#8212; JMBuilder v1.0.0</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/jmbuilder/utils/utils';</script>
+    <link rel="index" title="Index" href="../../../../genindex/" />
+    <link rel="search" title="Search" href="../../../../search/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search/"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../../../../">
+  
+  
+  
+  
+  
+    <p class="title logo__title">JMBuilder v1.0.0</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../../api/modules/">
+                        jmbuilder
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../../api/modules/">
+                        jmbuilder
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">jmbuilder.utils.utils</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for jmbuilder.utils.utils</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Utilities Module for JMBuilder</span>
+
+<span class="sd">This module provide utilities members, including JSON parser and properties</span>
+<span class="sd">parser for `JMBuilder` module.</span>
+
+<span class="sd">Copyright (c) 2023-2024 Ryuu Mitsuki.</span>
+
+
+<span class="sd">Available Classes</span>
+<span class="sd">-----------------</span>
+<span class="sd">JMProperties</span>
+<span class="sd">    A custom properties parser class, implemented in `jmbuilder.utils` package.</span>
+<span class="sd">    Python does not provide an easy way to parsing files with extension of</span>
+<span class="sd">    `.properties`, this class is designed to parse properties file and</span>
+<span class="sd">    access their contents with ease without any third-party modules.</span>
+
+<span class="sd">Available Functions</span>
+<span class="sd">-------------------</span>
+<span class="sd">json_parser</span>
+<span class="sd">    This utility function provides an easy way to parses and retrieves all</span>
+<span class="sd">    configurations from JSON configuration files.</span>
+
+<span class="sd">    Examples::</span>
+
+<span class="sd">        &gt;&gt;&gt; json_parser(&#39;path/to/configs_file.json&#39;)</span>
+<span class="sd">        {&#39;foo&#39;: False, &#39;bar&#39;: True}</span>
+
+<span class="sd">remove_comments</span>
+<span class="sd">    This utility function can remove lines from a list of strings representing</span>
+<span class="sd">    the file contents that starting with a specified delimiter and returns</span>
+<span class="sd">    a new list with lines starting with a specified delimiter removed.</span>
+<span class="sd">    This function are designed for removing comments lines from file contents.</span>
+
+<span class="sd">    Examples::</span>
+
+<span class="sd">        # Read file contents</span>
+<span class="sd">        &gt;&gt;&gt; contents = []</span>
+<span class="sd">        &gt;&gt;&gt; with open(&#39;path/to/example.txt&#39;) as f:</span>
+<span class="sd">        ...     contents = f.readlines()</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; contents</span>
+<span class="sd">        [&#39;Hello&#39;, &#39;# This is comment line&#39;, &#39;World&#39;]</span>
+
+<span class="sd">        &gt;&gt;&gt; remove_comments(contents, delim=&#39;#&#39;)</span>
+<span class="sd">        [&#39;Hello&#39;, &#39;World&#39;]</span>
+
+<span class="sd">remove_blanks</span>
+<span class="sd">    This utility function can remove blank lines from the list of strings</span>
+<span class="sd">    representing the file contents, and optionally remove lines with value `None`.</span>
+<span class="sd">    Return a new list with blank lines removed.</span>
+
+<span class="sd">    Examples::</span>
+
+<span class="sd">        &gt;&gt;&gt; contents = [&#39;&#39;, &#39;Foo&#39;, None, &#39;&#39;, &#39;1234&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; remove_blanks(contents, none=False)  # Ignore None</span>
+<span class="sd">        [&#39;Foo&#39;, None, &#39;1234&#39;]</span>
+
+<span class="sd">        &gt;&gt;&gt; remove_blanks(contents, none=True)</span>
+<span class="sd">        [&#39;Foo&#39;, &#39;1234&#39;]</span>
+
+<span class="sd">readfile</span>
+<span class="sd">    This utilty function will read the contents from the given file path and</span>
+<span class="sd">    return a list containing all contents from that file.</span>
+<span class="sd">    </span>
+<span class="sd">    If the given path does not refer to an existing regular file or the given path</span>
+<span class="sd">    is refer to a directory, it will raises an error.</span>
+<span class="sd">    </span>
+<span class="sd">    Examples::</span>
+
+<span class="sd">        # Read contents from file called &#39;myfile.txt&#39;</span>
+<span class="sd">        &gt;&gt;&gt; contents = readfile(&#39;myfile.txt&#39;)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span> <span class="k">as</span> <span class="nn">_os</span>
+<span class="kn">import</span> <span class="nn">io</span> <span class="k">as</span> <span class="nn">_io</span>
+<span class="kn">import</span> <span class="nn">sys</span> <span class="k">as</span> <span class="nn">_sys</span>
+<span class="kn">import</span> <span class="nn">json</span> <span class="k">as</span> <span class="nn">_json</span>
+<span class="kn">import</span> <span class="nn">locale</span> <span class="k">as</span> <span class="nn">_locale</span>
+<span class="kn">import</span> <span class="nn">collections</span> <span class="k">as</span> <span class="nn">_collections</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span> <span class="k">as</span> <span class="n">_Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.._globals</span> <span class="kn">import</span> <span class="n">AUTHOR</span><span class="p">,</span> <span class="n">VERSION</span><span class="p">,</span> <span class="n">VERSION_INFO</span>
+<span class="kn">from</span> <span class="nn">..exception</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">JMUnknownTypeError</span> <span class="k">as</span> <span class="n">_JMTypeError</span><span class="p">,</span>
+    <span class="n">JMParserError</span> <span class="k">as</span> <span class="n">_JMParserError</span>
+<span class="p">)</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;json_parser&#39;</span><span class="p">,</span> <span class="s1">&#39;remove_comments&#39;</span><span class="p">,</span> <span class="s1">&#39;remove_blanks&#39;</span><span class="p">,</span> <span class="s1">&#39;JMProperties&#39;</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="json_parser"><a class="viewcode-back" href="../../../../api/jmbuilder.utils/#jmbuilder.utils.json_parser">[docs]</a><span class="k">def</span> <span class="nf">json_parser</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse and retrieve all configurations from specified JSON</span>
+<span class="sd">    configuration file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        The path to specify the configuration file to be parsed.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict :</span>
+<span class="sd">        A dictionary containing all parsed configurations from specified</span>
+<span class="sd">        configuration file.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    JMParserError :</span>
+<span class="sd">        If something went wrong during parsing the configuration file.</span>
+
+<span class="sd">    ValueError :</span>
+<span class="sd">        If the given path is `None`.</span>
+
+<span class="sd">    JMUnknownTypeError :</span>
+<span class="sd">        If the given path&#39;s type are not `str`.</span>
+
+<span class="sd">    FileNotFoundError :</span>
+<span class="sd">        If the given path are refers to a non-existing file.</span>
+
+<span class="sd">    IsADirectoryError :</span>
+<span class="sd">        If the given path are refers to a directory instead a configuration file.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function only supported configuration file with JSON type.</span>
+<span class="sd">    Given file paths will be validated before retrieving their configurations,</span>
+<span class="sd">    and check the extension file. Make sure the given path references</span>
+<span class="sd">    to file with the `.json` extension.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unexpected value: &#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39;. Expected &#39;str&#39;&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span> <span class="nn">_JMParserError</span><span class="p">(</span>
+            <span class="s2">&quot;Something went wrong while parsing the configuration file&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Raise an error if the given path not `str` type</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">_JMTypeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unknown type &#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39;. Expected &#39;str&#39;&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span> <span class="nn">_JMParserError</span><span class="p">(</span>
+            <span class="s2">&quot;Something went wrong while parsing the configuration file&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Check existence</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;No such file or directory: &#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span> <span class="nn">_JMParserError</span><span class="p">(</span>
+            <span class="s1">&#39;Configuration file was not found&#39;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Check whether a directory or regular file</span>
+    <span class="k">if</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">IsADirectoryError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Is a directory: &#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span> <span class="nn">_JMParserError</span><span class="p">(</span>
+            <span class="s1">&#39;Directory found. No such configuration file&#39;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Check the extension file</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.json&#39;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">_JMParserError</span><span class="p">(</span>
+            <span class="s1">&#39;Unknown file type. No such JSON configuration file&#39;</span>
+        <span class="p">)</span>
+
+    <span class="n">configs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">cfg_file</span><span class="p">:</span>
+        <span class="n">contents</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">cfg_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="c1"># Check for null to prevent an error on JSONDecoder</span>
+        <span class="k">if</span> <span class="n">contents</span><span class="p">:</span>
+            <span class="n">configs</span> <span class="o">=</span> <span class="n">_json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>  <span class="c1"># return a dictionary</span>
+
+    <span class="k">return</span> <span class="n">configs</span></div>
+
+
+
+<div class="viewcode-block" id="remove_comments"><a class="viewcode-back" href="../../../../api/jmbuilder.utils/#jmbuilder.utils.remove_comments">[docs]</a><span class="k">def</span> <span class="nf">remove_comments</span><span class="p">(</span><span class="n">contents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">delim</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove lines starting with a specified delimiter.</span>
+
+<span class="sd">    This function removes lines from the input list of contents that start</span>
+<span class="sd">    with the specified delimiter. It returns a new contents with comments removed.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    contents : List[str]</span>
+<span class="sd">        A list of strings representing the contents of a file.</span>
+
+<span class="sd">    delim : str, optional</span>
+<span class="sd">        The delimiter used to identify comment lines. Lines starting with</span>
+<span class="sd">        this delimiter will be removed. The default is &#39;#&#39;.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    List[str] :</span>
+<span class="sd">        A new contents with comment lines (specified by delimiter) removed.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError :</span>
+<span class="sd">        If the input list `contents` is empty.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Multiple specified delimiters cannot be removed in a single call to</span>
+<span class="sd">    this function. Although the problem can be fixed by executing the</span>
+<span class="sd">    procedure as many times depending on the delimiters that need</span>
+<span class="sd">    to be removed. But still it is not a convenient way.</span>
+
+<span class="sd">    Examples::</span>
+
+<span class="sd">        # Suppose we want to remove lines that starting with</span>
+<span class="sd">        # hashtags (#) and exclamation marks (!).</span>
+<span class="sd">        &gt;&gt;&gt; remove_comments(</span>
+<span class="sd">        ...     remove_comments(contents, delim=&#39;#&#39;), delim=&#39;!&#39;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">contents</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;File contents cannot be empty&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Use a list comprehension to filter out lines starting with the delimiter</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">contents</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">delim</span><span class="p">)]</span></div>
+
+
+
+<div class="viewcode-block" id="remove_blanks"><a class="viewcode-back" href="../../../../api/jmbuilder.utils/#jmbuilder.utils.remove_blanks">[docs]</a><span class="k">def</span> <span class="nf">remove_blanks</span><span class="p">(</span><span class="n">contents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">none</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove empty lines from a list of strings.</span>
+
+<span class="sd">    This function removes empty lines (lines with no content) and lines</span>
+<span class="sd">    containing only whitespace from the input list of strings. Optionally,</span>
+<span class="sd">    it can removes lines containing `None`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    contents : List[str]</span>
+<span class="sd">        A list of strings representing the contents of a file.</span>
+
+<span class="sd">    none : bool, optional</span>
+<span class="sd">        If True, lines containing `None` are also removed.</span>
+<span class="sd">        If False, only lines with no content are removed. The default is True.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    List[str] :</span>
+<span class="sd">        A new contents with empty lines removed.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError :</span>
+<span class="sd">        If the input list `contents` is empty.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">contents</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;File contents cannot be empty&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">contents</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">line</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">none</span><span class="p">)</span> <span class="ow">or</span> \
+            <span class="p">(</span><span class="n">line</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="p">]</span></div>
+
+
+<span class="k">def</span> <span class="nf">readfile</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">encoding</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read all contents from the specified file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        A string path refers to a regular file.</span>
+
+<span class="sd">    encoding : str, optional</span>
+<span class="sd">        An encoding to be used during read operation.</span>
+<span class="sd">        Defaults to `UTF-8`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    List[str] :</span>
+<span class="sd">        A list of string containing contents from the specified file.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If the given path does not refer to the existing file.</span>
+
+<span class="sd">    PermissionError</span>
+<span class="sd">        If there is a permission restrictions during read operation.</span>
+
+<span class="sd">    IsADirectoryError</span>
+<span class="sd">        If the given path is refer to a directory, not a regular file.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">contents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">contents</span>
+
+
+<span class="k">def</span> <span class="nf">remove_duplicates</span><span class="p">(</span><span class="n">seq</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove duplicates from a sequence while preserving the original order.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    seq : list or iterable</span>
+<span class="sd">        The input sequence containing elements with potential duplicates.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        A new list containing unique elements from the input sequence,</span>
+<span class="sd">        while maintaining the original order.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function uses a set to keep track of seen elements and filters</span>
+<span class="sd">    out duplicates while preserving the order of the original sequence.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; foo = [1, 2, 3, 1, 2, 4, 5]</span>
+<span class="sd">    &gt;&gt;&gt; remove_duplicates(foo)</span>
+<span class="sd">    [1, 2, 3, 4, 5]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">seq</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">seen</span> <span class="ow">or</span> <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span>
+
+
+<div class="viewcode-block" id="JMProperties"><a class="viewcode-back" href="../../../../api/jmbuilder.utils/#jmbuilder.utils.JMProperties">[docs]</a><span class="k">class</span> <span class="nc">JMProperties</span><span class="p">(</span><span class="n">_collections</span><span class="o">.</span><span class="n">UserDict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class provides a convenient way to parse properties files</span>
+<span class="sd">    and access their contents.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str or TextIO</span>
+<span class="sd">        The filename or file object to read properties from. If a filename is</span>
+<span class="sd">        provided, it checks for the file&#39;s existence, opens the file stream,</span>
+<span class="sd">        and retrieves the properties. If a file object is provided, it directly</span>
+<span class="sd">        reads the properties from it.</span>
+
+<span class="sd">    encoding : str, optional</span>
+<span class="sd">        The encoding to use when opening the file stream. If not specified,</span>
+<span class="sd">        it uses the encoding from `locale.getpreferredencoding()`.</span>
+<span class="sd">        Defaults to system&#39;s preferred encoding.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : Dict[str, str]</span>
+<span class="sd">        A dictionary containing all the parsed properties.</span>
+
+<span class="sd">    filename : str</span>
+<span class="sd">        An absolute path to the specified property file.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    JMParserError :</span>
+<span class="sd">        If an error occurs while reading and parsing the properties file.</span>
+
+<span class="sd">    FileNotFoundError :</span>
+<span class="sd">        If the specified file path does not exist.</span>
+
+<span class="sd">    ValueError :</span>
+<span class="sd">        If the `filename` parameter is None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TextIO</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span>
+                 <span class="n">encoding</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">_locale</span><span class="o">.</span><span class="n">getpreferredencoding</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize self.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="n">encoding</span>
+
+        <span class="k">def</span> <span class="nf">__blank_remover</span><span class="p">(</span><span class="n">contents</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Remove trailing whitespace and newline character from the contents.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            contents : list</span>
+<span class="sd">                A list of strings representing contents of file.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            list :</span>
+<span class="sd">                A new list with trailing whitespace and newline characters removed.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">__line_splitter</span><span class="p">(</span><span class="n">contents</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">delim</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Split the given string using specified delimiters from the contents.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            contents : list</span>
+<span class="sd">                A list of strings representing contents of file.</span>
+
+<span class="sd">            delim: str</span>
+<span class="sd">                The delimiter to be used for splitting keys and values.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            list :</span>
+<span class="sd">                A new list with each entries contains two strings that</span>
+<span class="sd">                representing a key and value respectively.</span>
+
+<span class="sd">            Notes</span>
+<span class="sd">            -----</span>
+<span class="sd">            The length of an entry in the returned list might be used to indicate</span>
+<span class="sd">            an unsuccessful result. If the length is equal to one, it indicates</span>
+<span class="sd">            that the function was unable to split the contents using the specified</span>
+<span class="sd">            delimiter (this could be due to the delimiter not being present</span>
+<span class="sd">            in the contents).</span>
+
+<span class="sd">            For clarity, here&#39;s some examples::</span>
+
+<span class="sd">                &gt;&gt;&gt; contents = [&#39;foo: bar&#39;, &#39;pswd: helloWORLD&#39;]</span>
+<span class="sd">                &gt;&gt;&gt; new_contents = __line_splitter(contents, &#39;$&#39;)</span>
+<span class="sd">                &gt;&gt;&gt; len(new_contents[0])  # Check the length</span>
+<span class="sd">                1  # Failed to split due to the delim not present in contents</span>
+
+<span class="sd">                &gt;&gt;&gt; new_contents = __line_splitter(contents, &#39;:&#39;)</span>
+<span class="sd">                &gt;&gt;&gt; len(new_contents[0])</span>
+<span class="sd">                2  # Succeed</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">delim</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">]</span>
+
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="c1"># If encoding is not specified, use the system&#39;s preferred encoding</span>
+        <span class="n">encoding</span> <span class="o">=</span> <span class="n">encoding</span> <span class="k">if</span> <span class="n">encoding</span> <span class="k">else</span> <span class="n">_locale</span><span class="o">.</span><span class="n">getpreferredencoding</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The &#39;filename&#39; parameter cannot be None&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Raise FileNotFoundError, if the given file are not exist</span>
+        <span class="c1"># First these code below will checks whether the given file is not None</span>
+        <span class="c1"># and its type is `str`</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="ow">and</span> \
+                <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> \
+                <span class="ow">not</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File not found: &#39;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span> \
+                <span class="kn">from</span> <span class="nn">_JMParserError</span><span class="p">(</span>
+                    <span class="s1">&#39;The specified path does not reference any property file &#39;</span> <span class="o">+</span>
+                    <span class="s1">&#39;or the file does not exist&#39;</span>
+                <span class="p">)</span>
+
+        <span class="n">properties_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">contents</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Open and read the contents if the given file is of type `str`</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">prop</span><span class="p">:</span>
+                <span class="n">contents</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">_io</span><span class="o">.</span><span class="n">TextIOWrapper</span><span class="p">):</span>
+            <span class="n">contents</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+            <span class="c1"># Get the name of property file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="c1"># Extract file contents, remove comments and empty strings</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="n">__blank_remover</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="n">remove_comments</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="s1">&#39;#&#39;</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="n">remove_blanks</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># First, try to split the keys and values using equals sign (=) as a delimiter</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">__line_splitter</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">delim</span><span class="o">=</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+        <span class="n">keys</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="c1"># Check if the first try has extracted the keys and values successfully</span>
+        <span class="c1"># If the length of each element is one, it indicates extraction failure,</span>
+        <span class="c1"># so we try splitting using a colon (:) as a delimiter</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># In this second try, use a colon (:) as a delimiter</span>
+            <span class="c1"># for keys and values</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">__line_splitter</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">delim</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Unpack keys and values into variables (errors can occur here)</span>
+            <span class="n">keys</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">type_val_err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">type_val_err</span> <span class="kn">from</span> <span class="nn">_JMParserError</span><span class="p">(</span>
+                <span class="s1">&#39;Unable to unpack keys and values&#39;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Remove trailing whitespace in keys and values</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">__blank_remover</span><span class="p">(</span><span class="n">keys</span><span class="p">))</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">__blank_remover</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
+
+        <span class="c1"># Build the dictionary from extracted keys and values</span>
+        <span class="n">properties_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">properties_data</span><span class="p">)</span></div>
+
+
+<span class="n">__author__</span>       <span class="o">=</span> <span class="n">AUTHOR</span>
+<span class="n">__version__</span>      <span class="o">=</span> <span class="n">VERSION</span>
+<span class="n">__version_info__</span> <span class="o">=</span> <span class="n">VERSION_INFO</span>
+
+
+<span class="c1"># Delete imported objects that are no longer used</span>
+<span class="k">del</span> <span class="n">AUTHOR</span><span class="p">,</span> <span class="n">VERSION</span><span class="p">,</span> <span class="n">VERSION_INFO</span>
+<span class="k">del</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">Sequence</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023-2024, Ryuu Mitsuki.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

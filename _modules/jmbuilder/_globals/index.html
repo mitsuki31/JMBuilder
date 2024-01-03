@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jmbuilder._globals &#8212; JMBuilder v1.0.0</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/jmbuilder/_globals';</script>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search/"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../../../">
+  
+  
+  
+  
+  
+    <p class="title logo__title">JMBuilder v1.0.0</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/modules/">
+                        jmbuilder
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/modules/">
+                        jmbuilder
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">jmbuilder._globals</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for jmbuilder._globals</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Global Module for `JMBuilder`</span>
+
+<span class="sd">This module contains all global variables, constants, and classes</span>
+<span class="sd">used by the `JMBuilder` module. It provides access to various path</span>
+<span class="sd">variables and other configurations used throughout the module.</span>
+
+<span class="sd">Copyright (c) 2023-2024 Ryuu Mitsuki.</span>
+
+
+<span class="sd">Available Classes</span>
+<span class="sd">-----------------</span>
+<span class="sd">JMSetupConfRetriever</span>
+<span class="sd">    This class provide an easy way to retrieve and access the setup</span>
+<span class="sd">    configurations for `JMBuilder` module.</span>
+
+<span class="sd">Available Constants</span>
+<span class="sd">-------------------</span>
+<span class="sd">AUTHOR : str</span>
+<span class="sd">    The author name (as well as the creator) of the `JMBuilder` module.</span>
+
+<span class="sd">BASEDIR : str</span>
+<span class="sd">    Provides the path to the base directory of the `JMBuilder` package.</span>
+
+<span class="sd">    This is an alias for `_JMCustomPath().basedir`.</span>
+
+<span class="sd">CONFDIR : str</span>
+<span class="sd">    Provides the path to the directory that contains configuration</span>
+<span class="sd">    files for configuring the `JMBuilder` module. The path itself</span>
+<span class="sd">    is relative to `BASEDIR`.</span>
+
+<span class="sd">    This is an alias for `_JMCustomPath().confdir`.</span>
+
+<span class="sd">LOGSDIR : str</span>
+<span class="sd">    Provides the path to the directory used for logging by the</span>
+<span class="sd">    `JMBuilder` module. The path itself is relative to `BASEDIR`.</span>
+
+<span class="sd">    This is an alias for `_JMCustomPath().logsdir`.</span>
+
+<span class="sd">STDOUT : TextIO</span>
+<span class="sd">    An alias for `sys.stdout`, representing the standard output console.</span>
+
+<span class="sd">STDERR : TextIO</span>
+<span class="sd">    An alias for `sys.stderr`, representing the standard error console.</span>
+
+<span class="sd">TMPDIR : str or pathlib.Path</span>
+<span class="sd">    Provides the path to the temporary directory used by the</span>
+<span class="sd">    `JMBuilder` module. The path itself is relative to `BASEDIR`.</span>
+
+<span class="sd">    This is an alias for `_JMCustomPath().tmpdir`.</span>
+
+<span class="sd">VERSION : str</span>
+<span class="sd">    A string representing the JMBuilder&#39;s version information.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span> <span class="k">as</span> <span class="nn">_os</span>
+<span class="kn">import</span> <span class="nn">sys</span> <span class="k">as</span> <span class="nn">_sys</span>
+<span class="kn">import</span> <span class="nn">json</span> <span class="k">as</span> <span class="nn">_json</span>
+<span class="kn">import</span> <span class="nn">collections</span> <span class="k">as</span> <span class="nn">_collections</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span> <span class="k">as</span> <span class="n">_Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">TextIO</span><span class="p">,</span>
+    <span class="n">Type</span><span class="p">,</span>
+    <span class="n">Union</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="s1">&#39;_global_imported&#39;</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+        <span class="s2">&quot;Cannot import the &#39;_globals&#39; module more than once.&quot;</span><span class="p">)</span>
+<span class="n">_global_imported</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="k">class</span> <span class="nc">_JMCustomPath</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Custom class to manage read-only path variables for `JMBuilder` module.</span>
+
+<span class="sd">    This class provides read-only properties for common path variables</span>
+<span class="sd">    such as `basedir`, `tmpdir`, `logsdir` and more.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _type : Type[str] or Type[pathlib.Path], optional</span>
+<span class="sd">        The class type used for casting the path variables. Defaults to</span>
+<span class="sd">        Python built-in string class (`str`).</span>
+
+<span class="sd">        This parameter only supported the following types:</span>
+<span class="sd">            - `str`</span>
+<span class="sd">            - `pathlib.Path`</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If `_type` is not a class of `str` neither `pathlib.Path`.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The path variables are read-only properties, and attempts to modify</span>
+<span class="sd">    them will raise an `AttributeError`.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">      # Use `pathlib.Path` to cast the path</span>
+<span class="sd">      &gt;&gt;&gt; _JMCustomPath(Path).tmpdir</span>
+<span class="sd">      PosixPath(&#39;.../tmp&#39;)  # if Windows, it will be `WindowsPath`</span>
+
+<span class="sd">      # `str` type is the default value</span>
+<span class="sd">      &gt;&gt;&gt; _JMCustomPath().basedir</span>
+<span class="sd">      &#39;/path/to/base/directory&#39;</span>
+
+<span class="sd">      # User can also check the class type that currently</span>
+<span class="sd">      # used for casting</span>
+<span class="sd">      &gt;&gt;&gt; _JMCustomPath(Path).type</span>
+<span class="sd">      &lt;class &#39;pathlib.Path&#39;&gt;</span>
+
+<span class="sd">      # Attempt to modify the value will cause an error</span>
+<span class="sd">      &gt;&gt;&gt; _JMCustomPath().basedir = &#39;/path/to/another/directory&#39;</span>
+<span class="sd">      Traceback (most recent call last):</span>
+<span class="sd">        ...</span>
+<span class="sd">      AttributeError: can&#39;t set attribute</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">_Path</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize self. See ``help(type(self))``, for accurate signature.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__type</span> <span class="o">=</span> <span class="n">_type</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="s1">&#39;Invalid type of `_type`: </span><span class="si">%r</span><span class="s1">. &#39;</span> <span class="o">+</span> \
+              <span class="s1">&#39;Expected &quot;str&quot; and &quot;pathlib.Path&quot;&#39;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+            <span class="n">err</span> <span class="o">=</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">_type</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">err</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">and</span> \
+                 <span class="n">_type</span><span class="o">.</span><span class="vm">__name__</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="s1">&#39;Path&#39;</span><span class="p">,</span> <span class="s1">&#39;pathlib.Path&#39;</span><span class="p">):</span>
+            <span class="n">err</span> <span class="o">=</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err</span> <span class="o">%</span> <span class="n">_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">err</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__basedir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__type</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">_Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__tmpdir</span><span class="p">:</span>  <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__type</span><span class="p">(</span><span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__basedir</span><span class="p">,</span> <span class="s1">&#39;tmp&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logsdir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__type</span><span class="p">(</span><span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__basedir</span><span class="p">,</span> <span class="s1">&#39;logs&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__confdir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__type</span><span class="p">(</span><span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__basedir</span><span class="p">,</span> <span class="s1">&#39;.config&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the string represents the class name and the class type.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            A string representation of this class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__type</span><span class="o">.</span><span class="vm">__name__</span><span class="si">!r}</span><span class="s1">)&#39;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">basedir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Path</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The JMBuilder&#39;s base directory path based on parent directory of this file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str or pathlib.Path</span>
+<span class="sd">            The current working directory path.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__basedir</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tmpdir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Path</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The path to &#39;tmp&#39; directory relative to `basedir`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str or pathlib.Path</span>
+<span class="sd">            The path to temporary directory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tmpdir</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">logsdir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Path</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The path to &#39;logs&#39; directory relative to `basedir`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str or pathlib.Path</span>
+<span class="sd">            The path to logs directory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logsdir</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">confdir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Path</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The path to &#39;.config&#39; directory relative to `basedir`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str or pathlib.Path</span>
+<span class="sd">            The path to the specified directory that contains configuration</span>
+<span class="sd">            files for configuring `JMBuilder` module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__confdir</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">_Path</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the current class type for casting the path.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Type[str] or Type[pathlib.Path]</span>
+<span class="sd">            The class type.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__type</span>
+
+
+<div class="viewcode-block" id="JMSetupConfRetriever"><a class="viewcode-back" href="../../../api/jmbuilder/#jmbuilder.JMSetupConfRetriever">[docs]</a><span class="k">class</span> <span class="nc">JMSetupConfRetriever</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class that retrieves and provides all setup configuration.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This class only retrieves the setup configuration without any modification</span>
+<span class="sd">    methods to their values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize self.&quot;&quot;&quot;</span>
+
+        <span class="n">setupfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_JMCustomPath</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">confdir</span><span class="p">,</span> <span class="s1">&#39;setup.json&#39;</span><span class="p">)</span>
+        <span class="c1"># Get the properties</span>
+        <span class="n">configs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">setupfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">setup_file</span><span class="p">:</span>
+            <span class="n">configs</span> <span class="o">=</span> <span class="n">_json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">setup_file</span><span class="p">)</span>
+
+        <span class="c1"># Create an empty named tuple</span>
+        <span class="n">frozen_ver</span> <span class="o">=</span> <span class="n">_collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span>
+            <span class="s1">&#39;FrozenJMVersion&#39;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="s1">&#39;patch&#39;</span><span class="p">],</span>
+            <span class="n">module</span><span class="o">=</span><span class="n">__package__</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Change the named tuple&#39;s documentation</span>
+        <span class="n">frozen_ver</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">configs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Program-Name&quot;</span><span class="p">)</span><span class="si">}</span><span class="se">\&#39;</span><span class="s1">s &#39;</span> <span class="o">+</span> \
+            <span class="s1">&#39;version information as a frozen named tuple.&#39;</span>
+
+        <span class="n">key_names</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;progname&#39;</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="s1">&#39;author&#39;</span><span class="p">,</span> <span class="s1">&#39;license&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__jmsetup_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">key_names</span><span class="p">,</span> <span class="n">configs</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+
+        <span class="c1"># Convert the version info to FrozenJMVersion (a named tuple)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__jmsetup_data</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frozen_ver</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">__jmsetup_data</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">progname</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the program name from setup configuration.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str :</span>
+<span class="sd">            A string representing the program name.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__jmsetup_data</span><span class="p">[</span><span class="s1">&#39;progname&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;FrozenJMVersion&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the module version from setup configuration.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        FrozenJMVersion :</span>
+<span class="sd">            A frozen named tuple representing the module version.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__jmsetup_data</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">author</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the author name from setup configuration.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str :</span>
+<span class="sd">            A string representing the author name.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__jmsetup_data</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">license</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the license name from setup configuration.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str :</span>
+<span class="sd">            A string representing the license name.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__jmsetup_data</span><span class="p">[</span><span class="s1">&#39;license&#39;</span><span class="p">]</span></div>
+
+
+<span class="c1"># Aliases</span>
+<span class="n">__jmsetup__</span> <span class="o">=</span> <span class="n">JMSetupConfRetriever</span><span class="p">()</span>
+<span class="n">__jmpath__</span>  <span class="o">=</span> <span class="n">_JMCustomPath</span><span class="p">()</span>
+
+<span class="n">BASEDIR</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">__jmpath__</span><span class="o">.</span><span class="n">basedir</span>
+<span class="n">TMPDIR</span><span class="p">:</span>  <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">__jmpath__</span><span class="o">.</span><span class="n">tmpdir</span>
+<span class="n">LOGSDIR</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">__jmpath__</span><span class="o">.</span><span class="n">logsdir</span>
+<span class="n">CONFDIR</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">__jmpath__</span><span class="o">.</span><span class="n">confdir</span>
+
+<span class="n">STDOUT</span><span class="p">:</span> <span class="n">TextIO</span> <span class="o">=</span> <span class="n">_sys</span><span class="o">.</span><span class="n">stdout</span>
+<span class="n">STDERR</span><span class="p">:</span> <span class="n">TextIO</span> <span class="o">=</span> <span class="n">_sys</span><span class="o">.</span><span class="n">stderr</span>
+
+<span class="n">AUTHOR</span><span class="p">:</span>       <span class="nb">str</span> <span class="o">=</span> <span class="n">__jmsetup__</span><span class="o">.</span><span class="n">author</span>
+<span class="n">VERSION</span><span class="p">:</span>      <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">__jmsetup__</span><span class="o">.</span><span class="n">version</span><span class="p">))</span>
+<span class="n">VERSION_INFO</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">__jmsetup__</span><span class="o">.</span><span class="n">version</span>
+
+<span class="n">__author__</span>        <span class="o">=</span> <span class="n">AUTHOR</span>
+<span class="n">__version__</span>       <span class="o">=</span> <span class="n">VERSION</span>
+<span class="n">__version_info__</span>  <span class="o">=</span> <span class="n">VERSION_INFO</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;BASEDIR&#39;</span><span class="p">,</span> <span class="s1">&#39;CONFDIR&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;LOGSDIR&#39;</span><span class="p">,</span> <span class="s1">&#39;TMPDIR&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;STDOUT&#39;</span><span class="p">,</span> <span class="s1">&#39;STDERR&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;JMSetupConfRetriever&#39;</span>
+<span class="p">]</span>
+
+
+<span class="c1"># Remove unnecessary variables</span>
+<span class="k">del</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">Union</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023-2024, Ryuu Mitsuki.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

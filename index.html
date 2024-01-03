@@ -1,0 +1,489 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta content="JMBuilder APIs documentation." name="description" />
+<meta content="jmbuilder, documentation, jmatrix builder, builder" name="keywords" />
+
+    <title>JMBuilder APIs Documentation &#8212; JMBuilder v1.0.0</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="#" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <link rel="index" title="Index" href="genindex/" />
+    <link rel="search" title="Search" href="search/" />
+    <link rel="next" title="jmbuilder" href="api/modules/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search/"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    <p class="title logo__title">JMBuilder v1.0.0</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="api/modules/">
+                        jmbuilder
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="api/modules/">
+                        jmbuilder
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/modules/">jmbuilder</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/jmbuilder/">jmbuilder package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/jmbuilder/#available-classes">Available Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/jmbuilder/#available-functions">Available Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/jmbuilder/#available-constants">Available Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/jmbuilder/#jmbuilder.JMSetupConfRetriever"><code class="docutils literal notranslate"><span class="pre">JMSetupConfRetriever</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#jmbuilder.JMSetupConfRetriever.author"><code class="docutils literal notranslate"><span class="pre">JMSetupConfRetriever.author</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#jmbuilder.JMSetupConfRetriever.license"><code class="docutils literal notranslate"><span class="pre">JMSetupConfRetriever.license</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#jmbuilder.JMSetupConfRetriever.progname"><code class="docutils literal notranslate"><span class="pre">JMSetupConfRetriever.progname</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#jmbuilder.JMSetupConfRetriever.version"><code class="docutils literal notranslate"><span class="pre">JMSetupConfRetriever.version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/jmbuilder/#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder.exception/">jmbuilder.exception package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder.utils/">jmbuilder.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/jmbuilder/#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/jmbuilder/#module-jmbuilder.__main__">jmbuilder.__main__ module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#jmbuilder.__main__.__argchck"><code class="docutils literal notranslate"><span class="pre">__argchck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#jmbuilder.__main__.__find_arg"><code class="docutils literal notranslate"><span class="pre">__find_arg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#jmbuilder.__main__.__print_help"><code class="docutils literal notranslate"><span class="pre">__print_help()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#jmbuilder.__main__.__print_version"><code class="docutils literal notranslate"><span class="pre">__print_version()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/jmbuilder/#module-jmbuilder._globals">jmbuilder._globals module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#id1">Available Classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#id2">Available Constants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#jmbuilder._globals.JMSetupConfRetriever"><code class="docutils literal notranslate"><span class="pre">JMSetupConfRetriever</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/jmbuilder/#module-jmbuilder.core">jmbuilder.core module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#jmbuilder.core.JMRepairer"><code class="docutils literal notranslate"><span class="pre">JMRepairer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/jmbuilder/#jmbuilder.core.PomParser"><code class="docutils literal notranslate"><span class="pre">PomParser</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<hr class="docutils" />
+<section id="jmbuilder-apis-documentation">
+<h1>JMBuilder APIs Documentation<a class="headerlink" href="#jmbuilder-apis-documentation" title="Permalink to this heading">#</a></h1>
+<p><strong>JMBuilder</strong> or <strong>JMatrix Builder</strong>, is a builder that is designed to build and configure the
+<strong>JMatrix</strong> library written in <a class="reference external" href="https://python.org">Python</a> by <a class="reference external" href="https://github.com/mitsuki31">Ryuu Mitsuki</a>.</p>
+<p>For more details about <strong>JMatrix</strong>, you can check out its repository.</p>
+<blockquote>
+<div><p><a class="github reference external" href="https://github.com/mitsuki31/jmatrix">mitsuki31/jmatrix</a></p>
+</div></blockquote>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
+<p>Syntax usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m jmbuilder [OPTIONS]
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="#options">Options</a> section below, for more details about CLI options. Or you can type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m jmbuilder --help
+</pre></div>
+</div>
+</section>
+<section id="options">
+<span id="id1"></span><h2>Options<a class="headerlink" href="#options" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p>Option Name</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-h</span></code>, <code class="docutils literal notranslate"><span class="pre">--help</span></code></p></td>
+<td><p>Print the help message.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-V</span></code>, <code class="docutils literal notranslate"><span class="pre">-version</span></code>, <code class="docutils literal notranslate"><span class="pre">--version</span></code></p></td>
+<td><p>Print the version and copyright information.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-VV</span></code>, <code class="docutils literal notranslate"><span class="pre">--only-ver</span></code>, <code class="docutils literal notranslate"><span class="pre">--only-version</span></code></p></td>
+<td><p>Print the version number only.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--fix-mf</span> <span class="pre">&lt;pom&gt;</span> <span class="pre">&lt;in&gt;</span> <span class="pre">[out]</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--fix-manifest</span> <span class="pre">&lt;pom&gt;</span> <span class="pre">&lt;in&gt;</span> <span class="pre">[out]</span></code></p></td>
+<td><p>Run the builder to correct the specified
+manifest file containing Maven’s variables.
+Utilizes information from the provided POM file.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--fix-prop</span> <span class="pre">&lt;pom&gt;</span> <span class="pre">&lt;in&gt;</span> <span class="pre">[out]</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--fix-properties</span> <span class="pre">&lt;pom&gt;</span> <span class="pre">&lt;in&gt;</span> <span class="pre">[out]</span></code></p></td>
+<td><p>Run the builder to rectify the specified
+properties file with Maven’s variables.
+Utilizes information from the provided POM file.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The builder are not designed to be able to run both options simultaneously, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m jmbuilder --fix-mf pom.xml manifest.mf --fix-prop ...
+</pre></div>
+</div>
+<p>Attempting with above command will cause an error and program will immediately terminated.
+If you want, just breakdown it into two commands.</p>
+</div>
+</section>
+<section id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/mitsuki31/JMBuilder.git">Project Repository</a></p></li>
+<li><p><a class="reference internal" href="genindex/"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex/"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search/"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>Last updated on:</strong> Jan 02, 2024</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="right-next"
+       href="api/modules/"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">jmbuilder</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#options">Options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="_sources/index.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023-2024, Ryuu Mitsuki.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

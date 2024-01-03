@@ -1,0 +1,694 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jmbuilder.__main__ &#8212; JMBuilder v1.0.0</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/jmbuilder/__main__';</script>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search/"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../../../">
+  
+  
+  
+  
+  
+    <p class="title logo__title">JMBuilder v1.0.0</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/modules/">
+                        jmbuilder
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/modules/">
+                        jmbuilder
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">jmbuilder.__main__</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for jmbuilder.__main__</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Main Module for JMBuilder</span>
+
+<span class="sd">Copyright (c) 2023-2024 Ryuu Mitsuki.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span> <span class="k">as</span> <span class="nn">__os</span>
+<span class="kn">import</span> <span class="nn">sys</span> <span class="k">as</span> <span class="nn">__sys</span>
+<span class="kn">import</span> <span class="nn">re</span> <span class="k">as</span> <span class="nn">__re</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span> <span class="k">as</span> <span class="n">__Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Iterable</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+    <span class="n">Set</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">TextIO</span>
+<span class="p">)</span>
+
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">__jmutils</span>
+    <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">exception</span> <span class="k">as</span> <span class="n">__jmexc</span>
+    <span class="kn">from</span> <span class="nn">._globals</span> <span class="kn">import</span> <span class="n">AUTHOR</span><span class="p">,</span> <span class="n">VERSION</span><span class="p">,</span> <span class="n">VERSION_INFO</span><span class="p">,</span> <span class="n">__jmsetup__</span>
+    <span class="kn">from</span> <span class="nn">.core</span> <span class="kn">import</span> <span class="n">PomParser</span> <span class="k">as</span> <span class="n">__core_PomParser</span><span class="p">,</span> <span class="n">JMRepairer</span> <span class="k">as</span> <span class="n">__core_JMRepairer</span>
+<span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ModuleNotFoundError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+    <span class="c1"># Add a new Python search path to the first index</span>
+    <span class="n">__sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">__Path</span><span class="p">(</span><span class="n">__sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">parent</span><span class="p">))</span>
+
+    <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">__jmutils</span>
+    <span class="kn">from</span> <span class="nn">jmbuilder._globals</span> <span class="kn">import</span> <span class="n">AUTHOR</span><span class="p">,</span> <span class="n">VERSION</span><span class="p">,</span> <span class="n">VERSION_INFO</span><span class="p">,</span> <span class="n">__jmsetup__</span>
+    <span class="kn">from</span> <span class="nn">jmbuilder.core</span> <span class="kn">import</span> <span class="n">PomParser</span> <span class="k">as</span> <span class="n">__core_PomParser</span><span class="p">,</span> <span class="n">JMRepairer</span> <span class="k">as</span> <span class="n">__core_JMRepairer</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="k">del</span> <span class="n">__Path</span>  <span class="c1"># This no longer being used</span>
+
+<span class="n">CLEAN_ARGS</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">__jmutils</span><span class="o">.</span><span class="n">remove_duplicates</span><span class="p">(</span><span class="n">__sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
+<div class="viewcode-block" id="__print_version"><a class="viewcode-back" href="../../../api/jmbuilder/#jmbuilder.__main__.__print_version">[docs]</a><span class="k">def</span> <span class="nf">__print_version</span><span class="p">(</span><span class="n">_exit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                    <span class="n">only_ver</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="n">file</span><span class="p">:</span> <span class="n">TextIO</span> <span class="o">=</span> <span class="n">__sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the version info to specific opened file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    exit : bool, optional</span>
+<span class="sd">        Whether to exit and terminate the Python after printed the version.</span>
+<span class="sd">        Defaults to False (disabled).</span>
+
+<span class="sd">    only_ver: bool, optional</span>
+<span class="sd">        Whether to print the version only. By activating this option,</span>
+<span class="sd">        other information like program name, license, and copyright</span>
+<span class="sd">        will not be printed. Defaults to False.</span>
+
+<span class="sd">    file : TextIO, optional</span>
+<span class="sd">        The file to print the version info.</span>
+<span class="sd">        Defaults to console standard output (`sys.stdout`).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File must be a file object, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">program_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">__jmsetup__</span><span class="o">.</span><span class="n">progname</span>
+    <span class="n">version</span><span class="p">:</span>      <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;v</span><span class="si">{</span><span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="w"> </span><span class="n">__jmsetup__</span><span class="o">.</span><span class="n">version</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">author</span><span class="p">:</span>       <span class="nb">str</span> <span class="o">=</span> <span class="n">__jmsetup__</span><span class="o">.</span><span class="n">author</span>
+
+    <span class="c1"># Check if only_ver is False (or not specified)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">only_ver</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="n">program_name</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;- </span><span class="si">{</span><span class="n">__jmsetup__</span><span class="o">.</span><span class="n">license</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="c1"># Program name and version</span>
+            <span class="n">__os</span><span class="o">.</span><span class="n">linesep</span> <span class="o">+</span> \
+            <span class="sa">f</span><span class="s1">&#39;Copyright (C) 2023-2024 by </span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">,</span>                 <span class="c1"># Copyright notice</span>
+            <span class="n">file</span><span class="o">=</span><span class="n">file</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">_exit</span><span class="p">:</span>
+        <span class="n">__sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="__argchck"><a class="viewcode-back" href="../../../api/jmbuilder/#jmbuilder.__main__.__argchck">[docs]</a><span class="k">def</span> <span class="nf">__argchck</span><span class="p">(</span><span class="n">targets</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">],</span> <span class="n">args</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check whether specified argument are presented in `args`.</span>
+
+<span class="sd">    Paramaters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    targets : str or iterable</span>
+<span class="sd">        An argument or a list of arguments (must iterable) to searched for.</span>
+
+<span class="sd">    args : list or tuple of str</span>
+<span class="sd">        A list of arguments.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool :</span>
+<span class="sd">        Returns True if the specified argument are presented in `args`,</span>
+<span class="sd">        otherwise returns False.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">targets</span> <span class="ow">in</span> <span class="n">args</span>
+
+    <span class="n">found</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="n">found</span></div>
+
+
+<div class="viewcode-block" id="__find_arg"><a class="viewcode-back" href="../../../api/jmbuilder/#jmbuilder.__main__.__find_arg">[docs]</a><span class="k">def</span> <span class="nf">__find_arg</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">__re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the index of specified argument from the command-line arguments.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    val : str or re.Pattern</span>
+<span class="sd">        A regular expression pattern used to search for the argument within</span>
+<span class="sd">        the command-line arguments. Accepts a string literal representing</span>
+<span class="sd">        the regular expression or a compiled regular expression.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int :</span>
+<span class="sd">        The index of the specified argument in the command-line arguments.</span>
+<span class="sd">        Returns -1 if the argument cannot be found or if the command-line</span>
+<span class="sd">        arguments are empty.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function utilizes the global constant ``CLEAN_ARGS``, ensuring that</span>
+<span class="sd">    it searches for the desired argument within the command-line arguments</span>
+<span class="sd">    with all duplicate arguments omitted.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Use the fixed arguments; global constant</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">CLEAN_ARGS</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="c1"># Convert to regular expression</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="n">__re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">val</span>
+
+    <span class="n">res</span><span class="p">:</span> <span class="n">__re</span><span class="o">.</span><span class="n">Match</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">CLEAN_ARGS</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">res</span><span class="p">:</span>
+            <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">CLEAN_ARGS</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">group</span><span class="p">())</span> <span class="k">if</span> <span class="n">res</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="__print_help"><a class="viewcode-back" href="../../../api/jmbuilder/#jmbuilder.__main__.__print_help">[docs]</a><span class="k">def</span> <span class="nf">__print_help</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Print the help message to the standard output.&quot;&quot;&quot;</span>
+
+    <span class="n">program_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">__jmsetup__</span><span class="o">.</span><span class="n">progname</span>
+    <span class="n">version</span><span class="p">:</span>      <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;v</span><span class="si">{</span><span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="w"> </span><span class="n">__jmsetup__</span><span class="o">.</span><span class="n">version</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">author</span><span class="p">:</span>       <span class="nb">str</span> <span class="o">=</span> <span class="n">__jmsetup__</span><span class="o">.</span><span class="n">author</span>
+
+    <span class="n">header</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">program_name</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="si">{</span><span class="n">header</span><span class="si">}</span>
+<span class="si">{</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;-&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">header</span><span class="p">))])</span><span class="si">}</span>
+
+<span class="s2">USAGE:</span>
+<span class="s2">   python -m </span><span class="si">{</span><span class="n">__package__</span><span class="si">}</span><span class="s2"> [OPTIONS]</span>
+
+<span class="s2">OPTIONS:</span>
+<span class="s2">   --fix-mf &lt;pom&gt; &lt;in&gt; [out],</span>
+<span class="s2">   --fix-manifest &lt;pom&gt; &lt;in&gt; [out]</span>
+<span class="s2">        Run the builder to correct the specified manifest file containing</span>
+<span class="s2">        Maven&#39;s variables. Utilizes information from the provided POM file.</span>
+<span class="s2">        The output will be written to the given output file, if provided;</span>
+<span class="s2">        otherwise, it will overwrite the input file.</span>
+
+<span class="s2">   --fix-prop &lt;pom&gt; &lt;in&gt; [out],</span>
+<span class="s2">   --fix-properties &lt;pom&gt; &lt;in&gt; [out]</span>
+<span class="s2">        Run the builder to rectify the specified properties file with</span>
+<span class="s2">        Maven&#39;s variables. Incorporates information from the provided POM file.</span>
+<span class="s2">        The output will be written to the given output file, if provided;</span>
+<span class="s2">        otherwise, it will overwrite the input file.</span>
+
+<span class="s2">   -V, --version, -version</span>
+<span class="s2">        Print the version and copyright information. All details will be printed</span>
+<span class="s2">        directly to the standard output, except for &#39;-version&#39;, it goes</span>
+<span class="s2">        to the standard error.</span>
+
+<span class="s2">   -VV, --only-ver, --only-version</span>
+<span class="s2">        Print the version number only.</span>
+
+<span class="s2">   -h, --help</span>
+<span class="s2">        Print this help message.</span>
+
+<span class="s2">ISSUES:</span>
+<span class="s2">   Report some issues and help us improve this builder.</span>
+<span class="s2">   &lt;https://github.com/mitsuki31/JMBuilder/issues/new&gt;</span>
+
+<span class="s2">AUTHOR:</span>
+<span class="s2">   </span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="se">\</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span></div>
+
+
+<span class="c1">#::#  Main Driver  #::#</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main function for JMBuilder.&quot;&quot;&quot;</span>
+    <span class="n">help_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;-h&#39;</span><span class="p">,</span> <span class="s1">&#39;--help&#39;</span><span class="p">)</span>
+    <span class="n">version_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;-V&#39;</span><span class="p">,</span> <span class="s1">&#39;--version&#39;</span><span class="p">,</span> <span class="s1">&#39;-version&#39;</span><span class="p">)</span>
+    <span class="n">only_version_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;-VV&#39;</span><span class="p">,</span> <span class="s1">&#39;--only-ver&#39;</span><span class="p">,</span> <span class="s1">&#39;--only-version&#39;</span><span class="p">)</span>
+    <span class="n">fix_mf_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;--fix-manifest&#39;</span><span class="p">,</span> <span class="s1">&#39;--fix-mf&#39;</span><span class="p">)</span>
+    <span class="n">fix_prop_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;--fix-properties&#39;</span><span class="p">,</span> <span class="s1">&#39;--fix-prop&#39;</span><span class="p">)</span>
+    <span class="n">all_known_args</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="o">*</span><span class="n">help_args</span><span class="p">,</span> <span class="o">*</span><span class="n">version_args</span><span class="p">,</span> <span class="o">*</span><span class="n">only_version_args</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">fix_mf_args</span><span class="p">,</span> <span class="o">*</span><span class="n">fix_prop_args</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">CLEAN_ARGS</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;Nothing to run.</span><span class="si">{</span><span class="n">__os</span><span class="o">.</span><span class="n">linesep</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span>
+            <span class="sa">f</span><span class="s1">&#39;USAGE: python -m </span><span class="si">{</span><span class="n">__package__</span><span class="si">}</span><span class="s1"> [-h | -V | -VV]</span><span class="si">{</span><span class="n">__os</span><span class="o">.</span><span class="n">linesep</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span>
+            <span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1">[--fix-mf &lt;pom&gt; &lt;in&gt; [out] | --fix-prop &lt;pom&gt; &lt;in&gt; [out]]&#39;</span>
+        <span class="p">)</span>
+        <span class="n">__sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Check for `-V` or `--version` in the arguments</span>
+    <span class="c1"># If found, print the version info then exit with exit code zero (success)</span>
+    <span class="c1">#</span>
+    <span class="k">if</span> <span class="n">__argchck</span><span class="p">(</span><span class="n">version_args</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">CLEAN_ARGS</span><span class="p">):</span>
+        <span class="n">__print_version</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># For `-version` argument, the output will be redirected</span>
+    <span class="c1"># to the standard error (`sys.stderr`)</span>
+    <span class="c1">#   `-V`, `--version` -&gt; sys.stdout</span>
+    <span class="c1">#   `-version`        -&gt; sys.stderr</span>
+    <span class="c1">#</span>
+    <span class="k">elif</span> <span class="n">__argchck</span><span class="p">(</span><span class="n">version_args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">CLEAN_ARGS</span><span class="p">):</span>
+        <span class="n">__print_version</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">__sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+
+    <span class="c1"># To print the version only, user can use several arguments. See &#39;only_version_args&#39;</span>
+    <span class="k">elif</span> <span class="n">__argchck</span><span class="p">(</span><span class="n">only_version_args</span><span class="p">,</span> <span class="n">CLEAN_ARGS</span><span class="p">):</span>
+        <span class="n">__print_version</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">only_ver</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Print the help message</span>
+    <span class="k">elif</span> <span class="n">__argchck</span><span class="p">(</span><span class="n">help_args</span><span class="p">,</span> <span class="n">CLEAN_ARGS</span><span class="p">):</span>
+        <span class="n">__print_help</span><span class="p">()</span>
+
+    <span class="c1"># Only executed if and only if both options not specified simultaneously</span>
+    <span class="k">elif</span> <span class="n">__argchck</span><span class="p">(</span><span class="n">fix_mf_args</span><span class="p">,</span> <span class="n">CLEAN_ARGS</span><span class="p">)</span> <span class="o">^</span> <span class="n">__argchck</span><span class="p">(</span><span class="n">fix_prop_args</span><span class="p">,</span> <span class="n">CLEAN_ARGS</span><span class="p">):</span>
+        <span class="n">fix_args</span> <span class="o">=</span> <span class="n">fix_mf_args</span> <span class="k">if</span> <span class="n">__argchck</span><span class="p">(</span><span class="n">fix_mf_args</span><span class="p">,</span> <span class="n">CLEAN_ARGS</span><span class="p">)</span> <span class="k">else</span> <span class="n">fix_prop_args</span>
+        <span class="n">opt_idx</span> <span class="o">=</span> <span class="n">__find_arg</span><span class="p">(</span><span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fix_args</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">)</span> \
+            <span class="k">if</span> <span class="n">__argchck</span><span class="p">(</span><span class="n">fix_args</span><span class="p">,</span> <span class="n">CLEAN_ARGS</span><span class="p">)</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">del</span> <span class="n">fix_args</span>
+
+        <span class="c1"># Keep the unformatted brackets, with this we can format and</span>
+        <span class="c1"># write the actual error message on later.</span>
+        <span class="n">option_err_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> \
+            <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;.</span><span class="si">{</span><span class="n">__os</span><span class="o">.</span><span class="n">linesep</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> \
+            <span class="sa">f</span><span class="s1">&#39;USAGE: python -m </span><span class="si">{</span><span class="n">__package__</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">CLEAN_ARGS</span><span class="p">[</span><span class="n">opt_idx</span><span class="p">]</span><span class="si">}</span><span class="s1"> &lt;pom&gt; &lt;in&gt; [out]&#39;</span>
+
+        <span class="c1"># This dictionary will holds the builder arguments</span>
+        <span class="n">option_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;pom&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>     <span class="c1"># 1</span>
+            <span class="s1">&#39;infile&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># 2</span>
+            <span class="s1">&#39;outfile&#39;</span><span class="p">:</span> <span class="kc">None</span>  <span class="c1"># 3</span>
+        <span class="p">}</span>
+        <span class="c1"># Get the builder method name</span>
+        <span class="n">method_name</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="s1">&#39;fix_manifest&#39;</span> \
+            <span class="k">if</span> <span class="n">CLEAN_ARGS</span><span class="p">[</span><span class="n">opt_idx</span><span class="p">]</span> <span class="ow">in</span> <span class="n">fix_mf_args</span> <span class="k">else</span> <span class="s1">&#39;fix_properties&#39;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">CLEAN_ARGS</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">opt_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">__jmexc</span><span class="o">.</span><span class="n">JMException</span><span class="p">(</span>
+                <span class="n">option_err_msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;No POM file were specified&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">CLEAN_ARGS</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">opt_idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">__jmexc</span><span class="o">.</span><span class="n">JMException</span><span class="p">(</span>
+                <span class="n">option_err_msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;No input file were specified&#39;</span><span class="p">))</span>
+
+        <span class="c1"># Get the argument right after the option argument, and treat it</span>
+        <span class="c1"># as a path to specific POM file, otherwise an error raised if not specified.</span>
+        <span class="n">option_args</span><span class="p">[</span><span class="s1">&#39;pom&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">__core_PomParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">CLEAN_ARGS</span><span class="p">[</span><span class="n">opt_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># Get the input file (infile) argument,</span>
+        <span class="c1"># otherwise raise an error if not specified</span>
+        <span class="n">option_args</span><span class="p">[</span><span class="s1">&#39;infile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CLEAN_ARGS</span><span class="p">[</span><span class="n">opt_idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="c1"># Get the outfile argument, otherwise use the infile argument</span>
+        <span class="c1"># if not specified (i.e., overwrite the input file)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">CLEAN_ARGS</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">opt_idx</span> <span class="o">+</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="n">option_args</span><span class="p">[</span><span class="s1">&#39;outfile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CLEAN_ARGS</span><span class="p">[</span><span class="n">opt_idx</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">option_args</span><span class="p">[</span><span class="s1">&#39;outfile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">option_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;infile&#39;</span><span class="p">)</span>
+
+        <span class="n">repairer</span><span class="p">:</span> <span class="n">__core_JMRepairer</span> <span class="o">=</span> <span class="n">__core_JMRepairer</span><span class="p">(</span><span class="n">option_args</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;pom&#39;</span><span class="p">))</span>
+        <span class="c1"># Call the method dynamically</span>
+        <span class="n">args_vals</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">option_args</span><span class="o">.</span><span class="n">values</span><span class="p">(),)</span>
+        <span class="nb">getattr</span><span class="p">(</span><span class="n">repairer</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)(</span><span class="n">args_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">outfile</span><span class="o">=</span><span class="n">args_vals</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># This for causing the error when both options are specified</span>
+    <span class="k">elif</span> <span class="n">__argchck</span><span class="p">(</span><span class="n">fix_mf_args</span><span class="p">,</span> <span class="n">CLEAN_ARGS</span><span class="p">)</span> <span class="ow">and</span> <span class="n">__argchck</span><span class="p">(</span><span class="n">fix_prop_args</span><span class="p">,</span> <span class="n">CLEAN_ARGS</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">__jmexc</span><span class="o">.</span><span class="n">JMException</span><span class="p">(</span>
+            <span class="s1">&#39;Program was unable to run both options simultaneously&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">__argchck</span><span class="p">(</span><span class="n">CLEAN_ARGS</span><span class="p">,</span> <span class="n">all_known_args</span><span class="p">):</span>
+        <span class="n">err</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Unknown argument detected: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="n">__os</span><span class="o">.</span><span class="n">linesep</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="s1">&#39;For more details, type argument `-h` or `--help`.&#39;</span>
+
+        <span class="n">arg_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">CLEAN_ARGS</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">__argchck</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">all_known_args</span><span class="p">)),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="n">__jmexc</span><span class="o">.</span><span class="n">JMException</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CLEAN_ARGS</span><span class="p">[</span><span class="n">arg_idx</span><span class="p">]))</span>
+
+
+<span class="n">__author__</span>       <span class="o">=</span> <span class="n">AUTHOR</span>
+<span class="n">__version__</span>      <span class="o">=</span> <span class="n">VERSION</span>
+<span class="n">__version_info__</span> <span class="o">=</span> <span class="n">VERSION_INFO</span>
+
+
+<span class="c1"># Delete unused imported objects</span>
+<span class="k">del</span> <span class="n">AUTHOR</span><span class="p">,</span> <span class="n">VERSION</span><span class="p">,</span> <span class="n">VERSION_INFO</span>
+<span class="k">del</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Set</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Remove the `main` function when this module is being imported,</span>
+    <span class="c1"># but it&#39;s a bit silly if there someone imports this module.</span>
+    <span class="c1"># The reason is the function implementation are strongly depends on</span>
+    <span class="c1"># the command-line arguments (`sys.argv`). However, if this is imported</span>
+    <span class="c1"># users can still modify the `sys.argv` manually, right?</span>
+    <span class="c1"># But we restricted that, we want the function to run as main driver only.</span>
+    <span class="k">del</span> <span class="n">main</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023-2024, Ryuu Mitsuki.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
